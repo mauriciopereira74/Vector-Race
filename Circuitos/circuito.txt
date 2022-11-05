@@ -1,0 +1,7 @@
+X X X X X X X X X X
+X X - - - X X - - X
+X - - - - - - - - X
+X P F F X X X - - X
+X - - - - - - - - X
+X X X X - - - - X X
+X X X X X X X X X X
