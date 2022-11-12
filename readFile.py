@@ -40,7 +40,7 @@ class readFile:
 
     # Lista de Strings
     # Abrir ficheiro em modo leitura e ler linha a linha e fechar o ficheiro
-    fileOpen = open("Circuitos\circuito.txt", "rt")
+    fileOpen = open("circuito", "rt")
     file = fileOpen.readlines()
     fileOpen.close()
 
@@ -48,7 +48,7 @@ class readFile:
     circuito = []
     for sub in file:
        circuito.append(sub.replace("\n", ""))
-    print(circuito)
+    #print(circuito)
 
     x = 'X'
     z = '-'
@@ -60,13 +60,13 @@ class readFile:
         string = string + ("\n")
         for j in range(len(circuito[i])):
             if (circuito[i][j] == x):
-                string = string + (style.RED + "X ")
+                string = string + (style.RED + "X")
             if (circuito[i][j] == z):
-                string = string + (style.BLACK + "- ")
+                string = string + (style.BLACK + "-")
             if (circuito[i][j] == p):
-                string = string + (style.CYAN + "P ")
+                string = string + (style.CYAN + "P")
             if (circuito[i][j] == f):
-                string = string + (style.WHITE + "F ")
-    print("\n" + string.strip() + "\n")
+                string = string + (style.WHITE + "F")
+    print(string.strip())
 
 
