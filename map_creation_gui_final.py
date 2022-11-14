@@ -122,7 +122,7 @@ class app:
             elif temp == "F":
                 buttons[row][col].config(text='X', bg='black')
 
-        if buttons == []:
+        if buttons_aux == []:
             for linha in range(int(lines)):
                 button_row = []
                 for coluna in range(int(lines)):
@@ -135,11 +135,12 @@ class app:
                 button_row = []
                 for coluna in range(int(lines)):
                     text_in_button = buttons_aux[linha][coluna]
-                    
                     if text_in_button == 'X': color = 'black'
                     elif text_in_button == 'P': color = 'green'
                     elif text_in_button == 'F': color = 'red'
-                    elif text_in_button == '  ': color = 'white'
+                    elif text_in_button == '-': 
+                        color = 'white'
+                        text_in_button = '  '
                     btn = tk.Button(self.frame2, text=f"{text_in_button}", bg=f'{color}', command=lambda row=linha, column=coluna: click(row, column))
                     btn.grid(row=linha, column=coluna, sticky=E+W+N+S)
                     button_row.append(btn)
