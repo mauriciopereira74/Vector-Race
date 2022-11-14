@@ -55,10 +55,10 @@ class Race():
         else:
             print("Fora dos limites - ERROR")
 
-    # Dadas as 9 possibilidades de acelerações cria a lista respetiva com as possições
+    # Dadas as 9 possibilidades de acelerações cria a lista respetiva com as posições
     def listaMov(self):
         lista = []
-        return lista + \
+        lista += \
                [self.movSeguinte(1, 1)] +  \
                [self.movSeguinte(1, 0)] +  \
                [self.movSeguinte(1, -1)] + \
@@ -68,23 +68,27 @@ class Race():
                [self.movSeguinte(-1, 1)] + \
                [self.movSeguinte(-1, 0)] + \
                [self.movSeguinte(-1, -1)]
+        return (list(set(lista)))
 
     def cria_grafo(self):
         # Criar um grafo partindo do estado inicial
         # com todas as transições possiveis
         estados = []
-        estados.append((self.posicaoX, self.posicaoY))
-
         visitados = []
+        estados.append((self.posicaoX, self.posicaoY))
         visitados.append((self.posicaoX, self.posicaoY))
-
         while estados != []:
-            estados = estados.pop()
+            ultimo_estado = next(reversed(estados))
+            estados_dict = dict(estados)
+            estados_dict.popitem()
+            estados = list(tuple(estados_dict.items()))
             expansao = self.listaMov()
             for e in expansao:
-                self.g.add_edge(estados, e, 1)  # Em principio posso retirar as heuristicas
+                self.g.add_edge(ultimo_estado, e, 1)  # Em principio posso retirar as heuristicas
                 if e not in visitados:
                     estados.append(e)
                     visitados.append(e)
 
+
         # return ?
+
