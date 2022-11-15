@@ -4,6 +4,14 @@ from readFile import readFile
 
 class Race():
 
+    global file
+    global circuito
+    global lines
+    global cols
+    file = readFile()
+    circuito = file.ler()
+    lines = len(circuito)
+    cols = len(circuito[1])
     # Exemplos
     # Posição -> "(10,20)"
     # Velocidade ->  "(1,2)"
@@ -19,7 +27,7 @@ class Race():
     # Função que dado uma String retorna a Posição X da String
     def partePX(self):
         # Tirar primeiro e último elemento
-        res = self.posicao.str[1:-1]
+        res = self.posicao[1:-1]
 
         # Partir a string na virgula
         res = res.split(',')
@@ -30,7 +38,7 @@ class Race():
     # Função que dado uma String retorna a Posição Y da String
     def partePY(self):
         # Tirar primeiro e último elemento
-        res = self.posicao.str[1:-1]
+        res = self.posicao[1:-1]
 
         # Partir a string na virgula
         res = res.split(',')
@@ -41,7 +49,7 @@ class Race():
     # Função que dado uma String retorna a Velocidade X da String
     def parteVX(self):
         # Tirar primeiro e último elemento
-        res = self.velocidade.str[1:-1]
+        res = self.velocidade[1:-1]
 
         # Partir a string na virgula
         res = res.split(',')
@@ -52,7 +60,7 @@ class Race():
     # Função que dado uma String retorna a Velocidade Y da String
     def parteVY(self):
         # Tirar primeiro e último elemento
-        res = self.velocidade.str[1:-1]
+        res = self.velocidade[1:-1]
 
         # Partir a string na virgula
         res = res.split(',')
@@ -63,12 +71,16 @@ class Race():
     # Retorna o inteiro correspondente à posiçãoX seguinte
     def nextPX(self, aceleracaoX):
         res = int(self.partePX()) + int(self.parteVX()) + aceleracaoX
+        if res < 0: res = 0
+        elif res >=  lines: res = (lines-1)
         # retorna em Inteiro
         return res
 
     # Retorna o inteiro correspondente à posiçãoY seguinte
     def nextPY(self, aceleracaoX):
         res = int(self.partePY()) + int(self.parteVY()) + aceleracaoX
+        if res < 0: res = 0
+        elif res >=  cols: res = (cols-1)
         # retorna em Inteiro
         return res
 
@@ -129,7 +141,7 @@ class Race():
         lista.append(self.movSeguinte(-1, 0))
         lista.append(self.movSeguinte(-1, -1))
 
-        return lista
+        return (list(set(lista))) #remove sups !TODO
 
     # Criar um grafo partindo do estado inicial com todas as transições possiveis
     def cria_grafo(self):
@@ -143,13 +155,11 @@ class Race():
 
         a = -1
         b = -1
-        print(a)
-        print(b)
         for i in range(len(circuito)):
             for j in range(len(circuito[i])):
                 if circuito[i][j] == "P":
-                    return a == i, b == j
-        print("tedtetdt")
+                    a = i
+                    b = j
 
 
         estados = []
@@ -159,16 +169,15 @@ class Race():
         visitados = []
         visitados.append(string)
 
-        print(estados)
-        print(string)
-        while estados != []:
-            estados = estados.pop()
+        while estados != [] :
+            #estado = estados[0]
+            estado = estados.pop()
             expansao = self.listaMov()  # Mudar expande
             for e in expansao:
-                self.g.add_edge(estados, e, 1)
-                if e not in visitados:
-                    estados.append(e)
-                    visitados.append(e)
-        print(expansao)
+                if e != None:
+                    self.g.add_edge(estado, e, 1)
+                    if e not in visitados:
+                        estados.append(e)
+                        visitados.append(e)
 
         # return ?

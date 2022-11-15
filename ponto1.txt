@@ -1,0 +1,16 @@
+1.
+▪ Formulação do Problema:
+
+▪ Estado Inicial -> Linha de Partida (..,..)
+▪ Estado Final/Teste Objetivo: Cruzar a meta (..,..)
+▪ Operadores: 
+	esquerda - O jogador com velocidade .. e aceleração .. deseja movimentar-se para a esquerda
+		   Se estiver livre jogador movimenta-se, se estiver X velocidade == 0 e volta a posição anterior
+	direita - O jogador com velocidade .. e aceleração .. deseja movimentar-se para a direita
+		   Se estiver livre jogador movimenta-se, se estiver X velocidade == 0 e volta a posição anterior
+	cima - O jogador com velocidade .. e aceleração .. deseja movimentar-se para cima
+		   Se estiver livre jogador movimenta-se, se estiver X velocidade == 0 e volta a posição anterior
+	baixo - O jogador com velocidade .. e aceleração .. deseja movimentar-se para baixo
+		   Se estiver livre jogador movimenta-se, se estiver X velocidade == 0 e volta a posição anterior
+▪ Estado Possíveis: Parado apos bater com obstaculo, parado pois saiu dos limites da pista, Andar para a frente, Andar para o lado ou andar para trás
+▪ Custo da Solução: Cada ação custa 1 unidade caso saia dos limites da pista este tem um custo de 25 unidades

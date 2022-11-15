@@ -13,7 +13,9 @@ def main():
     #             return a == i, b == j
     #
     # string = "(" + str(a) + "," + str(b) + ")"
-    problema = Race("(1,3)", "(0,0)")
+    readClass = readFile()
+    posInit = readClass.PInicialXY()
+    problema = Race(posInit, "(0,0)")
     problema.cria_grafo()
     saida = -1
 
