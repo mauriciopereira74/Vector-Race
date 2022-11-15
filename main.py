@@ -1,10 +1,19 @@
-from Graph import Grafo
-from Node import Node
 from Race import Race
+from readFile import readFile
+
 
 def main():
-
-    problema = Race(0,0,0,0)
+    # file = readFile()
+    # circuito = file.ler()
+    # a = -1
+    # b = -1
+    # for i in range(len(circuito)):
+    #     for j in range(len(circuito[i])):
+    #         if circuito[i][j] == "P":
+    #             return a == i, b == j
+    #
+    # string = "(" + str(a) + "," + str(b) + ")"
+    problema = Race("(1,3)", "(0,0)")
     problema.cria_grafo()
     saida = -1
 
@@ -13,9 +22,9 @@ def main():
         print("2-Desenhar Grafo")
         print("3-Imprimir nodos de Grafo")
         print("4-Imprimir arestas de Grafo")
-        #print("5-DFS")
-        #print("6-BFS")
-        #print("7 -Outra solução ")
+        # print("5-DFS")
+        # print("6-BFS")
+        # print("7 -Outra solução ")
         print("0-Sair")
 
         saida = int(input("Introduza a sua opção-> "))
@@ -66,6 +75,7 @@ def main():
             print("you didn't add anything")
             l = input("prima enter para continuar")
     print("Martim")
+
 
 if __name__ == "__main__":
     main()
