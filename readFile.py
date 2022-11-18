@@ -24,3 +24,24 @@ class readFile:
               if circuito[i][j] == "P":
                   print(f"({i},{j})")
                   return f"({i},{j})"
+                
+    def demonstra(self):
+        x = 'X'
+        z = '-'
+        p = 'P'
+        f = 'F'
+
+        string = ""
+        for i in range(len(circuito)):
+            string = string + ("\n")
+            for j in range(len(circuito[i])):
+                if (circuito[i][j] == x):
+                    string = string + "X"
+                if (circuito[i][j] == z):
+                    string = string + "-"
+                if (circuito[i][j] == p):
+                    string = string + "P"
+                if (circuito[i][j] == f):
+                    string = string + "F"
+
+        return string
