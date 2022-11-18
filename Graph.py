@@ -41,7 +41,29 @@ class Grafo:
         return listaA
 
     # Adicionar   aresta no grafo
-    def add_edge(self, node1, node2, weight):
+    # def add_edge(self, node1, node2, weight):
+        # n1 = Node(node1)
+        # n2 = Node(node2)
+        # if (n1 not in self.m_nodes):
+            # self.m_nodes.append(n1)
+            # self.m_graph[node1] = list()
+        # else:
+            # n1 = self.get_node_by_name(node1)
+# 
+        # if (n2 not in self.m_nodes):
+            # self.m_nodes.append(n2)
+            # self.m_graph[node2] = list()
+        # else:
+            # n2 = self.get_node_by_name(node2)
+# 
+        # self.m_graph[node1].append((node2, weight))
+# 
+# 
+        # if not self.m_directed:
+            # self.m_graph[node2].append((node1, weight))
+# 
+
+    def add_edge(self, node1, node2):
         n1 = Node(node1)
         n2 = Node(node2)
         if (n1 not in self.m_nodes):
@@ -56,11 +78,11 @@ class Grafo:
         else:
             n2 = self.get_node_by_name(node2)
 
-        self.m_graph[node1].append((node2, weight))
+        self.m_graph[node1].append((node2))
 
 
         if not self.m_directed:
-            self.m_graph[node2].append((node1, weight))
+            self.m_graph[node2].append((node1))
 
 
     # Devolver nodos do Grafo
