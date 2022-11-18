@@ -26,191 +26,84 @@ class Race():
 
     # Função que dado uma String retorna a Posição X da String
     def partePX(self):
-        # Tirar primeiro e último elemento
-        res = self.posicao[1:-1]
-
-        # Partir a string na virgula
-        res = res.split(',')
-
-        # Retorna o primeiro elemento em String
-        return res[0]
+        res = self.posicao[1:-1] # Tirar primeiro e último elemento
+        res = res.split(',') # Partir a string na virgula
+        return res[0] # Retorna o primeiro elemento em String
 
     # Função que dado uma String retorna a Posição Y da String
     def partePY(self):
-        # Tirar primeiro e último elemento
         res = self.posicao[1:-1]
-
-        # Partir a string na virgula
-        res = res.split(',')
-
-        # Retorna o primeiro elemento em String
+        res = res.split(',') 
         return res[1]
 
     # Função que dado uma String retorna a Velocidade X da String
     def parteVX(self):
-        # Tirar primeiro e último elemento
-        res = self.velocidade[1:-1]
-
-        # Partir a string na virgula
+        res = self.velocidade[1:-1] 
         res = res.split(',')
-
-        # Retorna o primeiro elemento em String
         return res[0]
 
     # Função que dado uma String retorna a Velocidade Y da String
     def parteVY(self):
-        # Tirar primeiro e último elemento
         res = self.velocidade[1:-1]
-
-        # Partir a string na virgula
         res = res.split(',')
-
-        # Retorna o primeiro elemento em String
         return res[1]
 
-    # Retorna o inteiro correspondente à velocidadeX seguinte
-    def nextVX(self, aceleracaoX):
-        res = int(self.parteVX()) + aceleracaoX
-        # retorna em Inteiro
+
+    def posicaoNextString(self, ponto):
+        res = "(" + str(ponto[0]) + "," + str(ponto[1]) + ")"
         return res
 
-    # Retorna o inteiro correspondente à velocidadeY seguinte
-    def nextVY(self, aceleracaoY):
-        res = int(self.parteVY()) + aceleracaoY
-        # retorna em Inteiro
+    def velocidadeNextString(self, velocidade):
+        res = "(" + str(velocidade[0]) + "," + str(velocidade[1]) + ")"
         return res
 
-    # Retorna o inteiro correspondente à posiçãoX seguinte
-    def nextPX(self, aceleracaoX):
-        res = int(self.partePX()) + self.nextVX(aceleracaoX)
-        if res < 0: res = 0
-        elif res >=  lines: res = (lines-1)
-        # retorna em Inteiro
-        return res
-
-    # Retorna o inteiro correspondente à posiçãoY seguinte
-    def nextPY(self, aceleracaoY):
-        res = int(self.partePY()) + self.nextVY(aceleracaoY)
-        if res < 0: res = 0
-        elif res >=  cols: res = (cols-1)
-        # retorna em Inteiro
-        return res
-
-    # Construir a String Posição Seguinte
-    def posicaoNext(self, vx, vy, aceleracaoX, aceleracaoY):
-        res = "(" + str(self.nextPX2(vx, aceleracaoX)) + "," + str(self.nextPY2(vy, aceleracaoY)) + ")"
-        return res
-
-    # Construir a String Velocidade Seguinte
-    def velocidadeNext(self, vx, vy, aceleracaoX, aceleracaoY):
-        res = "(" + str(self.nextVX2(vx, aceleracaoX)) + "," + str(self.nextVY2(vy, aceleracaoY)) + ")"
-        return res
-
-    # Dado uma Aceleração determina se pode avançar para a posição seguinte alterando os respetivos valores associados a cada letra e retorna a nova posicao
-    # def movSeguinte(self, aceleracaoX, aceleracaoY):
-        # file = readFile()
-        # circuito = file.ler()
-# 
-        # if circuito[self.nextPX(aceleracaoX)][self.nextPY(aceleracaoY)] == "-":
-            # self.posicao = self.posicaoNext(aceleracaoX, aceleracaoY)
-            # self.velocidade = self.velocidadeNext(aceleracaoX, aceleracaoY)
-            # return self.posicaoNext(aceleracaoX, aceleracaoY)
-        # elif circuito[self.nextPX(aceleracaoX)][self.nextPY(aceleracaoY)] == "X":
-            # self.velocidade = "(0,0)"
-            # Não devia retornar nada porque ele mantém se na mesma posição
-            # return [self.posicaoX, self.posicaoY]
-        # elif circuito[self.nextPX2(aceleracaoX)][self.nextPY2(aceleracaoY)] == "F":
-            # self.velocidade = self.velocidadeNext(aceleracaoX, aceleracaoY)
-            # self.posicao = self.posicaoNext(aceleracaoX, aceleracaoY)
-            # self.velocidadeX = self.nextVX(aceleracaoX)  ou 0
-            # self.velocidadeY = self.nextVY(aceleracaoY)  ou 0
-            # return self.posicaoNext(aceleracaoX, aceleracaoY)
-
-
-    
-    def nextVX2(self, velocidadeX, aceleracaoX):
-        res = velocidadeX + aceleracaoX
-        # retorna em Inteiro
-        return res
-
-    # Retorna o inteiro correspondente à velocidadeY seguinte
-    def nextVY2(self, velocidadeY, aceleracaoY):
-        res = velocidadeY + aceleracaoY
-        # retorna em Inteiro
-        return res
-
-
-    def nextPX2(self, velocidadeX, aceleracaoX):
-        res = int(self.partePX()) + self.nextVX2(velocidadeX, aceleracaoX)
-        if res < 0: res = 0
-        elif res >=  lines: res = (lines-1)
-        # retorna em Inteiro
-        return res
-
-    # Retorna o inteiro correspondente à posiçãoY seguinte
-    def nextPY2(self, velocidadeY, aceleracaoY):
-        res = int(self.partePY()) + self.nextVY2(velocidadeY, aceleracaoY)
-        if res < 0: res = 0
-        elif res >=  cols: res = (cols-1)
-        # retorna em Inteiro
-        return res
-
-    def movSeguinte2(self,vx_atual , vy_atual, aceleracaoX, aceleracaoY):
-        file = readFile()
-        circuito = file.ler()
-
-        if circuito[self.nextPX2(vx_atual, aceleracaoX)][self.nextPY2(vy_atual, aceleracaoY)] == "-":
-            self.posicao = self.posicaoNext(vx_atual, vy_atual, aceleracaoX, aceleracaoY)
-            self.velocidade = self.velocidadeNext(vx_atual, vy_atual, aceleracaoX, aceleracaoY)
-            return self.posicaoNext(vx_atual, vy_atual, aceleracaoX, aceleracaoY)
-        elif circuito[self.nextPX2(vx_atual, aceleracaoX)][self.nextPY2(vy_atual, aceleracaoY)] == "X":
-            self.velocidade = "(0,0)"
-            # Não devia retornar nada porque ele mantém se na mesma posição
-            # return [self.posicaoX, self.posicaoY]
-        elif circuito[self.nextPX2(vx_atual, aceleracaoX)][self.nextPY2(vy_atual, aceleracaoY)] == "F":
-            self.velocidade = self.velocidadeNext(vx_atual, vy_atual, aceleracaoX, aceleracaoY)
-            self.posicao = self.posicaoNext(vx_atual, vy_atual, aceleracaoX, aceleracaoY)
-            # self.velocidadeX = self.nextVX(aceleracaoX)  ou 0
-            # self.velocidadeY = self.nextVY(aceleracaoY)  ou 0
-            return self.posicaoNext(vx_atual, vy_atual, aceleracaoX, aceleracaoY)
-
-    # Dadas as 9 possibilidades de acelerações cria a lista respetiva com as possições
     def listaMov(self):
-        lista = []
-        for x in range(int(self.parteVX())):
-            print(lista)
-            for y in range(int(self.parteVY())):
-                lista.append(self.movSeguinte2(x, y, 1, 1))
-                lista.append(self.movSeguinte2(x, y, 1, 1))
-                lista.append(self.movSeguinte2(x, y, 1, 0))
-                lista.append(self.movSeguinte2(x, y, 1, -1))
-                lista.append(self.movSeguinte2(x, y, 0, 0))
-                lista.append(self.movSeguinte2(x, y, 0, 1))
-                lista.append(self.movSeguinte2(x, y, 0, -1))
-                lista.append(self.movSeguinte2(x, y, -1, 1))
-                lista.append(self.movSeguinte2(x, y, -1, 0))
-                lista.append(self.movSeguinte2(x, y, -1, -1))                
+        listaaceleracoes = [-1, 0, 1]
 
-        return (list(set(lista))) #remove sups !TODO
+        #lista de todas as possibilidades de velocidades
+        listaVs = []
+        for x in listaaceleracoes:
+            for y in listaaceleracoes:
+                listaVs.append([int(self.parteVX())+x,int(self.parteVY())+y])
+
+        #lista de todas as possibilidades de pontos, tendo em conta todas as velocidades
+        listaPs = []
+        for v in listaVs:
+            listaPs.append([int(self.partePX())+v[0],int(self.partePY())+v[1]])
+        
+
+        pontosPossiveis = []
+        velocidadeMesmoIndiceQuePonto = []
+        for idx, p in enumerate(listaPs):
+            #print(f"{p[0]}+{p[1]}   -  {circuito[p[0]][p[1]]}")
+            if 0 <= p[0] < lines and 0 <= p[1] < cols:
+                if circuito[p[0]][p[1]] == "-":
+                    self.posicao = self.posicaoNextString(p)
+                    self.velocidade = self.velocidadeNextString(listaVs[idx])
+                    velocidadeMesmoIndiceQuePonto.append(self.velocidadeNextString(listaVs[idx]))
+                    pontosPossiveis.append(self.posicao)
+                elif circuito[p[0]][p[1]] == "X":
+                    self.velocidade = "(0,0)"
+                elif circuito[p[0]][p[1]] == "F":
+                    self.posicao = self.posicaoNextString(p)
+                    pontosPossiveis.append(self.posicao)
+                    velocidadeMesmoIndiceQuePonto.append(self.velocidadeNextString(listaVs[idx]))
+                    self.velocidade = self.velocidadeNextString(listaVs[idx])
+                
+        for idx, ponto in enumerate(pontosPossiveis):
+            print(f"ir para {ponto} com velocidade {velocidadeMesmoIndiceQuePonto[idx]}")
+            print("\n")
+        return pontosPossiveis
 
     # Criar um grafo partindo do estado inicial com todas as transições possiveis
-    def cria_grafo(self):
-        # Criar um grafo partindo do estado inicial com todas as transições possiveis
-        # posicao = readFile()
-        # posicaoX = readFile.PInicialX(self)
-        # posicaoY = readFile.PInicialY(self)
-
-        file = readFile()
-        circuito = file.ler()
-
+    def cria_grafo(self):#
         a = -1
         b = -1
         for i in range(len(circuito)):
-            for j in range(len(circuito[i])):
-                if circuito[i][j] == "P":
-                    a = i
-                    b = j
-
+           for j in range(len(circuito[i])):
+               if circuito[i][j] == "P":
+                   a = i
+                   b = j
 
         estados = []
         string = "(" + str(a) + "," + str(b) + ")"
@@ -218,16 +111,12 @@ class Race():
 
         visitados = []
         visitados.append(string)
-
         while estados != [] :
-            #estado = estados[0]
-            estado = estados.pop()
-            expansao = self.listaMov()  # Mudar expande
-            for e in expansao:
-                if e != None:
-                    self.g.add_edge(estado, e)
-                    if e not in visitados:
-                        estados.append(e)
-                        visitados.append(e)
-
-        # return ?
+           estado = estados.pop()
+           expansao = self.listaMov()  # Mudar expande
+           for e in expansao:
+               if e != None:
+                   self.g.add_edge(estado, e)
+                   if e not in visitados:
+                       estados.append(e)
+                       visitados.append(e)

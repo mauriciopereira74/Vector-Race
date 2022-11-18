@@ -1,11 +1,11 @@
-PXXXXXXXXX
+XXXXXXXXXX
 XX---XX--X
 X--------X
 X---XXX--X
 X--------X
-XXXX----XX
-XX---XX--X
-X--------X
+XXXXX---XX
+XXPXXXX--X
+XX-XXX---X
 XX--XXX--F
 X--------X
 XXXX----XX
