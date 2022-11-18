@@ -1,18 +1,8 @@
 from Race import Race
 from readFile import readFile
 
-
 def main():
-    # file = readFile()
-    # circuito = file.ler()
-    # a = -1
-    # b = -1
-    # for i in range(len(circuito)):
-    #     for j in range(len(circuito[i])):
-    #         if circuito[i][j] == "P":
-    #             return a == i, b == j
-    #
-    # string = "(" + str(a) + "," + str(b) + ")"
+
     readClass = readFile()
     posInit = readClass.PInicialXY()
     problema = Race(posInit, "(0,0)")
@@ -20,64 +10,54 @@ def main():
     saida = -1
 
     while saida != 0:
-        print("1-Imprimir grafo")
-        print("2-Desenhar Grafo")
-        print("3-Imprimir nodos de Grafo")
-        print("4-Imprimir arestas de Grafo")
-        # print("5-DFS")
-        # print("6-BFS")
-        # print("7 -Outra solução ")
-        print("0-Sair")
+        print("|----------------- MENU ----------------|")
+        print("|---------------------------------------|")
+        print("|------ 1 -> Imprimir Circuito.txt -----|")
+        print("|---------------------------------------|")
+        print("|------ 2 -> Imprimir VectorRace -------|")
+        print("|---------------------------------------|")
+        print("|-------- 3 -> Criar VectorRace --------|")
+        print("|---------------------------------------|")
+        print("|--------- 4 -> Imprimir Grafo ---------|")
+        print("|---------------------------------------|")
+        print("|--------- 5 -> Desenhar Grafo ---------|")
+        print("|---------------------------------------|")
+        print("|---- 6 -> Imprimir Nodos de Grafo -----|")
+        print("|---------------------------------------|")
+        print("|--- 7 -> Imprimir Arestas de Grafo ----|")
+        print("|---------------------------------------|")
+        print("|-------------- 0 -> Sair --------------|")
+        print("|---------------------------------------|")
 
-        saida = int(input("Introduza a sua opção-> "))
+        saida = int(input("\nIntroduza a sua Opção -> "))
         if saida == 0:
-            print("Saindo.......")
+            print("Saindo..")
         elif saida == 1:
-            print(problema.g.m_graph)
-            l = input("prima enter para continuar")
+            print("\nCircuito")
+            string = readClass.demonstra()
+            print(string + "\n")
+            l = input("Prima ENTER para continuar")
         elif saida == 2:
-            problema.g.desenha()
+            print("Nada")
+            l = input("Prima ENTER para continuar")
         elif saida == 3:
-            print(problema.g.m_graph.keys())
-            l = input("prima enter para continuar")
+            print("Nada")
+            l = input("Prima ENTER para continuar")
         elif saida == 4:
+            print(problema.g.m_graph)
+            l = input("Prima ENTER para continuar")
+        elif saida == 5:
+            problema.g.desenha()
+            l = input("Prima ENTER para continuar")
+        elif saida == 6:
+            print(problema.g.m_graph.keys())
+            l = input("Prima ENTER para continuar")
+        elif saida == 7:
             print(problema.g.imprime_aresta())
-            l = input("prima enter para continuar")
-        # elif saida == 5:
-        #     inicio=input("Nodo inicial->")
-        #     fim = input("Nodo final->")
-        #     caminho=problema.solucaoDFS( inicio, fim)
-        #     print(caminho)
-        #     if caminho != None:
-        #        a = caminho[0]
-        #        lista=problema.imprimeA(a)
-        #        print(lista)
-        #     l = input("prima enter para continuar")
-        # elif saida == 6:
-        #     inicio = input("Nodo inicial->")
-        #     fim = input("Nodo final->")
-        #     caminho=problema.solucaoBFS(inicio,fim)
-        #     print(caminho)
-        #     if caminho != None:
-        #         a = caminho[0]
-        #         lista = problema.imprimeA(a)
-        #         print(lista)
-        #     l = input("prima enter para continuar")
-        # elif saida == 7:
-        #     inicio = input("Nodo inicial->")
-        #     fim = input("Nodo final->")
-        #     caminho = problema.encontraDFS(inicio, fim)
-        #     print(caminho)
-        #     if caminho != None:
-        #         a = caminho[0]
-        #         lista = problema.imprimeA(a)
-        #         print(lista)
-        #     l = input("prima enter para continuar")
+            l = input("Prima ENTER para continuar")
         else:
-            print("you didn't add anything")
-            l = input("prima enter para continuar")
-    print("Martim")
-
+            print("Número Inválido")
+            l = input("Prima ENTER para continuar")
 
 if __name__ == "__main__":
     main()
