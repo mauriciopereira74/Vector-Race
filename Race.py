@@ -3,19 +3,18 @@ from readFile import readFile
 
 
 class Race():
-
     global file
     global circuito
     global lines
     global cols
     file = readFile()
     circuito = file.ler()
-    lines = len(circuito)
-    cols = len(circuito[1])
-    # Exemplos
-    # Posição -> "(10,20)"
-    # Velocidade ->  "(1,2)"
-    # AceleraçãoX -> 1 e AceleracaoY -> 0
+    lines = len(circuito[1])
+    cols = len(circuito)
+
+    #               Y  X
+    # print(circuito[1][0])
+
     def __init__(self, start, velocidade):
         # Grafo
         self.g = Grafo(directed=True)  # Verificar directed
@@ -24,38 +23,70 @@ class Race():
         # Velocidade
         self.velocidade = velocidade
 
-    # Função que dado uma String retorna a Posição X da String
-    def partePX(self):
-        res = self.posicao[1:-1] # Tirar primeiro e último elemento
-        res = res.split(',') # Partir a string na virgula
-        return res[0] # Retorna o primeiro elemento em String
-
-    # Função que dado uma String retorna a Posição Y da String
-    def partePY(self):
+    # PosiçãoX -> String
+    def posicaoX(self):
         res = self.posicao[1:-1]
-        res = res.split(',') 
-        return res[1]
-
-    # Função que dado uma String retorna a Velocidade X da String
-    def parteVX(self):
-        res = self.velocidade[1:-1] 
         res = res.split(',')
         return res[0]
 
-    # Função que dado uma String retorna a Velocidade Y da String
-    def parteVY(self):
+    # PosiçãoY -> String
+    def posicaoY(self):
+        res = self.posicao[1:-1]
+        res = res.split(',')
+        return res[1]
+
+    ################################################################
+
+    # VelocidadeX -> String
+    def velocidadeX(self):
+        res = self.velocidade[1:-1]
+        res = res.split(',')
+        return res[0]
+
+    # VelocidadeY -> String
+    def velocidadeY(self):
         res = self.velocidade[1:-1]
         res = res.split(',')
         return res[1]
 
-
-    def posicaoNextString(self, ponto):
-        res = "(" + str(ponto[0]) + "," + str(ponto[1]) + ")"
+    # Próxima PosiçãoX -> Inteiro
+    def nextPosicaoX(self, aceleracaoX):
+        res = int(self.posicaoX()) + int(self.velocidadeX()) + aceleracaoX
+        if res < 0:
+            res = 0
+        elif res >= lines:
+            res = (lines - 1)
         return res
 
-    def velocidadeNextString(self, velocidade):
-        res = "(" + str(velocidade[0]) + "," + str(velocidade[1]) + ")"
+    # Próxima PosiçãoY -> Inteiro
+    def nextPosicaoY(self, aceleracaoX):
+        res = int(self.posicaoY()) + int(self.velocidadeY()) + aceleracaoX
+        if res < 0:
+            res = 0
+        elif res >= cols:
+            res = (cols - 1)
         return res
+
+    # Próxima VelocidadeX -> Inteiro
+    def nextVelocidadeX(self, aceleracaoX):
+        res = int(self.velocidadeX()) + aceleracaoX
+        return res
+
+    # Próxima VelocidadeY -> Inteiro
+    def nextVelocidadeY(self, aceleracaoY):
+        res = int(self.velocidadeY()) + aceleracaoY
+        return res
+
+    # Posicao Seguinte -> String
+    def posicaoNext(self, aceleracaoX, aceleracaoY):
+        res = "(" + (str(self.nextPosicaoX(aceleracaoX))) + "," + (str(self.nextPosicaoY(aceleracaoY))) + ")"
+        return res
+
+    # Velocidade Seguinte -> String
+    def velocidadeNext(self, aceleracaoX, aceleracaoY):
+        res = "(" + (str(self.nextVelocidadeX(aceleracaoX))) + "," + (str(self.nextVelocidadeY(aceleracaoY))) + ")"
+        return res
+
 
     def listaMov(self):
         listaaceleracoes = [-1, 0, 1]
