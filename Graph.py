@@ -20,7 +20,7 @@ class Grafo:
         out = ""
         for key in self.m_graph.keys():
             out = out + "node" + str(key) + ": " + str(self.m_graph[key]) + "\n"
-            return out
+        return out
 
     # Encontrar nodo pelo nome
     def get_node_by_name(self, name):
@@ -41,29 +41,7 @@ class Grafo:
         return listaA
 
     # Adicionar   aresta no grafo
-    # def add_edge(self, node1, node2, weight):
-        # n1 = Node(node1)
-        # n2 = Node(node2)
-        # if (n1 not in self.m_nodes):
-            # self.m_nodes.append(n1)
-            # self.m_graph[node1] = list()
-        # else:
-            # n1 = self.get_node_by_name(node1)
-# 
-        # if (n2 not in self.m_nodes):
-            # self.m_nodes.append(n2)
-            # self.m_graph[node2] = list()
-        # else:
-            # n2 = self.get_node_by_name(node2)
-# 
-        # self.m_graph[node1].append((node2, weight))
-# 
-# 
-        # if not self.m_directed:
-            # self.m_graph[node2].append((node1, weight))
-# 
-
-    def add_edge(self, node1, node2):
+    def add_edge(self, node1, node2, weight):
         n1 = Node(node1)
         n2 = Node(node2)
         if (n1 not in self.m_nodes):
@@ -78,12 +56,11 @@ class Grafo:
         else:
             n2 = self.get_node_by_name(node2)
 
-        self.m_graph[node1].append((node2))
+        self.m_graph[node1].append((node2, weight))
 
 
         if not self.m_directed:
-            self.m_graph[node2].append((node1))
-
+            self.m_graph[node2].append((node1, weight))
 
     # Devolver nodos do Grafo
     def getNodes(self):
@@ -207,7 +184,7 @@ class Grafo:
     # Heuristica -> define heuristica para cada nodo 1 por defeito
     # Nota -> apenas para teste de pesquisa informada
     def heuristica(self):
-        nodos = self.m_graph.keys
+        nodos = self.m_graph.keys()
         for n in nodos:
             self.m_h[n] = 1
         return (True)
