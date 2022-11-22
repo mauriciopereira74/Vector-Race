@@ -1,5 +1,10 @@
 from Race import Race
 from readFile import readFile
+from tkinter import *
+from track import *
+from vectorrace_ler import *
+from vectorrace_criar import *
+from tk import TrackView
 
 def main():
 
@@ -56,10 +61,12 @@ def main():
                     print(string + "\n")
                     l = input("Prima ENTER para continuar")
                 if saida2 == 2:
-                    print("Martim")
+                    app = Application()
+                    app.mainloop()
                     l = input("Prima ENTER para continuar")
                 if saida2 == 3:
-                    print("Martim")
+                    app2 = Application2()
+                    app2.mainloop()
                     l = input("Prima ENTER para continuar")
                 else: 
                     print("Introduza um número válido\n")
