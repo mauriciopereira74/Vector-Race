@@ -71,6 +71,7 @@ def main():
                 else: 
                     print("Introduza um número válido\n")
                     l = input("Prima ENTER para continuar")
+
         elif saida == 3:
             while saida3 != 0:
                 print("|----------------- MENU ----------------|")
@@ -101,11 +102,10 @@ def main():
                 if saida3 == 4:
                     print(problema.g.imprime_aresta())
                     l = input("Prima ENTER para continuar")
-                else: 
-                    print("Introduza um número válido\n")
-                    l = input("Prima ENTER para continuar")
+
         elif saida == 4:
             while saida4 != 0:
+                caminho = []
                 print("|----------------- MENU ----------------|")
                 print("|---------------------------------------|")
                 print("|- 1 -> Algoritmo em Profundidade(DFS)- |")
@@ -126,17 +126,16 @@ def main():
                     caminho = problema.g.procura_DFS(posInit,posFinal)
                     print(str(caminho) + "\n")
                     print(problema.mostraCaminho(caminho[0]))
+                    l = input("Prima ENTER para continuar")
                 if saida4 == 2:
-                    caminho = solucaoBFS(posInit, posFinal)
-                    print(caminho)
+                    caminho = problema.g.procura_BFS(posInit,posFinal)
+                    print(str(caminho) + "\n")
+                    print(problema.mostraCaminho(caminho[0]))
                     l = input("Prima ENTER para continuar")
                 if saida4 == 3:
                     print("Nada (para já)")
                 if saida4 == 4:
                     print("Nada (para já)")
-                else:
-                    print("Introduza um número válido\n")
-                    l = input("Prima ENTER para continuar")
 
             #inicio = input("Nodo inicial->")
             # fim = input("Nodo final->")
