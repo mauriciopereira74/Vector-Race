@@ -89,7 +89,12 @@ class Grafo:
         return custo
 
     # Algoritmo de Procura DFS
-    def procura_DFS(self, start, end, path=[], visited=set()):
+    def procura_DFS(self, start, end, path=None, visited=None):
+        if path == None:
+            path = []
+        if visited == None:
+            visited = set()
+
         path.append(start)
         visited.add(start)
 

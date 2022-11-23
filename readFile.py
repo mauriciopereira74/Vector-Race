@@ -2,15 +2,30 @@
 
 class readFile:
 
-    global file
-    fileOpen = open("circuito.txt", "rt")
-    file = fileOpen.readlines()
-    fileOpen.close()
+    # global file
+    # fileOpen = open("circuito.txt", "rt")
+    # file = fileOpen.readlines()
+    # fileOpen.close()
+# 
+    # global circuito
+    # circuito = []
+    # for sub in file:
+        # circuito.append(sub.replace("\n", ""))
 
-    global circuito
-    circuito = []
-    for sub in file:
-        circuito.append(sub.replace("\n", ""))
+    def __init__(self, x):
+        self.circuito_path = x
+        global file
+        global circuito
+        
+        circuito = []
+        if self.circuito_path == "":
+            fileOpen = open(f"Circuitos/circuito0.txt", "rt")
+        else:
+            fileOpen = open(f"Circuitos/{self.circuito_path}", "rt")
+        file = fileOpen.readlines()
+        fileOpen.close()
+        for sub in file:
+            circuito.append(sub.replace("\n", ""))
 
     # Função que lê um ficheiro coloca toda a sua informação numa Lista de Strings
     def ler(self):
@@ -18,7 +33,6 @@ class readFile:
 
     # Determina a CoordenadaX e Y da Posição Inicial
     def PInicialXY(self):
-        print(circuito)
         for i in range(len(circuito)):
           for j in range(len(circuito[i])):
               if circuito[i][j] == "P":
@@ -27,7 +41,6 @@ class readFile:
 
     # Determina a CoordenadaX e Y da Posição Final
     def PFinalXY(self):
-        print(circuito)
         for i in range(len(circuito)):
           for j in range(len(circuito[i])):
               if circuito[i][j] == "F":

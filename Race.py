@@ -7,19 +7,13 @@ class Race():
     global circuito
     global lines
     global cols
-    file = readFile()
-    circuito = file.ler()
-    lines = len(circuito)
-    cols = len(circuito[1])
     global nestedCircuito
-    nestedCircuito = []
-    for lin in circuito:
-        nestedCircuito.append([c for c in lin])
+
     # Exemplos
     # Posição -> "(10,20)"
     # Velocidade ->  "(1,2)"
     # AceleraçãoX -> 1 e AceleracaoY -> 0
-    def __init__(self, start, velocidade):
+    def __init__(self, circuito_path, start, velocidade):
         # Grafo
         self.g = Grafo(directed=True)  # Verificar directed
         # Posição Atual
@@ -27,6 +21,20 @@ class Race():
         # Velocidade
         self.velocidade = velocidade
 
+        global file
+        global circuito
+        global lines
+        global cols
+        global nestedCircuito
+
+        file = readFile(circuito_path)
+        circuito = file.ler()
+        lines = len(circuito)
+        cols = len(circuito[1])
+
+        nestedCircuito = []
+        for lin in circuito:
+            nestedCircuito.append([c for c in lin])
     # Funcao que dado um circuito devolve em string
     def circuitoAsString(self, circuitoArr):
         res = "    "
@@ -46,6 +54,13 @@ class Race():
             i+=1
         res = res + "\n"
         return res
+
+
+    def mostraCaminho(self, path):
+        localCircuito = nestedCircuito
+        for i, point in enumerate(path, start=1):
+            localCircuito[int(self.partePX_Custom([point]))][int(self.partePY_Custom([point]))] = f"{i}"
+        return self.circuitoAsString(localCircuito)
 
     # Função que dado uma String retorna a Posição X da String
     def partePX(self):
@@ -213,8 +228,8 @@ class Race():
         return pontosPossiveis
 
     # Criar um grafo partindo do estado inicial com todas as transições possiveis
-    def cria_grafo(self):#
-        readFiles = readFile()
+    def cria_grafo(self, circuito_path):#
+        readFiles = readFile(circuito_path)
         pFinal = readFiles.PFinalXY() 
         pInicial = readFiles.PInicialXY() 
         print(f"ponto final:  {pFinal}")
@@ -229,7 +244,7 @@ class Race():
             estado = estados.pop()
             self.posicao = estado
             expansao = self.listaMov()  # Mudar expande
-            print(f"estado:   {estado} \nexpansao: {expansao}")
+            #print(f"estado:   {estado} \nexpansao: {expansao}")
             for e in expansao:
                 if e != None:
                     x = self.PStringtoArr(e)
@@ -241,12 +256,4 @@ class Race():
                         visitados.append(e)
                         estados.append(e)
                         estados.sort()
-            print(f"\nestados:   {estados} \nvisitados: {visitados}")
-
-    def mostraCaminho(self, path):
-        i = 1
-        localCircuito = nestedCircuito
-        for point in path:
-            localCircuito[int(self.partePX_Custom([point]))][int(self.partePY_Custom([point]))] = f"{i}"
-            i += 1
-        return self.circuitoAsString(localCircuito)
+            #print(f"\nestados:   {estados} \nvisitados: {visitados}")
