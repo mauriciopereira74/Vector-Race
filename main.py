@@ -14,10 +14,9 @@ def main():
     readClass = readFile("")
     posInit = readClass.PInicialXY()
     posFinal = readClass.PFinalXY()
-    problema = Race("", posInit, "(0,0)")
-    problema.cria_grafo("")
+    problema = Race("", posInit, posFinal, "(0,0)")
+    
     saida = -1
-    saida1 = -1
     saida2 = -1
     saida3 = -1
     saida4 = -1
@@ -25,7 +24,7 @@ def main():
     saidaCir2 = -2
 
     while saida != 0:
-        print("|----------------- MENU ----------------|")
+        print("\n|----------------- MENU ----------------|")
         print("|---------------------------------------|")
         print("|------- 99 -> Escolher Circuito -------|")
         print(f"|--------- Atual: {default} --------|")
@@ -73,25 +72,19 @@ def main():
                 except ValueError:
                     print("Introduza um número válido\n")
                     continue
-                print(i)
-                print(saidaCir2 in range(i))
-                print(range(i))
-                print(saidaCir2)
-                tmp = range(0, i+1)
-                print(tmp)
-                if saidaCir2 in tmp:
+                if saidaCir2 in range(0, i+1):
                     circuito_path = onlyfiles[(saidaCir2)]
                     readClass = readFile(circuito_path)
                     posInit = readClass.PInicialXY()
-                    problema = Race(circuito_path, posInit, "(0,0)")
-                    problema.cria_grafo(circuito_path)
+                    posFinal = readClass.PFinalXY()
+                    problema = Race(circuito_path, posInit, posFinal, "(0,0)")
                     default = f"circuito{saidaCir2}.txt"
-                    print(default)
                     break;
                 else:
-                    print("Introduza um número válidooooo\n")
+                    print("Introduza um número válido\n")
                     continue
-        if saida == 0:
+
+        elif saida == 0:
             print("Menu Anterior...")
             break;
         elif saida == 1:
@@ -169,7 +162,6 @@ def main():
                     saida = 0
                 elif saida3 == 1:
                     print(problema.g)
-                    print(problema.g.m_graph)
                     l = input("Prima ENTER para continuar")
                 elif saida3 == 2:
                     problema.g.desenha()
@@ -212,13 +204,14 @@ def main():
                     print("Saindo...")
                     saida = 0
                 elif saida4 == 1:
-                    caminho = problema.g.procura_DFS(posInit,posFinal)
-                    path, custo = caminho  # type: ignore
-                    print("\nCaminho encontrado: ", end="")
-                    print(*path, sep=' -> ')
-                    print(f"Custo Total: {str(custo)}\n")
-                    print(problema.mostraCaminho(path))
-                    l = input("Prima ENTER para continuar")
+                    print("A implementar...")
+                    #caminho = problema.g.procura_DFS(posInit,posFinal)
+                    #path, custo = caminho  # type: ignore
+                    #print("\nCaminho encontrado: ", end="")
+                    #print(*path, sep=' -> ')
+                    #print(f"Custo Total: {str(custo)}\n")
+                    #print(problema.mostraCaminho(path))
+                    #l = input("Prima ENTER para continuar")
                 elif saida4 == 2:
                     caminho = problema.g.procura_BFS(posInit,posFinal)
                     path, custo = caminho  # type: ignore
@@ -234,20 +227,9 @@ def main():
                 else:
                     print("Introduza um número válido\n")
                     continue        
-            #inicio = input("Nodo inicial->")
-            # fim = input("Nodo final->")
-            # caminho = problema.solucaoBFS(posInit, posFinal)
-            # print(caminho)
-            # if caminho != None:
-            #     a = caminho[0]
-            #     lista = problema.imprimeA(a)
-            #     print(lista)
-            #l = input("prima ENTER para continuar")
         else:
             print("Introduza um número válido\n")
-            continue;
-            # print("Introduza um número válido\n")
-            # l = input("Prima ENTER para continuar")
+            continue
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,7 @@
-X X X X X X X X X X
-X X - - - X X - - X
-X - - - - - - - - X
-X P X F X X X - - X
-X - - - - - - - - X
-X X X X - - - - X X
-X X X X X X X X X X
+XXXXXXXXXX
+XX---XX--X
+X--------X
+XPXFXXX--X
+X--------X
+XXXX----XX
+XXXXXXXXXX

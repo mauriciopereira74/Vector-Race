@@ -36,7 +36,6 @@ class readFile:
         for i in range(len(circuito)):
           for j in range(len(circuito[i])):
               if circuito[i][j] == "P":
-                  print(f"({i},{j})")
                   return f"({i},{j})"
 
     # Determina a CoordenadaX e Y da Posição Final
@@ -44,7 +43,6 @@ class readFile:
         for i in range(len(circuito)):
           for j in range(len(circuito[i])):
               if circuito[i][j] == "F":
-                  print(f"({i},{j})")
                   return f"({i},{j})"
                 
     def demonstra(self):

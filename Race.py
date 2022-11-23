@@ -1,23 +1,18 @@
 from Graph import Grafo
 from readFile import readFile
+import copy
 
 class Race():
-
-    global file
-    global circuito
-    global lines
-    global cols
-    global nestedCircuito
 
     # Exemplos
     # Posição -> "(10,20)"
     # Velocidade ->  "(1,2)"
     # AceleraçãoX -> 1 e AceleracaoY -> 0
-    def __init__(self, circuito_path, start, velocidade):
+    def __init__(self, circuito_path, startt, endd, velocidade):
         # Grafo
         self.g = Grafo(directed=True)  # Verificar directed
         # Posição Atual
-        self.posicao = start
+        self.posicao = startt
         # Velocidade
         self.velocidade = velocidade
 
@@ -26,15 +21,24 @@ class Race():
         global lines
         global cols
         global nestedCircuito
+        global start
+        global end
+
 
         file = readFile(circuito_path)
         circuito = file.ler()
         lines = len(circuito)
         cols = len(circuito[1])
+        start = startt
+        end = endd
 
         nestedCircuito = []
         for lin in circuito:
             nestedCircuito.append([c for c in lin])
+
+        self.cria_grafo()
+        print(f"Ponto Final: {end}; Ponto Incial: {start}")
+
     # Funcao que dado um circuito devolve em string
     def circuitoAsString(self, circuitoArr):
         res = "    "
@@ -55,9 +59,8 @@ class Race():
         res = res + "\n"
         return res
 
-
     def mostraCaminho(self, path):
-        localCircuito = nestedCircuito
+        localCircuito = copy.deepcopy(nestedCircuito)
         for i, point in enumerate(path, start=1):
             localCircuito[int(self.partePX_Custom([point]))][int(self.partePY_Custom([point]))] = f"{i}"
         return self.circuitoAsString(localCircuito)
@@ -115,80 +118,6 @@ class Race():
         res = "(" + str(pontoArr[0]) + "," + str(pontoArr[1]) + ")"
         return res
 
-
-    # def listaMov(self, estado):
-        # listaaceleracoes = [-1, 0, 1]
-
-        # lista de todas as possibilidades de velocidades
-        # listaVs = []
-        # for x in listaaceleracoes:
-            # for y in listaaceleracoes:
-                # listaVs.append([int(self.parteVX())+x,int(self.parteVY())+y])
-
-        # lista de todas as possibilidades de pontos, tendo em conta todas as velocidades
-        # listaPs = []
-        # for v in listaVs:
-            # self.velocidade = "(0,0)"
-            # pontoAtual = self.PStringtoArr(estado)
-            # listaPs.append([int(pontoAtual[0])+v[0],int(pontoAtual[1])+v[1]])
-
-        # pontosPossiveis = []
-        # velocidades = []
-        # pontosX = []
-        # for idx, p in enumerate(listaPs):
-            # if 0 <= p[0] < lines and 0 <= p[1] < cols:
-                # print("Ponto p" + str(p))
-                # if nestedCircuito[p[0]][p[1]] == "-":
-                    # self.posicao = self.posicaoNextString(p)
-                    # velocidades.append(self.velocidadeNextString(listaVs[idx]))
-                    # pontosPossiveis.append(self.ArrToPString(p))
-                    # self.velocidade = "(0,0)"
-                    # self.velocidade = self.velocidadeNextString(listaVs[idx])
-                # elif nestedCircuito[p[0]][p[1]] == "X":
-                    # self.posicao = self.posicaoNextString(p)
-                    # pontosPossiveis.append(self.ArrToPString(p))
-                    # pontosX.append(self.posicao)
-                    # self.velocidade = "(0,0)"
-                # elif nestedCircuito[p[0]][p[1]] == "F":
-                    # self.posicao = self.posicaoNextString(p)
-                    # pontosPossiveis.append(self.ArrToPString(p))
-                    # velocidades.append(self.velocidadeNextString(listaVs[idx]))
-                    # self.velocidade = "(0,0)"
-                    # self.velocidade = self.velocidadeNextString(listaVs[idx])
-        # print(pontosPossiveis)
-        # return pontosPossiveis
-
-    # Criar um grafo partindo do estado inicial com todas as transições possiveis
-    # def cria_grafo(self):#
-        # readFiles = readFile()
-        # pFinal = readFiles.PFinalXY() 
-        # pInicial = readFiles.PInicialXY() 
-        # print(f"ponto final:  {pFinal}")
-        # print(f"ponto incial:  {pInicial}")
-        # 
-        # estados = []
-        # estados.append(pInicial)
-        # visitados = []
-        # visitados.append(pInicial)
-        # 
-        # while estados != [] :
-            # estado = estados.pop()
-            # expansao = self.listaMov(estado)  # Mudar expande
-            # print(expansao)
-            # for e in expansao:
-                # if e != None:
-                    # x = self.PStringtoArr(e)
-                    # x = nestedCircuito[x[0]][x[1]]
-                    # cost = 1
-                    # if x == 'X': cost = 25
-                    # self.g.add_edge(estado, e, cost)
-                    # print(f"{e} ----- {x} ----- {cost}")
-                    # if e not in visitados:
-                        # visitados.append(e)
-                    # if x != 'X' and expansao:
-                        # estados.append(e)
-
-
     def listaMov(self):
         listaaceleracoes = [-1, 0, 1]
 
@@ -210,35 +139,30 @@ class Race():
         pontosX = []
         for idx, p in enumerate(listaPs):
             if 0 <= p[0] < lines and 0 <= p[1] < cols:
-                if circuito[p[0]][p[1]] == "-":
+                if nestedCircuito[p[0]][p[1]] == "-":
                      #self.posicao = self.posicaoNextString(p)
                      velocidades.append(self.velocidadeNextString(listaVs[idx]))
                      pontosPossiveis.append(self.posicaoNextString(p))
                      #self.velocidade = self.velocidadeNextString(listaVs[idx])
-                elif circuito[p[0]][p[1]] == "X":
+                elif nestedCircuito[p[0]][p[1]] == "X":
                      pontosX.append(self.posicaoNextString(p))
                      #self.velocidade = "(0,0)"
-                elif circuito[p[0]][p[1]] == "F":
+                elif nestedCircuito[p[0]][p[1]] == "F":
                      #self.posicao = self.posicaoNextString(p)
                      pontosPossiveis.append(self.posicaoNextString(p))
                      velocidades.append(self.velocidadeNextString(listaVs[idx]))
                      #self.velocidade = self.velocidadeNextString(listaVs[idx])
-        print(f"posicaoAtual:      {self.posicao}")
-        print(f"pontosPossiveis    {pontosPossiveis}")
+        #print(f"posicaoAtual:      {self.posicao}")
+        #print(f"pontosPossiveis    {pontosPossiveis}")
         return pontosPossiveis
 
     # Criar um grafo partindo do estado inicial com todas as transições possiveis
-    def cria_grafo(self, circuito_path):#
-        readFiles = readFile(circuito_path)
-        pFinal = readFiles.PFinalXY() 
-        pInicial = readFiles.PInicialXY() 
-        print(f"ponto final:  {pFinal}")
-        print(f"ponto incial:  {pInicial}")
+    def cria_grafo(self):#
         
         estados = []
-        estados.append(pInicial)
         visitados = []
-        visitados.append(pInicial)
+        estados.append(start)
+        visitados.append(start)
         
         while estados != [] :
             estado = estados.pop()
