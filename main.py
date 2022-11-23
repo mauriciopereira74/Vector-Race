@@ -48,10 +48,9 @@ def main():
             #l = input("Prima ENTER para continuar")
         if saida == 99:
             while saidaCir != 0:
-                print("|--------------- CIRCUITOS -------------|")
-                print("|---------------------------------------|")
                 onlyfiles = [f for f in listdir("Circuitos/") if isfile(join("Circuitos/", f))]
-                i=1
+                print("\n|--------------- CIRCUITOS -------------|")
+                print("|---------------------------------------|")
                 for i, circ in enumerate(onlyfiles):
                     res = f" {i} -> {circ} "
                     if len(res) == 18:
@@ -85,19 +84,20 @@ def main():
                     continue
 
         elif saida == 0:
-            print("Menu Anterior...")
+            print("Saindo...")
             break;
         elif saida == 1:
             # while saida2 != 0:
+            print("\n|------- FORMULACAO DO PROBLEMA --------|")
             print("A definir...")
             l = input("Prima ENTER para continuar")
         elif saida == 2:
             while saida2 != 0:
-                print("|----------------- MENU ----------------|")
+                print("\n|----------- VECTOR RACE MENU ----------|")
                 print("|---------------------------------------|")
                 print("|------ 1 -> Imprimir Circuito.txt -----|")
                 print("|---------------------------------------|")
-                print("|--- 2 -> VectorRace do Circuito.txt ---|")
+                print(f"|-- 2 -> VectorRace do {default} ---|")
                 print("|---------------------------------------|")
                 print("|-------- 3 -> Criar VectorRace --------|")
                 print("|---------------------------------------|")
@@ -117,7 +117,7 @@ def main():
                     print("Saindo...")
                     saida = 0
                 elif saida2 == 1:
-                    print("\nCircuito.txt")
+                    print(f"\nCircuitos/{default}")
                     string = readClass.demonstra()
                     print(string + "\n")
                     l = input("Prima ENTER para continuar")
@@ -135,13 +135,13 @@ def main():
 
         elif saida == 3:
             while saida3 != 0:
-                print("|----------------- MENU ----------------|")
+                print("\n|---------------- GRAFOS ---------------|")
                 print("|---------------------------------------|")
                 print("|--------- 1 -> Imprimir Grafo ---------|")
                 print("|---------------------------------------|")
                 print("|--------- 2 -> Desenhar Grafo ---------|")
                 print("|---------------------------------------|")
-                print("|---- 3 -> Imprimir  nodos de Grafo ----|")
+                print("|---- 3 -> Imprimir nodos de Grafo -----|")
                 print("|---------------------------------------|")
                 print("|--- 4 -> Imprimir arestas de Grafo ----|")
                 print("|---------------------------------------|")
@@ -178,11 +178,11 @@ def main():
         elif saida == 4:
             while saida4 != 0:
                 caminho = []
-                print("|----------------- MENU ----------------|")
+                print("\n|-------------- ALGORITMOS -------------|")
                 print("|---------------------------------------|")
-                print("|- 1 -> Algoritmo em Profundidade(DFS)- |")
+                print("|- 1 -> Algoritmo em Profundidade(DFS) -|")
                 print("|---------------------------------------|")
-                print("|---- 2 ->Algoritmo em Largura(BFS) ----|")
+                print("|---- 2 -> Algoritmo em Largura(BFS) ---|")
                 print("|---------------------------------------|")
                 print("|---------- 3 -> Algoritmo A* ----------|")
                 print("|---------------------------------------|")
@@ -204,7 +204,7 @@ def main():
                     print("Saindo...")
                     saida = 0
                 elif saida4 == 1:
-                    print("A implementar...")
+                    print("Nada (para já)")
                     #caminho = problema.g.procura_DFS(posInit,posFinal)
                     #path, custo = caminho  # type: ignore
                     #print("\nCaminho encontrado: ", end="")
