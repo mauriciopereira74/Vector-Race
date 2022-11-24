@@ -122,7 +122,7 @@ def main():
                     print(string + "\n")
                     l = input("Prima ENTER para continuar")
                 elif saida2 == 2:
-                    app = Application()
+                    app = Application(default)
                     app.mainloop()
                     l = input("Prima ENTER para continuar")
                 elif saida2 == 3:

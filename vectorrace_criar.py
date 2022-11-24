@@ -1,3 +1,4 @@
+import os
 from tkinter import *
 from track import *
 from tk import TrackView
@@ -57,6 +58,10 @@ class Application2(Frame):
 
             return circuito         
 
+        def get_next_file_num():
+            dir_list = os.listdir("./Circuitos")
+            return int(sorted(dir_list)[-1].split(".")[0][-1])
+
         print("Para criar um circuito e necessario ter as dimensoes, as coordendas dos pontos de partida e de chegada e as coordenadas das barreiras.")
         altura = int(input("Altura do circuito: ")) # 5
         largura = int(input("Largura do circuito: ")) # 8
@@ -82,7 +87,9 @@ class Application2(Frame):
             barriers.append(LineSegment(p1, p2))
             txt_circuito = barreiras(txt_circuito, p1_i, p2_i)
 
-        circuito_export = open("circuito53.txt", "w")
+        path = "./Circuitos/circuito" + str(get_next_file_num() + 1) + ".txt"
+        print(path)
+        circuito_export = open(path, "w")
         for line in txt_circuito:
             circuito_export.write(line)
             circuito_export.write('\n')

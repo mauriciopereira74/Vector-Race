@@ -6,15 +6,21 @@ import re
 
 class Application(Frame):
 
-    def __init__(self, master=None):
+    def __init__(self, default, master=None):
         Frame.__init__(self, master)
         self.grid(sticky=NSEW)
+        self.default = default
 
-        self.readTrack()
+        self.readTrack(default)
         self.createWidgets()
 
-    def readTrack(self):
-        file = open("circuito.txt", "r")
+    def readTrack(self, default):
+
+        self.default = default
+
+        default = "./Circuitos/" + default
+
+        file = open(default, "r")
         lines = file.readlines()
 
         # check if there is only 1 start and 1 finish
