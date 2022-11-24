@@ -88,7 +88,6 @@ class Application2(Frame):
             txt_circuito = barreiras(txt_circuito, p1_i, p2_i)
 
         path = "./Circuitos/circuito" + str(get_next_file_num() + 1) + ".txt"
-        print(path)
         circuito_export = open(path, "w")
         for line in txt_circuito:
             circuito_export.write(line)
