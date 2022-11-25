@@ -19,6 +19,8 @@ class Application(Frame):
         self.default = default
 
         default = "./Circuitos/" + default
+        start = []
+        finish = []
 
         file = open(default, "r")
         lines = file.readlines()

@@ -71,7 +71,7 @@ def main():
                 except ValueError:
                     print("Introduza um número válido\n")
                     continue
-                if saidaCir2 in range(0, i+1):
+                if saidaCir2 in range(0, i+1):   # type: ignore
                     circuito_path = onlyfiles[(saidaCir2)]
                     readClass = readFile(circuito_path)
                     posInit = readClass.PInicialXY()
@@ -95,7 +95,7 @@ def main():
             while saida2 != 0:
                 print("\n|----------- VECTOR RACE MENU ----------|")
                 print("|---------------------------------------|")
-                print("|------ 1 -> Imprimir Circuito.txt -----|")
+                print(f"|------ 1 -> Imprimir {default} ----|")
                 print("|---------------------------------------|")
                 print(f"|-- 2 -> VectorRace do {default} ---|")
                 print("|---------------------------------------|")
