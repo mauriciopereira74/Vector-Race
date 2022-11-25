@@ -30,7 +30,7 @@ class Application(Frame):
         for x in range(len(lines)):
             tmp += lines[x][:-1]
         if (tmp.count('P') != 1) or (tmp.count('F') != 1):
-            print("Circuito invalido")
+            print("Circuito invalido.")
             sys.exit()
 
         # check if the border only contains X or 1 S/1 F
@@ -45,11 +45,18 @@ class Application(Frame):
             sys.exit()
 
         # check if all lines have the same size
+        for i, x in enumerate(lines):
+            if not x.endswith('\n'):
+                lines[i] = f"{x}\n"
+
+
         it = iter(lines)
         the_len = len(next(it))
+
         if not all(len(l) == the_len for l in it):
             print("Circuito invalido.")
             sys.exit()
+
 
         largura = len(lines[0])
         altura = len(lines)
