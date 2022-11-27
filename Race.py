@@ -43,17 +43,19 @@ class Race():
     def circuitoAsString(self, circuitoArr):
         res = "    "
         i=0
+
         while i < len(circuitoArr[0]):
-            if len(str(i)) == 2: res += " " + f"{i}" + "  "
-            else: res += "  " + f"{i}" + "  "  
+            if len(str(i)) == 2: res += "" + f"{i}" + " "
+            else: res += " " + f"{i}" + " "  
             i+=1
         res += "\n" + "-"*len(res) + "\n"
         i=0
         for x in circuitoArr:
-            res += f"{i}" + " | "
+            if len(str(i)) == 2: res += f"{i}" + "| "
+            else: res += f"{i}" + " | "
             for y in x:
-                if len(str(y)) == 2: res += " " + f"{y}" + "  "  
-                else: res += "  " + f"{y}" + "  "  
+                if len(str(y)) == 2: res += "" + f"{y}" + " "  
+                else: res += " " + f"{y}" + " "  
             res = res + "\n"
             i+=1
         res = res + "\n"

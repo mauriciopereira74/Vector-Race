@@ -67,7 +67,8 @@ class app:
             txt_lines.pop()
             txt_lines_nested = []
             for i in txt_lines:
-                txt_lines_nested.append(i.split(' '))
+                listtt = list(i)
+                txt_lines_nested.append(listtt)
             cols = len(txt_lines)
             lines = len(txt_lines_nested)
             buttons_aux = txt_lines_nested
@@ -105,11 +106,12 @@ class app:
                 j += 1
             with open("Circuitos/circuito%s.txt" % j, "w") as txt_file:
                 for line in buttons_data:
-                    txt_file.write(" ".join(line) + "\n")
+                    txt_file.write("".join(line) + "\n")
             if save_btn.cget('text') == "Guardar .txt":
-                save_btn.config(text=f"Guardado como circuito{j}.txt", fg='green', bg='white')
+                save_btn.config(text=f"Guardado como circuito{j}.txt Clique para guardar outro...", fg='green', bg='white')
+            elif save_btn.cget('text') == f"Guardado como circuito{j-1}.txt Clique para guardar outro...":
+                save_btn.config(text=f"Guardado como circuito{j}.txt")
             else: save_btn.config(text=f"Guardado como circuito{j}.txt")
-
 
         def click(row, col):
             temp = buttons[row][col].cget('text')
@@ -150,7 +152,7 @@ class app:
         self.frame3 = Frame(self.master)
         self.frame3.pack(side=tk.BOTTOM, pady=5)
 
-        save_btn = tk.Button(self.frame3, bg="grey", text="Guardar .txt", command=getButtonsTextData)
+        save_btn = tk.Button(self.frame3, wraplength=170, justify=LEFT, bg="grey", text="Guardar .txt", command=getButtonsTextData)
         save_btn.pack()
 
 root = Tk()

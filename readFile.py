@@ -46,22 +46,47 @@ class readFile:
                   return f"({i},{j})"
                 
     def demonstra(self):
-        x = 'X'
-        z = '-'
-        p = 'P'
-        f = 'F'
+        res = "\n    "
+        i=0
+        nestedCircuito = []
+        for lin in circuito:
+            nestedCircuito.append([c for c in lin])
 
-        string = ""
-        for i in range(len(circuito)):
-            string = string + ("\n")
-            for j in range(len(circuito[i])):
-                if (circuito[i][j] == x):
-                    string = string + "X"
-                if (circuito[i][j] == z):
-                    string = string + "-"
-                if (circuito[i][j] == p):
-                    string = string + "P"
-                if (circuito[i][j] == f):
-                    string = string + "F"
+        while i < len(nestedCircuito[0]):
+            if len(str(i)) == 2: res += "" + f"{i}" + " "
+            else: res += " " + f"{i}" + " "  
+            i+=1
+        res += "\n" + "-"*len(res) + "\n"
+        i=0
+        for x in nestedCircuito:
+            if len(str(i)) == 2: res += f"{i}" + "| "
+            else: res += f"{i}" + " | "
+            for y in x:
+                if len(str(y)) == 2: res += "" + f"{y}" + " "  
+                else: res += " " + f"{y}" + " "  
+            res = res + "\n"
+            i+=1
+        res = res + "\n"
+        return res
 
-        return string
+
+
+        # x = 'X'
+        # z = '-'
+        # p = 'P'
+        # f = 'F'
+ 
+        # string = ""
+        # for i in range(len(circuito)):
+            # string = string + ("\n")
+            # for j in range(len(circuito[i])):
+                # if (circuito[i][j] == x):
+                    # string = string + "X"
+                # if (circuito[i][j] == z):
+                    # string = string + "-"
+                # if (circuito[i][j] == p):
+                    # string = string + "P"
+                # if (circuito[i][j] == f):
+                    # string = string + "F"
+
+        # return string
