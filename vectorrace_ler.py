@@ -103,6 +103,8 @@ class Application(Frame):
                         end_barrier = help_barriers(line[c2:], c2+1)
                         barriers.append(LineSegment(Point(line[c2], c), Point(line[end_barrier], c)))
                         c2 == line[end_barrier]
+                    else:
+                        barriers.append(LineSegment(Point(line[c2], c), Point(line[c2], c)))
                 except IndexError:
                     break
                 c2 += 1
