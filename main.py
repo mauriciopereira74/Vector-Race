@@ -116,7 +116,7 @@ Estado Possíveis:
 	-> Movimentar-se para a diagonal superior esquerda;
 	-> Movimentar-se para a diagonal superior direita;
 	-> Movimentar-se para a diagonal inferior esquerda;
-	-> Movimentar-se para a diagonal inferior direita.
+	-> 4Movimentar-se para a diagonal inferior direita.
 
 Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos limites da pista este tem um custo de vinte e cinco unidades.
 
@@ -266,9 +266,9 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         print(problema.mostraCaminho(pathCompleto))
                     l = input("Prima ENTER para continuar")
                 elif saida4 == 3:
-                    print("Nada (para já)")
+                    print("A definir..")
                 elif saida4 == 4:
-                    print("Nada (para já)")
+                    print("A definir..")
                 else:
                     print("Introduza um número válido\n")
                     continue        
