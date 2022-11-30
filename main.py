@@ -200,7 +200,7 @@ def main():
                     print("Introduza um número válido\n")
                     continue
                 if saida4 == 9:
-                    print("Men Anterior...")
+                    print("Menu Anterior...")
                     break;
                 elif saida4 == 0:
                     print("Saindo...")
