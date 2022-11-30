@@ -91,7 +91,30 @@ def main():
         elif saida == 1:
             # while saida2 != 0:
             print("\n|------- FORMULACAO DO PROBLEMA --------|")
-            print("A definir...")
+            t = """
+Estado Inicial: Ponto de Partida (x,y), posição inicial onde o Jogador P se encontra definido nas coordenadas cartesianas.
+Estado Final/Teste Objetivo: Cruzar a meta, ou seja, o Jogador P sobrepor a meta F, igualmente definido por coordenadas cartesianas.
+Operadores:
+	Esquerda: O jogador com Velocidade v e Aceleração a deseja movimentar-se para a esquerda. Se a posição estiver livre, identificada por -, o Jogador movimenta-se, aumentando a sua Velocidade e atualizando a sua Posição. Caso esteja ocupada, identificada por X, o Jogador fica com Velocidade igual zero e mantém-se na mesma posição;
+	Direita: O jogador com Velocidade v e Aceleração a deseja movimentar-se para a direita. Se a posição estiver livre, identificada por -, o Jogador movimenta-se, aumentando a sua Velocidade e atualizando a sua Posição. Caso esteja ocupada, identificada por X, o Jogador fica com Velocidade igual zero e mantém-se na mesma posição;
+	Cima: O jogador com Velocidade v e Aceleração a deseja movimentar-se para cima. Se a posição estiver livre, identificada por -, o Jogador movimenta-se, aumentando a sua Velocidade e atualizando a sua Posição. Caso esteja ocupada, identificada por X, o Jogador fica com Velocidade igual zero e mantém-se na mesma posição;
+	Baixo: O jogador com Velocidade v e Aceleração a deseja movimentar-se para baixo. Se a posição estiver livre, identificada por -, o Jogador movimenta-se, aumentando a sua Velocidade e atualizando a sua Posição, Caso esteja ocupada, identificada por X, o Jogador fica com Velocidade igual zero e mantém-se na mesma posição.
+Estado Possíveis:} 
+	Parado após bater em obstáculo;
+	Parado após sair dos limites da pista;
+	Movimentar-se para a frente;
+	Movimentar-se para trás;
+	Movimentar-se para a esquerda;
+	Movimentar-se para a direita;
+	Movimentar-se para a diagonal superior esquerda;
+	Movimentar-se para a diagonal superior direita;
+	Movimentar-se para a diagonal inferior esquerda;
+	Movimentar-se para a diagonal inferior direita.
+
+Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos limites da pista este tem um custo de vinte e cinco unidades.
+
+"""
+            print(t)
             l = input("Prima ENTER para continuar")
         elif saida == 2:
             while saida2 != 0:
