@@ -14,7 +14,8 @@ def main():
     readClass = readFile("")
     posInit = readClass.PInicialXY()
     posFinal = readClass.PFinalXY()
-    problema = Race("", posInit, posFinal, "(0,0)")
+    posCheckpoint = readClass.PCheckXY()
+    problema = Race("", posInit, posFinal, posCheckpoint, "(0,0)")
     
     saida = -1
     saida2 = -1
@@ -76,7 +77,8 @@ def main():
                     readClass = readFile(circuito_path)
                     posInit = readClass.PInicialXY()
                     posFinal = readClass.PFinalXY()
-                    problema = Race(circuito_path, posInit, posFinal, "(0,0)")
+                    posCheckpoint = readClass.PCheckXY()
+                    problema = Race(circuito_path, posInit, posFinal, posCheckpoint, "(0,0)")
                     default = f"circuito{saidaCir2}.txt"
                     break;
                 else:
@@ -198,7 +200,7 @@ def main():
                     print("Introduza um número válido\n")
                     continue
                 if saida4 == 9:
-                    print("Menu Anterior...")
+                    print("Men Anterior...")
                     break;
                 elif saida4 == 0:
                     print("Saindo...")
@@ -213,12 +215,25 @@ def main():
                     #print(problema.mostraCaminho(path))
                     #l = input("Prima ENTER para continuar")
                 elif saida4 == 2:
-                    caminho = problema.g.procura_BFS(posInit,posFinal)
-                    path, custo = caminho  # type: ignore
-                    print("\nCaminho encontrado: ", end="")
-                    print(*path, sep=' -> ')
-                    print(f"Custo Total: {str(custo)}\n")
-                    print(problema.mostraCaminho(caminho[0]))
+                    if posCheckpoint == None:
+                        caminho = problema.g.procura_BFS(posInit,posFinal)
+                        path, custo = caminho  # type: ignore
+                        print("\nCaminho encontrado: ", end="")
+                        print(*path, sep=' -> ')
+                        print(f"Custo Total: {str(custo)}\n")
+                        print(problema.mostraCaminho(caminho[0]))
+                    else:
+                        caminho1 = problema.g.procura_BFS(posInit, posCheckpoint)
+                        path1, custo1 = caminho1  # type: ignore
+                        caminho2 = problema.g.procura_BFS(posCheckpoint, posFinal)
+                        path2, custo2 = caminho2  # type: ignore
+                        path2.pop(0)
+                        pathCompleto = path1 + path2
+                        custoTotal = custo1 + custo2
+                        print("\nCaminho encontrado: ", end="")
+                        print(*pathCompleto, sep=' -> ')
+                        print(f"Custo Total: {str(custoTotal)}\n")
+                        print(problema.mostraCaminho(pathCompleto))
                     l = input("Prima ENTER para continuar")
                 elif saida4 == 3:
                     print("Nada (para já)")

@@ -8,7 +8,7 @@ class Race():
     # Posição -> "(10,20)"
     # Velocidade ->  "(1,2)"
     # AceleraçãoX -> 1 e AceleracaoY -> 0
-    def __init__(self, circuito_path, startt, endd, velocidade):
+    def __init__(self, circuito_path, startt, endd, checkpoint, velocidade):
         # Grafo
         self.g = Grafo(directed=True)  # Verificar directed
         # Posição Atual
@@ -37,7 +37,7 @@ class Race():
             nestedCircuito.append([c for c in lin])
 
         self.cria_grafo()
-        print(f"Ponto Final: {end}; Ponto Incial: {start}")
+        print(f"Ponto Final: {end}; Ponto Incial: {start}; Ponto Checkpoint: {checkpoint}")
 
     # Funcao que dado um circuito devolve em string
     def circuitoAsString(self, circuitoArr):
@@ -151,6 +151,9 @@ class Race():
                      #self.velocidade = "(0,0)"
                 elif nestedCircuito[p[0]][p[1]] == "F":
                      #self.posicao = self.posicaoNextString(p)
+                     pontosPossiveis.append(self.posicaoNextString(p))
+                     velocidades.append(self.velocidadeNextString(listaVs[idx]))
+                elif nestedCircuito[p[0]][p[1]] == "C":
                      pontosPossiveis.append(self.posicaoNextString(p))
                      velocidades.append(self.velocidadeNextString(listaVs[idx]))
                      #self.velocidade = self.velocidadeNextString(listaVs[idx])

@@ -120,6 +120,8 @@ class app:
             elif temp == "  ":
                 buttons[row][col].config(text='P', bg='green')
             elif temp == "P":
+                buttons[row][col].config(text='C', bg='yellow')
+            elif temp == "C":
                 buttons[row][col].config(text='F', bg='red')
             elif temp == "F":
                 buttons[row][col].config(text='X', bg='black')
@@ -139,6 +141,7 @@ class app:
                     text_in_button = buttons_aux[linha][coluna]
                     if text_in_button == 'X': color = 'black'
                     elif text_in_button == 'P': color = 'green'
+                    elif text_in_button == 'C': color = 'yellow'
                     elif text_in_button == 'F': color = 'red'
                     elif text_in_button == '-': 
                         color = 'white'

@@ -44,6 +44,13 @@ class readFile:
           for j in range(len(circuito[i])):
               if circuito[i][j] == "F":
                   return f"({i},{j})"
+
+    def PCheckXY(self):
+        for i in range(len(circuito)):
+          for j in range(len(circuito[i])):
+              if circuito[i][j] == "C":
+                  return f"({i},{j})"
+        return None
                 
     def demonstra(self):
         res = "\n    "
