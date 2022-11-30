@@ -42,6 +42,17 @@ class Application2(Frame):
 
             return circuito
 
+        def checkpoints(circuito, check):
+            ind = len(circuito) - check[1] - 1
+            tmp = list(circuito[ind])
+            tmp[check[0]] = 'C'
+            tmp2 = ""
+            for x in tmp:
+                tmp2 += x
+            circuito[ind] = tmp2
+
+            return circuito
+
         def barreiras(circuito, p1, p2):
             ind = len(circuito) - p1[1] - 1
             tmp = list(circuito[ind])
@@ -78,7 +89,8 @@ class Application2(Frame):
 
         barriers = []
         num_barriers = int(input("Quantas barreiras vao ser adicionadas? "))
-        print("Cada barreira e uma linha reta entre 2 pontos. Portanto, para cada barreira e necessario ter as coordenadas de 2 pontos.")
+        if num_barriers > 0:
+            print("Cada barreira e uma linha reta entre 2 pontos. Portanto, para cada barreira e necessario ter as coordenadas de 2 pontos.")
         for x in range(num_barriers):
             p1_i = eval(input("Coordenadas do ponto 1 da barreira {}: ".format(x+1)))
             p1 = Point(p1_i[0], p1_i[1]) 
@@ -87,6 +99,15 @@ class Application2(Frame):
             barriers.append(LineSegment(p1, p2))
             txt_circuito = barreiras(txt_circuito, p1_i, p2_i)
 
+        checks = []
+        num_checks = int(input("Quantos checkpoints vao ser adicionados? "))
+        if num_checks > 0:
+            print("Cada checkpoint corresponde a um ponto. As coordenadas precisam de ser dadas em forma de tuplo. Ex: (0,0)")
+        for x in range(num_checks):
+            c = eval(input("Coordenadas do checkpoint {}: ".format(x+1)))
+            checks.append(Point(c[0], c[1]))
+            txt_circuito = checkpoints(txt_circuito, c)
+
         path = "./Circuitos/circuito" + str(get_next_file_num() + 1) + ".txt"
         circuito_export = open(path, "w")
         for line in txt_circuito:
@@ -94,7 +115,7 @@ class Application2(Frame):
             circuito_export.write('\n')
         circuito_export.close()
 
-        self.track = Track(largura - 2, altura - 2, start, finish, barriers)
+        self.track = Track(largura - 2, altura - 2, start, finish, barriers, checks)
 
     def createWidgets(self):
         top = self.winfo_toplevel()

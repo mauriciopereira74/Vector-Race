@@ -131,10 +131,13 @@ class LineSegment(object):
         return self.p0.isIntegral() and self.p1.isIntegral()
 
 class Track(object):
-	def __init__(self, width, height, start, finish, barriers=None):
+	def __init__(self, width, height, start, finish, barriers=None, checks=None):
 		if barriers == None:
 			barriers = []
-			
+
+		if checks == None:
+			checks = []
+
 		self.start = start
 		self.finish = finish
 		p0 = Point(x = 0, y = 0)
@@ -146,6 +149,7 @@ class Track(object):
 		self.barriers = [LineSegment(p0, p1), LineSegment(p1, p2), 
 						 LineSegment(p2, p3), LineSegment(p3, p0)]
 		self.addBarriers(barriers)
+		self.checks = checks
 
 	def addBarriers(self, barriers):
 		self.barriers.extend(barriers)

@@ -62,6 +62,7 @@ class Application(Frame):
         altura = len(lines)
 
         # get start and finish coordinates
+        checks = []
         y = -1
         for line in reversed(lines):
             y += 1
@@ -70,6 +71,8 @@ class Application(Frame):
                     start = Point(x, y)
                 elif line[x] == 'F':
                     finish = Point(x, y)
+                elif line[x] == 'C':
+                    checks.append(Point(x, y))
 
         # get barriers
         barriers = []
@@ -109,7 +112,7 @@ class Application(Frame):
                     break
                 c2 += 1
 
-        self.track = Track(largura - 3, altura - 2, start, finish, barriers)
+        self.track = Track(largura - 3, altura - 2, start, finish, barriers, checks)
 
     def createWidgets(self):
         top = self.winfo_toplevel()
