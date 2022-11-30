@@ -29,7 +29,7 @@ class Application(Frame):
         tmp = ""
         for x in range(len(lines)):
             tmp += lines[x][:-1]
-        if (tmp.count('P') != 1) or (tmp.count('F') != 1):
+        if (tmp.count('P') != 1) or (tmp.count('F') != 1) or (tmp.count('C') > 1):
             print("Circuito invalido.")
             sys.exit()
 

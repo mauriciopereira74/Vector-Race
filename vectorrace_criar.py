@@ -100,10 +100,9 @@ class Application2(Frame):
             txt_circuito = barreiras(txt_circuito, p1_i, p2_i)
 
         checks = []
-        num_checks = int(input("Quantos checkpoints vao ser adicionados? "))
-        if num_checks > 0:
-            print("Cada checkpoint corresponde a um ponto. As coordenadas precisam de ser dadas em forma de tuplo. Ex: (0,0)")
-        for x in range(num_checks):
+        checks_ver = input("Deseja adicionar um checkpoint? (s/n)")
+        if checks_ver == "s":
+            print("Um checkpoint corresponde a um ponto. As coordenadas precisam de ser dadas em forma de tuplo. Ex: (0,0)")
             c = eval(input("Coordenadas do checkpoint {}: ".format(x+1)))
             checks.append(Point(c[0], c[1]))
             txt_circuito = checkpoints(txt_circuito, c)
