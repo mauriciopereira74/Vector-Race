@@ -91,37 +91,7 @@ def main():
         elif saida == 1:
             # while saida2 != 0:
             print("\n|------- FORMULACAO DO PROBLEMA --------|")
-            t = """
-Estado Inicial: Ponto de Partida (x,y), posição inicial onde o Jogador P se encontra definido nas coordenadas cartesianas.
-
-Estado Final/Teste Objetivo: Cruzar a meta, ou seja, o Jogador P sobrepor a meta F, igualmente definido por coordenadas cartesianas.
-
-Operadores:
-	-> Esquerda: O jogador com Velocidade v e Aceleração a deseja movimentar-se para a esquerda. Se a posição estiver livre, identificada por -, 
-o Jogador movimenta-se, aumentando a sua Velocidade e atualizando a sua Posição. Caso esteja ocupada, identificada por X, o Jogador fica com Velocidade igual zero e mantém-se na mesma posição;
-	-> Direita: O jogador com Velocidade v e Aceleração a deseja movimentar-se para a direita. Se a posição estiver livre, identificada por -, 
-o Jogador movimenta-se, aumentando a sua Velocidade e atualizando a sua Posição. Caso esteja ocupada, identificada por X, o Jogador fica com Velocidade igual zero e mantém-se na mesma posição;
-	-> Cima: O jogador com Velocidade v e Aceleração a deseja movimentar-se para cima. Se a posição estiver livre, identificada por -,
-o Jogador movimenta-se, aumentando a sua Velocidade e atualizando a sua Posição. Caso esteja ocupada, identificada por X, o Jogador fica com Velocidade igual zero e mantém-se na mesma posição;
-	-> Baixo: O jogador com Velocidade v e Aceleração a deseja movimentar-se para baixo. Se a posição estiver livre, identificada por -, 
-o Jogador movimenta-se, aumentando a sua Velocidade e atualizando a sua Posição, Caso esteja ocupada, identificada por X, o Jogador fica com Velocidade igual zero e mantém-se na mesma posição.
-
-Estado Possíveis: 
-	-> Parado após bater em obstáculo;
-	-> Parado após sair dos limites da pista;
-	-> Movimentar-se para a frente;
-	-> Movimentar-se para trás;
-	-> Movimentar-se para a esquerda;
-	-> Movimentar-se para a direita;
-	-> Movimentar-se para a diagonal superior esquerda;
-	-> Movimentar-se para a diagonal superior direita;
-	-> Movimentar-se para a diagonal inferior esquerda;
-	-> 4Movimentar-se para a diagonal inferior direita.
-
-Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos limites da pista este tem um custo de vinte e cinco unidades.
-
-"""
-            print(t)
+            print("A definir...")
             l = input("Prima ENTER para continuar")
         elif saida == 2:
             while saida2 != 0:
@@ -209,16 +179,17 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     continue                
         elif saida == 4:
             while saida4 != 0:
-                caminho = []
                 print("\n|-------------- ALGORITMOS -------------|")
-                print("|---------------------------------------|")
+                print("|--------ALGORITMOS NÃO INFORMADOS------|")
                 print("|- 1 -> Algoritmo em Profundidade(DFS) -|")
-                print("|---------------------------------------|")
                 print("|---- 2 -> Algoritmo em Largura(BFS) ---|")
                 print("|---------------------------------------|")
+                print("|--------- ALGORITMOS INFORMADOS -------|")
                 print("|---------- 3 -> Algoritmo A* ----------|")
+                print("|---------- 31 -> Heurística A* --------|")
                 print("|---------------------------------------|")
                 print("|-------- 4 -> Algoritmo Greedy --------|")
+                print("|-------- 41 -> Heurística Greedy ------|")
                 print("|---------------------------------------|")
                 print("|------------- 9 -> Voltar -------------|")
                 print("|-------------- 0 -> Sair --------------|")
@@ -230,22 +201,23 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     print("Introduza um número válido\n")
                     continue
                 if saida4 == 9:
-                    print("Menu Anterior...")
+                    print("Men Anterior...")
                     break;
                 elif saida4 == 0:
                     print("Saindo...")
                     saida = 0
                 elif saida4 == 1:
                     print("Nada (para já)")
-                    #caminho = problema.g.procura_DFS(posInit,posFinal)
-                    #path, custo = caminho  # type: ignore
-                    #print("\nCaminho encontrado: ", end="")
-                    #print(*path, sep=' -> ')
-                    #print(f"Custo Total: {str(custo)}\n")
-                    #print(problema.mostraCaminho(path))
-                    #l = input("Prima ENTER para continuar")
+                    caminho = problema.g.procura_DFS(posInit,posFinal)
+                    path, custo = caminho  # type: ignore
+                    print("\nCaminho encontrado: ", end="")
+                    print(*path, sep=' -> ')
+                    print(f"Custo Total: {str(custo)}\n")
+                    print(problema.mostraCaminho(path))
+                    l = input("Prima ENTER para continuar")
                 elif saida4 == 2:
                     if posCheckpoint == None:
+                        caminho = []
                         caminho = problema.g.procura_BFS(posInit,posFinal)
                         path, custo = caminho  # type: ignore
                         print("\nCaminho encontrado: ", end="")
@@ -253,8 +225,11 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         print(f"Custo Total: {str(custo)}\n")
                         print(problema.mostraCaminho(caminho[0]))
                     else:
+                        caminho1 = []
+                        caminho2 = []
                         caminho1 = problema.g.procura_BFS(posInit, posCheckpoint)
                         path1, custo1 = caminho1  # type: ignore
+                        print(caminho1)
                         caminho2 = problema.g.procura_BFS(posCheckpoint, posFinal)
                         path2, custo2 = caminho2  # type: ignore
                         path2.pop(0)
@@ -266,9 +241,31 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         print(problema.mostraCaminho(pathCompleto))
                     l = input("Prima ENTER para continuar")
                 elif saida4 == 3:
-                    print("A definir..")
+                    caminho = problema.g.procura_aStar(posInit,posFinal)
+                    path, custo = caminho  # type: ignore
+                    problema.g.heuristica_aStar(posFinal)
+                    print(problema.g.m_h)
+                    print("\nCaminho encontrado: ", end="")
+                    print(*path, sep=' -> ')
+                    print(f"Custo Total: {str(custo)}\n")
+                    print(problema.mostraCaminho(path))
+                    l = input("Prima ENTER para continuar")
+                elif saida4 == 31:
+                    problema.g.heuristica_aStar(posFinal)
+                    print(problema.g.m_h)
                 elif saida4 == 4:
-                    print("A definir..")
+                    problema.g.heuristica_aStar(posFinal)
+                    print(problema.g.m_h)
+                    caminho = problema.g.greedy(posInit,posFinal)
+                    path, custo = caminho  # type: ignore
+                    print("\nCaminho encontrado: ", end="")
+                    print(*path, sep=' -> ')
+                    print(f"Custo Total: {str(custo)}\n")
+                    print(problema.mostraCaminho(path))
+                    l = input("Prima ENTER para continuar")
+                elif saida4 == 41:
+                    problema.g.heuristica_aStar(posFinal)
+                    print(problema.g.m_h)
                 else:
                     print("Introduza um número válido\n")
                     continue        

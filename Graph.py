@@ -103,6 +103,7 @@ class Grafo:
             custoT = self.calcula_custo(path)
             return (path, custoT)
         for (adjacente, peso) in self.m_graph[start]:
+            print(f"adjacentes : {adjacente}\visited : {visited}")
             if adjacente not in visited:
                 resultado = self.procura_DFS(adjacente, end, path, visited)
                 if resultado is not None:
@@ -190,8 +191,29 @@ class Grafo:
     # Nota -> apenas para teste de pesquisa informada
     def heuristica(self):
         nodos = self.m_graph.keys()
+        for s in nodos:
+            print(s, i)
+            # self.m_h[n] = 1
+        return (True)
+
+    def getDistance(self, i, f):
+        x, y = i
+        xf, yf = f
+        dx = abs(x - xf)
+        dy = abs(y - yf)
+        return 1 * (dx + dy) * min(dx, dy)
+
+    def PStrTuple(self, pontoString):
+        res = pontoString[1:-1]
+        res = res.split(',')
+        resint = list(map(int, res))
+        tup = (resint[0], resint[1])
+        return tup
+
+    def heuristica_aStar(self, nFinal):
+        nodos = self.m_graph.keys()
         for n in nodos:
-            self.m_h[n] = 1
+            self.m_h[n] = self.getDistance(self.PStrTuple(n), self.PStrTuple(nFinal))
         return (True)
 
 
@@ -205,6 +227,13 @@ class Grafo:
                 min_estima = v
                 node = k
         return node
+        
+    # Devolve heuristica do nodo
+    def getH(self, nodo):
+        if nodo not in self.m_h.keys():
+            return 1000
+        else:
+            return (self.m_h[nodo])
 
     # Algoritmo A*
     def procura_aStar(self, start, end):
@@ -287,12 +316,6 @@ class Grafo:
         print('Path does not exist!')
         return None
 
-    # Devolve heuristica do nodo
-    def getH(self, nodo):
-        if nodo not in self.m_h.keys():
-            return 1000
-        else:
-            return (self.m_h[nodo])
 
 
     # Algoritmo Greedy

@@ -1,0 +1,15 @@
+XXXXXXXXXXXXXXX
+XX-P---------XX
+XX-----------XX
+XX-----------XX
+XX-XXXX-XX---XX
+XX-----------XX
+XX--X--------XX
+XXX-XX-XX-X-XXX
+XXXXXX-XXXX-XXX
+XXXX--------XXX
+XX-----XX---XXX
+XX----------XXX
+XX------X-F-XXX
+XX----------XXX
+XXXXXXXXXXXXXXX
