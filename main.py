@@ -21,6 +21,7 @@ def main():
     saida2 = -1
     saida3 = -1
     saida4 = -1
+    saida5 = -1
     saidaCir = -1
     saidaCir2 = -2
 
@@ -37,6 +38,8 @@ def main():
         print("|---- 3 -> Pista em Forma de Grafo -----|")
         print("|---------------------------------------|")
         print("|----- 4 -> Estratégia de Procura ------|")
+        print("|---------------------------------------|")
+        print("|------ 5 -> Ambiente Competitivo ------|")
         print("|---------------------------------------|")
         print("|-------------- 0 -> Sair --------------|")
         print("|---------------------------------------|")
@@ -111,7 +114,7 @@ def main():
                    saida2 = int(saida2)
                 except ValueError:
                     print("Introduza um número válido\n")
-                    continue                
+                    continue
                 if saida2 == 9:
                     print("Menu Anterior...")
                     break;
@@ -131,7 +134,7 @@ def main():
                     app2 = Application2()
                     app2.mainloop()
                     l = input("Prima ENTER para continuar")
-                else: 
+                else:
                     print("Introduza um número válido\n")
                     continue
 
@@ -155,7 +158,7 @@ def main():
                    saida3 = int(saida3)
                 except ValueError:
                     print("Introduza um número válido\n")
-                    continue                
+                    continue
                 if saida3 == 9:
                     print("Menu Anterior...")
                     break;
@@ -176,7 +179,7 @@ def main():
                     l = input("Prima ENTER para continuar")
                 else:
                     print("Introduza um número válido\n")
-                    continue                
+                    continue
         elif saida == 4:
             while saida4 != 0:
                 print("\n|-------------- ALGORITMOS -------------|")
@@ -268,7 +271,44 @@ def main():
                     print(problema.g.m_h)
                 else:
                     print("Introduza um número válido\n")
-                    continue        
+                    continue
+        elif saida == 5:
+            while saida5 != 0:
+                print("\n|-------- AMBIENTE COMPETITIVO ---------|")
+                print("|---------------------------------------|")
+                print("|------------ 1 -> Jogador1 ------------|")
+                print("|---------------------------------------|")
+                print("|------------ 2 -> Jogador2 ------------|")
+                print("|---------------------------------------|")
+                print("|------------- 3 -> Jogar --------------|")
+                print("|---------------------------------------|")
+                print("|------------- 9 -> Voltar -------------|")
+                print("|-------------- 0 -> Sair --------------|")
+                print("|---------------------------------------|")
+                saida5 = input("\nIntroduza a sua Opção -> ")
+                try:
+                   saida5 = int(saida5)
+                except ValueError:
+                    print("Introduza um número válido\n")
+                    continue
+                if saida5 == 9:
+                    print("Menu Anterior...")
+                    break;
+                elif saida5 == 0:
+                    print("Saindo...")
+                    saida = 0
+                elif saida5 == 1:
+                    print("A definir..")
+                    l = input("Prima ENTER para continuar")
+                elif saida5 == 2:
+                    print("A definir..")
+                    l = input("Prima ENTER para continuar")
+                elif saida5 == 3:
+                    print("A definir..")
+                    l = input("Prima ENTER para continuar")
+                else:
+                    print("Introduza um número válido\n")
+                    continue
         else:
             print("Introduza um número válido\n")
             continue

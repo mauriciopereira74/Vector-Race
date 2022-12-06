@@ -192,7 +192,7 @@ class Grafo:
     def heuristica(self):
         nodos = self.m_graph.keys()
         for s in nodos:
-            print(s, i)
+            print(s)
             # self.m_h[n] = 1
         return (True)
 
