@@ -22,6 +22,9 @@ def main():
     saida3 = -1
     saida4 = -1
     saida5 = -1
+    saida51 = -1
+    saida52 = -1
+    saida53 = -1
     saidaCir = -1
     saidaCir2 = -2
 
@@ -233,7 +236,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     print("Introduza um número válido\n")
                     continue
                 if saida4 == 9:
-                    print("Men Anterior...")
+                    print("Menu Anterior...")
                     break;
                 elif saida4 == 0:
                     print("Saindo...")
@@ -327,13 +330,61 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     print("Saindo...")
                     saida = 0
                 elif saida5 == 1:
-                    print("A definir..")
-                    l = input("Prima ENTER para continuar")
+                    while saida51 != 0:
+                        print("\n|-------------- JOGADOR 1 --------------|")
+                        print("|---------------------------------------|")
+                        print("|------- ALGORITMOS NÃO INFORMADOS -----|")
+                        print("|- 1 -> Algoritmo em Profundidade(DFS) -|")
+                        print("|---- 2 -> Algoritmo em Largura(BFS) ---|")
+                        print("|---------------------------------------|")
+                        print("|--------- ALGORITMOS INFORMADOS -------|")
+                        print("|---------- 3 -> Algoritmo A* ----------|")
+                        print("|-------- 4 -> Algoritmo Greedy --------|")
+                        print("|---------------------------------------|")
+                        print("|------------- 9 -> Voltar -------------|")
+                        print("|-------------- 0 -> Sair --------------|")
+                        print("|---------------------------------------|")
+                        saida51 = input("\nIntroduza a sua Opção -> ")
+                        try:
+                            saida51 = int(saida51)
+                        except ValueError:
+                            print("Introduza um número válido\n")
+                            continue
+                        if saida51 == 9:
+                            print("Menu Anterior...")
+                            break;
+                        elif saida51 == 0:
+                            print("Saindo...")
+                            saida5 = 0
                 elif saida5 == 2:
-                    print("A definir..")
-                    l = input("Prima ENTER para continuar")
+                    while saida52 != 0:
+                        print("\n|-------------- JOGADOR 2 --------------|")
+                        print("|---------------------------------------|")
+                        print("|------- ALGORITMOS NÃO INFORMADOS -----|")
+                        print("|- 1 -> Algoritmo em Profundidade(DFS) -|")
+                        print("|---- 2 -> Algoritmo em Largura(BFS) ---|")
+                        print("|---------------------------------------|")
+                        print("|--------- ALGORITMOS INFORMADOS -------|")
+                        print("|---------- 3 -> Algoritmo A* ----------|")
+                        print("|-------- 4 -> Algoritmo Greedy --------|")
+                        print("|---------------------------------------|")
+                        print("|------------- 9 -> Voltar -------------|")
+                        print("|-------------- 0 -> Sair --------------|")
+                        print("|---------------------------------------|")
+                        saida52 = input("\nIntroduza a sua Opção -> ")
+                        try:
+                            saida52 = int(saida52)
+                        except ValueError:
+                            print("Introduza um número válido\n")
+                            continue
+                        if saida51 == 9:
+                            print("Menu Anterior...")
+                            break;
+                        elif saida52 == 0:
+                            print("Saindo...")
+                            saida5 = 0
                 elif saida5 == 3:
-                    print("A definir..")
+                    print("Jogar - MARTIM")
                     l = input("Prima ENTER para continuar")
                 else:
                     print("Introduza um número válido\n")
