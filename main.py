@@ -389,6 +389,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                 else:
                     print("Introduza um número válido\n")
                     continue
+
         else:
             print("Introduza um número válido\n")
             continue
