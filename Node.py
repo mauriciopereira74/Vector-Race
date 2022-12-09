@@ -9,6 +9,7 @@ class Node:
         self.m_id = id
         self.m_name = str(name)
         # posteriormente podera ser colocodo um objeto que armazena informação em cada nodo.....
+        # {'(1,2)': (4,5)}
 
     def __str__(self):
         return "node " + self.m_name
