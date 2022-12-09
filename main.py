@@ -439,7 +439,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         break
                     elif saida52 != selectedAlg and x:
                         print("A abrir a UI...")
-                        funcao(saida51, saida52, path, path2, default)
+                        #funcao(saida51, saida52, path, path2, default)
                         #codigo que chama a UI
                         l = input("Prima ENTER para continuar")
                 if saida52 == 0:
