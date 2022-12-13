@@ -4,6 +4,7 @@ from tkinter import *
 from track import *
 from vectorrace_ler import *
 from vectorrace_criar import *
+from vectorrace_comp import *
 from tk import TrackView
 from os import listdir
 from os.path import isfile, join
@@ -441,6 +442,8 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         print("A abrir a UI...")
                         #funcao(saida51, saida52, path, path2, default)
                         #codigo que chama a UI
+                        app = Application3(default, path, path2)
+                        app.mainloop()
                         l = input("Prima ENTER para continuar")
                 if saida52 == 0:
                     saida = 0

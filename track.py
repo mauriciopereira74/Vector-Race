@@ -131,15 +131,18 @@ class LineSegment(object):
         return self.p0.isIntegral() and self.p1.isIntegral()
 
 class Track(object):
-	def __init__(self, width, height, start, finish, barriers=None, checks=None, solution=None):
+	def __init__(self, width, height, start, finish, barriers=None, checks=None, path1=None, path2=None):
 		if barriers == None:
 			barriers = []
 
 		if checks == None:
 			checks = []
 
-		if solution == None:
-			solution = []
+		if path1 == None:
+			path1 = []
+
+		if path2 == None:
+			path2 = []
 
 		self.start = start
 		self.finish = finish
@@ -154,16 +157,22 @@ class Track(object):
 		self.addBarriers(barriers)
 		self.checks = checks
 
-		self.caminho = [ (1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (1,7), (1,8), (2,7), (2,6), (2,5), (2,4), (3,5), (3,6), (3,7), (2,8), (2,9), (3,8), (4,7), (4,8), (4,9), (4,10), (4,11), (4,12), (5,11), (5,10), (5,9), (5,8), (6,9), (6,10), (6,11), (5,12), (6,12)]
+		self.solution1 = []
+		for x in range(len(path1) - 1):
+			diff = height - eval(path1[x])[0] + 1
+			diff2 = height - eval(path1[x+1])[0] + 1
+			p0 = Point(eval(path1[x])[1], diff)
+			p1 = Point(eval(path1[x+1])[1], diff2)
+			self.solution1.append(LineSegment(p0, p1))
 
-		self.solution = []
-		for x in range(len(self.caminho) - 1):
-			diff = height - self.caminho[x][0] + 1
-			diff2 = height - self.caminho[x+1][0] + 1
-			p0 = Point(self.caminho[x][1], diff)
-			p1 = Point(self.caminho[x+1][1], diff2)
-			self.solution.append(LineSegment(p0, p1))
-
+		self.solution2 = []
+		for x in range(len(path2) - 1):
+			diff = height - eval(path2[x])[0] + 1
+			diff2 = height - eval(path2[x+1])[0] + 1
+			p0 = Point(eval(path2[x])[1], diff)
+			p1 = Point(eval(path2[x+1])[1], diff2)
+			self.solution2.append(LineSegment(p0, p1))
+	
 	def addBarriers(self, barriers):
 		self.barriers.extend(barriers)
 

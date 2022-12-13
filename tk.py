@@ -105,10 +105,16 @@ class TrackView(ZoomingCanvas):
             self.create_rectangle(cx-2, cy-2, cx+2, cy+2,
                          outline = "yellow", fill = "yellow", tags='checks')
 
-        for l in track.solution:
+        for l in track.solution1:
             self.create_line(self.stat2canx(l.p0.x), self.stat2cany(l.p0.y),
             self.stat2canx(l.p1.x), self.stat2cany(l.p1.y),
             fill='yellow', width=20, capstyle=tk.PROJECTING,
+            tags='solution')
+
+        for l in track.solution2:
+            self.create_line(self.stat2canx(l.p0.x), self.stat2cany(l.p0.y),
+            self.stat2canx(l.p1.x), self.stat2cany(l.p1.y),
+            fill='blue', width=10, capstyle=tk.PROJECTING,
             tags='solution')
 
         cx = self.stat2canx(track.start.x)
