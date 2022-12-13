@@ -1,8 +1,10 @@
 XXXXXXXXXXXXXX
 XXXXXXXXX----X
+X---P--------X
+X---XXXXX----X
 X------------X
-X------------X
-X------------X
-X------------X
-X-----------FX
+X--XXXXXXXXXXX
+XX-----------X
+X--xxxxxxx---X
+X----------F-X
 XXXXXXXXXXXXXX
