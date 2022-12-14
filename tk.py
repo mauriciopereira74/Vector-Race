@@ -120,10 +120,28 @@ class TrackView(ZoomingCanvas):
         self.create_text(10, 40, text="Verde -> Partida\nVermelho -> Chegada\nRoxo -> Checkpoint", fill="black", font=('Ubuntu 20'))
 
         if track.solution1 != []:
-            self.create_text(10, 55, text="Amarelo -> Jogador 1", fill="black", font=('Ubuntu 20'))
+            if track.alg1 == 1:
+                tmp_alg = "DFS"
+            elif track.alg1 == 2:
+                tmp_alg = "BFS"
+            elif track.alg1 == 3:
+                 tmp_alg = "A*"
+            elif track.alg1 == 4:
+                 tmp_alg = "Greedy"
+            tmp_txt = "Amarelo -> Jogador 1" + " (" + tmp_alg + ", custo -> " + str(track.custo1) + ")"
+            self.create_text(10, 55, text=tmp_txt, fill="black", font=('Ubuntu 20'))
 
         if track.solution2 != []:
-            self.create_text(10, 60, text="Azul -> Jogador 2", fill="black", font=('Ubuntu 20'))
+            if track.alg2 == 1:
+                tmp_alg = "DFS"
+            elif track.alg2 == 2:
+                tmp_alg = "BFS"
+            elif track.alg2 == 3:
+                 tmp_alg = "A*"
+            elif track.alg2 == 4:
+                 tmp_alg = "Greedy"
+            tmp_txt = "Azul -> Jogador 2" + " (" + tmp_alg + ", custo -> " + str(track.custo2) + ")"
+            self.create_text(10, 60, text=tmp_txt, fill="black", font=('Ubuntu 20'))
 
         cx = self.stat2canx(track.start.x)
         cy = self.stat2cany(track.start.y)

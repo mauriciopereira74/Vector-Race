@@ -6,21 +6,27 @@ import re
 
 class Application3(Frame):
 
-    def __init__(self, default, path1, path2, master=None):
+    def __init__(self, default, path1, path2, alg1, alg2, custo1, custo2, master=None):
         Frame.__init__(self, master)
         self.grid(sticky=NSEW)
         self.default = default
         self.path1 = path1
         self.path2 = path2
+        self.custo1 = custo1
+        self.custo2 = custo2
 
-        self.readTrack(default, path1, path2)
+        self.readTrack(default, path1, path2, alg1, alg2, custo1, custo2)
         self.createWidgets()
 
-    def readTrack(self, default, path1, path2):
+    def readTrack(self, default, path1, path2, alg1, alg2, custo1, custo2):
 
         self.default = default
         self.path1 = path1
         self.path2 = path2
+        self.alg1 = alg1
+        self.alg2 = alg2
+        self.custo1 = custo1
+        self.custo2 = custo2
 
         default = "./Circuitos/" + default
         start = []
@@ -116,7 +122,7 @@ class Application3(Frame):
                     break
                 c2 += 1
 
-        self.track = Track(largura - 3, altura - 2, start, finish, barriers, checks, path1, path2)
+        self.track = Track(largura - 3, altura - 2, start, finish, barriers, checks, path1, path2, alg1, alg2, custo1, custo2)
 
     def createWidgets(self):
         top = self.winfo_toplevel()
