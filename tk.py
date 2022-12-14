@@ -79,7 +79,7 @@ class TrackView(ZoomingCanvas):
         ZoomingCanvas.__init__(self, parent, 10, -10, 
                                background='#b2b2b2', **kwargs)
 
-        self.create_text(45, -70, text="Circuito VectorRace", fill="black", font=('Ubuntu 20'))
+        self.create_text(45, -150, text="Circuito VectorRace", fill="black", font=('Ubuntu 20'))
 
         (xmin, ymin, xmax, ymax) = track.bbox()
         for x in range(xmin, xmax+1):
@@ -99,12 +99,6 @@ class TrackView(ZoomingCanvas):
                              fill='black', width=50, capstyle=tk.PROJECTING, 
                              tags='barrier')
 
-        for l in track.checks:
-            cx = self.stat2canx(l.x)
-            cy = self.stat2cany(l.y)
-            self.create_rectangle(cx-2, cy-2, cx+2, cy+2,
-                         outline = "yellow", fill = "yellow", tags='checks')
-
         for l in track.solution1:
             self.create_line(self.stat2canx(l.p0.x), self.stat2cany(l.p0.y),
             self.stat2canx(l.p1.x), self.stat2cany(l.p1.y),
@@ -116,6 +110,20 @@ class TrackView(ZoomingCanvas):
             self.stat2canx(l.p1.x), self.stat2cany(l.p1.y),
             fill='blue', width=10, capstyle=tk.PROJECTING,
             tags='solution')
+
+        for l in track.checks:
+            cx = self.stat2canx(l.x)
+            cy = self.stat2cany(l.y)
+            self.create_rectangle(cx-2, cy-2, cx+2, cy+2,
+                         outline = "purple", fill = "purple", tags='checks')
+        
+        self.create_text(10, 40, text="Verde -> Partida\nVermelho -> Chegada\nRoxo -> Checkpoint", fill="black", font=('Ubuntu 20'))
+
+        if track.solution1 != []:
+            self.create_text(10, 55, text="Amarelo -> Jogador 1", fill="black", font=('Ubuntu 20'))
+
+        if track.solution2 != []:
+            self.create_text(10, 60, text="Azul -> Jogador 2", fill="black", font=('Ubuntu 20'))
 
         cx = self.stat2canx(track.start.x)
         cy = self.stat2cany(track.start.y)
