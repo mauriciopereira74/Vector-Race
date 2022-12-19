@@ -103,8 +103,8 @@ class Grafo:
             custoT = self.calcula_custo(path)
             return (path, custoT)
         for (adjacente, peso) in self.m_graph[start]:
-            print(f"adjacentes : {adjacente}\visited : {visited}")
-            if adjacente not in visited:
+            # print(f"adjacentes : {adjacente}\visited : {visited}")
+            if peso!=25 and adjacente not in visited:
                 resultado = self.procura_DFS(adjacente, end, path, visited)
                 if resultado is not None:
                     return resultado
@@ -132,7 +132,7 @@ class Grafo:
                 path_found = True
             else:
                 for (adjacente, peso) in self.m_graph[nodo_atual]:
-                    if adjacente not in visited:
+                    if peso!=25 and adjacente not in visited:
                         fila.put(adjacente)
                         parent[adjacente] = nodo_atual
                         visited.add(adjacente)
@@ -213,7 +213,7 @@ class Grafo:
     def heuristica_aStar(self, nFinal):
         nodos = self.m_graph.keys()
         for n in nodos:
-            self.m_h[n] = self.getDistance(self.PStrTuple(n), self.PStrTuple(nFinal))
+            self.m_h[n] = self.getDistance(self.PStrTuple(n), self.PStrTuple(nFinal)) + 1
         return (True)
 
 
@@ -318,12 +318,23 @@ class Grafo:
 
 
 
+
+
+
+    def heuristica_greedy(self, nFinal):
+        nodos = self.m_graph.keys()
+        for n in nodos:
+            self.m_h[n] = self.getDistance(self.PStrTuple(n), self.PStrTuple(nFinal))
+        return (True)
+
+
     # Algoritmo Greedy
-    def greedy(self, start, end):
+    def greedy(self, start, end, flag):
         # open_list é uma lista de nodos visitados, mas com vizinhos
         # que ainda não foram todos visitados, começa com o  start
         # closed_list é uma lista de nodos visitados
         # e todos os seus vizinhos também já o foram
+        # if flag == True:
         open_list = set([start])
         closed_list = set([])
 
@@ -364,7 +375,7 @@ class Grafo:
             for (m, weight) in self.getNeighbours(n):
                 # Se o nodo corrente nao esta na open nem na closed list
                 # adiciona-lo à open_list e marcar o antecessor
-                if m not in open_list and m not in closed_list:
+                if weight!=25 and m not in open_list and m not in closed_list:
                     open_list.add(m)
                     parents[m] = n
 

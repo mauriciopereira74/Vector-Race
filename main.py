@@ -290,7 +290,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     problema.g.heuristica_aStar(posFinal)
                     print(problema.g.m_h)
                 elif saida4 == 4:
-                    problema.g.heuristica_aStar(posFinal)
+                    problema.g.heuristica_greedy(posFinal)
                     print(problema.g.m_h)
                     caminho = problema.g.greedy(posInit,posFinal)
                     path, custo = caminho  # type: ignore
@@ -300,7 +300,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     print(problema.mostraCaminho(path))
                     l = input("Prima ENTER para continuar")
                 elif saida4 == 41:
-                    problema.g.heuristica_aStar(posFinal)
+                    problema.g.heuristica_greedy(posFinal)
                     print(problema.g.m_h)
                 else:
                     print("Introduza um número válido\n")
@@ -348,7 +348,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                 saida51 = input("\nIntroduza a sua Opção -> ")
                 try:
                     saida51 = int(saida51)
-                    selectedAlg = int(saida51)
+                    # selectedAlg = int(saida51)
                 except ValueError:
                     print("Introduza um número válido\n")
                     continue
@@ -399,10 +399,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     except ValueError:
                         print("Introduza um número válido\n")
                         continue
-                    if saida52 == selectedAlg:
-                        print("Escolha um algoritmo diferente do anterior...\n")
-                        continue
-                    elif saida52 == 0:
+                    if saida52 == 0:
                         print("Saindo...")
                         saida = 0
                         break
@@ -438,11 +435,16 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     if saida52 == 0:
                         saida = 0
                         break
-                    elif saida52 != selectedAlg and x:
+                    elif x:
+                        collision = problema.check_collision(path, path2, posFinal)
+                        if collision == -1:
+                            app = Application3(default, path, path2, saida51, saida52, custo, custo2)
+                        else:
+                            app = Application3(default, path, path2, saida51, saida52, custo, custo2)
+
                         print("A abrir a UI...")
                         #funcao(saida51, saida52, path, path2, default)
                         #codigo que chama a UI
-                        app = Application3(default, path, path2, saida51, saida52, custo, custo2)
                         app.mainloop()
                         l = input("Prima ENTER para continuar")
                 if saida52 == 0:

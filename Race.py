@@ -120,6 +120,33 @@ class Race():
         res = "(" + str(pontoArr[0]) + "," + str(pontoArr[1]) + ")"
         return res
 
+
+
+
+    def check_collision(self, path1, path2, nFinal):
+        i = -1
+        mins = min(len(path2, path1))
+        for i in range(mins-1):
+            if path1[i] == path2[i]:
+                if path1[i] != nFinal:
+                    return i
+        for i in range(mins):
+            if path1[i] == path2[i]:
+                return i
+        return i
+        
+
+
+
+
+
+
+
+
+
+
+
+
     def listaMov(self):
         listaaceleracoes = [-1, 0, 1]
 
@@ -141,21 +168,22 @@ class Race():
         pontosX = []
         for idx, p in enumerate(listaPs):
             if 0 <= p[0] < lines and 0 <= p[1] < cols:
-                if nestedCircuito[p[0]][p[1]] == "-":
-                     #self.posicao = self.posicaoNextString(p)
-                     velocidades.append(self.velocidadeNextString(listaVs[idx]))
-                     pontosPossiveis.append(self.posicaoNextString(p))
-                     #self.velocidade = self.velocidadeNextString(listaVs[idx])
-                elif nestedCircuito[p[0]][p[1]] == "X":
-                     pontosX.append(self.posicaoNextString(p))
-                     #self.velocidade = "(0,0)"
-                elif nestedCircuito[p[0]][p[1]] == "F":
-                     #self.posicao = self.posicaoNextString(p)
-                     pontosPossiveis.append(self.posicaoNextString(p))
-                     velocidades.append(self.velocidadeNextString(listaVs[idx]))
-                elif nestedCircuito[p[0]][p[1]] == "C":
-                     pontosPossiveis.append(self.posicaoNextString(p))
-                     velocidades.append(self.velocidadeNextString(listaVs[idx]))
+                pontosPossiveis.append(self.posicaoNextString(p))
+                # if nestedCircuito[p[0]][p[1]] == "-":
+                      #self.posicao = self.posicaoNextString(p)
+                    #  velocidades.append(self.velocidadeNextString(listaVs[idx]))
+                    #  pontosPossiveis.append(self.posicaoNextString(p))
+                       #self.velocidade = self.velocidadeNextString(listaVs[idx])
+                # elif nestedCircuito[p[0]][p[1]] == "X":
+                    #  pontosX.append(self.posicaoNextString(p))
+                       #self.velocidade = "(0,0)"
+                # elif nestedCircuito[p[0]][p[1]] == "F":
+                       #self.posicao = self.posicaoNextString(p)
+                    #  pontosPossiveis.append(self.posicaoNextString(p))
+                    #  velocidades.append(self.velocidadeNextString(listaVs[idx]))
+                # elif nestedCircuito[p[0]][p[1]] == "C":
+                    #  pontosPossiveis.append(self.posicaoNextString(p))
+                    #  velocidades.append(self.velocidadeNextString(listaVs[idx]))
                      #self.velocidade = self.velocidadeNextString(listaVs[idx])
         #print(f"posicaoAtual:      {self.posicao}")
         #print(f"pontosPossiveis    {pontosPossiveis}")
