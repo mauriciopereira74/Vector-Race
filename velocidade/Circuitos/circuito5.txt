@@ -1,0 +1,13 @@
+XXXXXXXXXXXXXXXXXX
+X----------------X
+X----------------X
+X------X---X-----X
+X------X---XF----X
+X------X---XXXX--X
+X--XXX-X---X-----X
+X--XP------X-----X
+X--X-------X-----X
+X--XXXXX---XXXX--X
+X----------------X
+X-------------C--X
+XXXXXXXXXXXXXXXXXX
