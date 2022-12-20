@@ -79,7 +79,7 @@ class TrackView(ZoomingCanvas):
         ZoomingCanvas.__init__(self, parent, 10, -10, 
                                background='#b2b2b2', **kwargs)
 
-        self.create_text(650, -350, text="Circuito VectorRace", fill="black", font=('Ubuntu 20'))
+        self.create_text(650, -350, text="Circuito VectorRace", fill="black", font=('Ubuntu 40'))
 
         (xmin, ymin, xmax, ymax) = track.bbox()
         for x in range(xmin, xmax+1):
