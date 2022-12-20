@@ -39,7 +39,7 @@ class Application3(Frame):
         tmp = ""
         for x in range(len(lines)):
             tmp += lines[x][:-1]
-        if (tmp.count('P') != 2) or (tmp.count('F') != 1) or (tmp.count('C') > 1):
+        if (tmp.count('F') != 1) or (tmp.count('C') > 1):
             print("Circuito invalido.")
             sys.exit()
 
@@ -72,12 +72,13 @@ class Application3(Frame):
 
         # get start and finish coordinates
         checks = []
+        start = []
         y = -1
         for line in reversed(lines):
             y += 1
             for x in range(largura):
                 if line[x] == 'P':
-                    start = Point(x, y)
+                    start.append(Point(x, y))
                 elif line[x] == 'F':
                     finish = Point(x, y)
                 elif line[x] == 'C':
