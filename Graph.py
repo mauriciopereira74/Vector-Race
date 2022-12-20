@@ -15,6 +15,11 @@ class Grafo:
         self.m_graph = {}               # dicionario para armazenar os nodos e arestas
         self.m_h = {}                   # dicionario para posteriormente armazenar as heuristicas para cada nodo -> pesquisa informada
 
+        global closed_list_a
+        closed_list_a = set([])
+        global closed_list_greedy
+        closed_list_greedy = set([])
+
     # Escrever o grafo como String
     def __str__(self):
         out = ""
@@ -235,14 +240,19 @@ class Grafo:
         else:
             return (self.m_h[nodo])
 
+    
+    
+
     # Algoritmo A*
-    def procura_aStar(self, start, end):
+    def procura_aStar(self, start, end, flag):
         # open_list is a list of nodes which have been visited, but who's neighbors
         # haven't all been inspected, starts off with the start node
         # closed_list is a list of nodes which have been visited
         # and who's neighbors have been inspected
+        global closed_list_a
+        if flag:
+            closed_list_a = set([])
         open_list = {start}
-        closed_list = set([])
 
         # g contains current distances from start_node to all other nodes
         # the default value (if it's not found in the map) is +infinity
@@ -291,7 +301,7 @@ class Grafo:
             for (m, weight) in self.getNeighbours(n):  # definir função getneighbours  tem de ter um par nodo peso
                 # if the current node isn't in both open_list and closed_list
                 # add it to open_list and note n as it's parent
-                if m not in open_list and m not in closed_list:
+                if m not in open_list and m not in closed_list_a:
                     open_list.add(m)
                     parents[m] = n
                     g[m] = g[n] + weight
@@ -304,14 +314,14 @@ class Grafo:
                         g[m] = g[n] + weight
                         parents[m] = n
 
-                        if m in closed_list:
-                            closed_list.remove(m)
+                        if m in closed_list_a:
+                            closed_list_a.remove(m)
                             open_list.add(m)
 
             # remove n from the open_list, and add it to closed_list
             # because all of his neighbors were inspected
             open_list.remove(n)
-            closed_list.add(n)
+            closed_list_a.add(n)
 
         print('Path does not exist!')
         return None
@@ -327,6 +337,17 @@ class Grafo:
             self.m_h[n] = self.getDistance(self.PStrTuple(n), self.PStrTuple(nFinal))
         return (True)
 
+    def shortenClosedListToCollision_a(self, collisionPoint):
+        global closed_list_a
+        tempList = list(closed_list_a)
+        pointIndex = tempList.index(collisionPoint)
+        closed_list_a = set(tempList[:pointIndex])
+
+    def shortenClosedListToCollision_greedy(self, collisionPoint):
+        global closed_list_greedy
+        tempList = list(closed_list_greedy)
+        pointIndex = tempList.index(collisionPoint)
+        closed_list_greedy = set(tempList[:pointIndex])
 
     # Algoritmo Greedy
     def greedy(self, start, end, flag):
@@ -334,9 +355,10 @@ class Grafo:
         # que ainda não foram todos visitados, começa com o  start
         # closed_list é uma lista de nodos visitados
         # e todos os seus vizinhos também já o foram
-        # if flag == True:
+        global closed_list_greedy
+        if flag: # primeira vez
+            closed_list_greedy = set([])
         open_list = set([start])
-        closed_list = set([])
 
         # parents é um dicionário que mantém o antecessor de um nodo
         # começa com start
@@ -375,14 +397,14 @@ class Grafo:
             for (m, weight) in self.getNeighbours(n):
                 # Se o nodo corrente nao esta na open nem na closed list
                 # adiciona-lo à open_list e marcar o antecessor
-                if weight!=25 and m not in open_list and m not in closed_list:
+                if weight!=25 and m not in open_list and m not in closed_list_greedy:
                     open_list.add(m)
                     parents[m] = n
 
             # remover n da open_list e adiciona-lo à closed_list
             # porque todos os seus vizinhos foram inspecionados
             open_list.remove(n)
-            closed_list.add(n)
+            closed_list_greedy.add(n)
 
         print('Path does not exist!')
         return None

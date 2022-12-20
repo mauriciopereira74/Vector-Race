@@ -32,6 +32,17 @@ class readFile:
         return circuito
 
     # Determina a CoordenadaX e Y da Posição Inicial
+    def PInicialXY2(self):
+        pontos = []
+        for i in range(len(circuito)):
+          for j in range(len(circuito[i])):
+              if circuito[i][j] == "P":
+                  pontos.append(f"({i},{j})")
+        if len(pontos) == 1:
+            pontos.append(None)
+        return pontos
+
+    # Determina a CoordenadaX e Y da Posição Inicial
     def PInicialXY(self):
         for i in range(len(circuito)):
           for j in range(len(circuito[i])):

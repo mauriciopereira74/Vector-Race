@@ -39,7 +39,7 @@ class Application3(Frame):
         tmp = ""
         for x in range(len(lines)):
             tmp += lines[x][:-1]
-        if (tmp.count('P') != 1) or (tmp.count('F') != 1) or (tmp.count('C') > 1):
+        if (tmp.count('P') != 2) or (tmp.count('F') != 1) or (tmp.count('C') > 1):
             print("Circuito invalido.")
             sys.exit()
 
@@ -50,7 +50,6 @@ class Application3(Frame):
             border += lines[x][-2]
         num_x = border.count('X')
         if (num_x != len(border)) and (num_x != len(border) - 1) and (num_x != len(border) - 2):
-            print(len(border))
             print("Circuito invalido.")
             sys.exit()
 

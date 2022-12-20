@@ -8,7 +8,7 @@ class Race():
     # Posição -> "(10,20)"
     # Velocidade ->  "(1,2)"
     # AceleraçãoX -> 1 e AceleracaoY -> 0
-    def __init__(self, circuito_path, startt, endd, checkpoint, velocidade):
+    def __init__(self, circuito_path, startt, endd, checkpoint, velocidade, sndPos):
         # Grafo
         self.g = Grafo(directed=True)  # Verificar directed
         # Posição Atual
@@ -24,20 +24,23 @@ class Race():
         global start
         global end
 
-
         file = readFile(circuito_path)
         circuito = file.ler()
         lines = len(circuito)
         cols = len(circuito[1])
         start = startt
         end = endd
+        sndstart = sndPos
 
         nestedCircuito = []
         for lin in circuito:
             nestedCircuito.append([c for c in lin])
 
         self.cria_grafo()
-        print(f"Ponto Final: {end}; Ponto Incial: {start}; Ponto Checkpoint: {checkpoint}")
+        if checkpoint == None:
+            print(f"Ponto Final: {end}; Ponto Incial: {start}")
+        else:
+            print(f"Ponto Final: {end}; Ponto Incial: {start}; Ponto Checkpoint: {checkpoint}")
 
     # Funcao que dado um circuito devolve em string
     def circuitoAsString(self, circuitoArr):
@@ -125,15 +128,14 @@ class Race():
 
     def check_collision(self, path1, path2, nFinal):
         i = -1
-        mins = min(len(path2, path1))
+        mins = min(len(path2), len(path1))
         for i in range(mins-1):
             if path1[i] == path2[i]:
-                if path1[i] != nFinal:
+                if path1[i] == nFinal:
+                    return -1
+                else:
                     return i
-        for i in range(mins):
-            if path1[i] == path2[i]:
-                return i
-        return i
+        return -1
         
 
 
