@@ -79,7 +79,7 @@ class TrackView(ZoomingCanvas):
         ZoomingCanvas.__init__(self, parent, 10, -10, 
                                background='#b2b2b2', **kwargs)
 
-        self.create_text(45, -150, text="Circuito VectorRace", fill="black", font=('Ubuntu 20'))
+        self.create_text(650, -350, text="Circuito VectorRace", fill="black", font=('Ubuntu 20'))
 
         (xmin, ymin, xmax, ymax) = track.bbox()
         for x in range(xmin, xmax+1):
@@ -117,7 +117,7 @@ class TrackView(ZoomingCanvas):
             self.create_rectangle(cx-2, cy-2, cx+2, cy+2,
                          outline = "purple", fill = "purple", tags='checks')
         
-        self.create_text(10, 40, text="Verde -> Partida\nVermelho -> Chegada\nRoxo -> Checkpoint", fill="black", font=('Ubuntu 20'))
+        self.create_text(650, -150, text="Verde -> Partida\nVermelho -> Chegada\nRoxo -> Checkpoint", fill="black", font=('Ubuntu 20'))
 
         if track.solution1 != []:
             if track.alg1 == 1:
@@ -129,7 +129,7 @@ class TrackView(ZoomingCanvas):
             elif track.alg1 == 4:
                  tmp_alg = "Greedy"
             tmp_txt = "Amarelo -> Jogador 1" + " (" + tmp_alg + ", custo -> " + str(track.custo1) + ")"
-            self.create_text(10, 55, text=tmp_txt, fill="black", font=('Ubuntu 20'))
+            self.create_text(650, -100, text=tmp_txt, fill="black", font=('Ubuntu 20'))
 
         if track.solution2 != []:
             if track.alg2 == 1:
@@ -141,7 +141,7 @@ class TrackView(ZoomingCanvas):
             elif track.alg2 == 4:
                  tmp_alg = "Greedy"
             tmp_txt = "Azul -> Jogador 2" + " (" + tmp_alg + ", custo -> " + str(track.custo2) + ")"
-            self.create_text(10, 60, text=tmp_txt, fill="black", font=('Ubuntu 20'))
+            self.create_text(650, -80, text=tmp_txt, fill="black", font=('Ubuntu 20'))
 
         for s in track.start:	
              cx = self.stat2canx(s.x)
