@@ -96,7 +96,7 @@ class TrackView(ZoomingCanvas):
         for l in track.barriers:
             self.create_line(self.stat2canx(l.p0.x), self.stat2cany(l.p0.y), 
                              self.stat2canx(l.p1.x), self.stat2cany(l.p1.y), 
-                             fill='black', width=50, capstyle=tk.PROJECTING, 
+                             fill='black', width=25, capstyle=tk.PROJECTING, 
                              tags='barrier')
 
         for l in track.solution1:
@@ -143,13 +143,14 @@ class TrackView(ZoomingCanvas):
             tmp_txt = "Azul -> Jogador 2" + " (" + tmp_alg + ", custo -> " + str(track.custo2) + ")"
             self.create_text(10, 60, text=tmp_txt, fill="black", font=('Ubuntu 20'))
 
-        cx = self.stat2canx(track.start.x)
-        cy = self.stat2cany(track.start.y)
-        self.create_rectangle(cx-2, cy-2, cx+2, cy+2, 
+        for s in track.start:	
+             cx = self.stat2canx(s.x)
+             cy = self.stat2cany(s.y)
+             self.create_rectangle(cx-4, cy-4, cx+4, cy+4, 
                          outline = "red", fill = "red", tags='start')
         cx = self.stat2canx(track.finish.x)
         cy = self.stat2cany(track.finish.y)
-        self.create_rectangle(cx-2, cy-2, cx+2, cy+2, 
+        self.create_rectangle(cx-4, cy-4, cx+4, cy+4, 
                          outline = "#0c0", fill='#0c0', tags='finish')
 
         self.zoom()
