@@ -156,7 +156,6 @@ class Track(object):
 		if custo2 != None:
 			self.custo2 = custo2
 		
-		print(collisions)
 		if collisions != None:
 			self.collisions = collisions
 		else:
