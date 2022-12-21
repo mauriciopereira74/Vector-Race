@@ -131,7 +131,7 @@ class LineSegment(object):
         return self.p0.isIntegral() and self.p1.isIntegral()
 
 class Track(object):
-	def __init__(self, width, height, start, finish, barriers=None, checks=None, path1=None, path2=None, alg1=None, alg2=None, custo1=None, custo2=None):
+	def __init__(self, width, height, start, finish, barriers=None, checks=None, path1=None, path2=None, alg1=None, alg2=None, custo1=None, custo2=None, colisoes=None):
 		if barriers == None:
 			barriers = []
 
@@ -155,6 +155,9 @@ class Track(object):
 
 		if custo2 != None:
 			self.custo2 = custo2
+		
+		if colisoes != None:
+			self.colisoes = colisoes	
 
 		self.start = start
 		self.finish = finish
