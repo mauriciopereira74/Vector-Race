@@ -131,7 +131,7 @@ class LineSegment(object):
         return self.p0.isIntegral() and self.p1.isIntegral()
 
 class Track(object):
-	def __init__(self, width, height, start, finish, barriers=None, checks=None, path1=None, path2=None, alg1=None, alg2=None, custo1=None, custo2=None, colisoes=None):
+	def __init__(self, width, height, start, finish, barriers=None, checks=None, path1=None, path2=None, alg1=None, alg2=None, custo1=None, custo2=None, collisions=None):
 		if barriers == None:
 			barriers = []
 
@@ -156,8 +156,11 @@ class Track(object):
 		if custo2 != None:
 			self.custo2 = custo2
 		
-		if colisoes != None:
-			self.colisoes = colisoes	
+		print(collisions)
+		if collisions != None:
+			self.collisions = collisions
+		else:
+			self.collisions = []
 
 		self.start = start
 		self.finish = finish
@@ -207,9 +210,3 @@ class Track(object):
 				if ymax is None or p.y > ymax:
 					ymax = p.y
 		return (xmin, ymin, xmax, ymax)
-
-	def checkCollision(self, move):
-		for barrier in self.barriers:
-			p = move & barrier
-			if p:
-				raise CollisionError(move, barrier, p)

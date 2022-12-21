@@ -564,8 +564,8 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                                 print(f"Custo Total: {str(custo2)}\n")
                                 print(problema.mostraCaminho(path2))
 
-                                collisions.append(collisionidx)
-
+                                collisions.append(path[collisionidx])
+                            print(collisions)
                             print("A abrir a UI...")
                             app = Application3(circuito_path2, path, path2, saida51, saida52, custo, custo2, collisions)
                             app.mainloop()
