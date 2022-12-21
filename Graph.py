@@ -5,6 +5,7 @@ from queue import Queue
 import networkx as nx            # biblioteca de tratamento de grafos necessária para desnhar graficamente o grafo
 import matplotlib.pyplot as plt  # idem
 
+
 from Node import Node
 
 class Grafo:
@@ -14,11 +15,6 @@ class Grafo:
         self.m_directed = directed
         self.m_graph = {}               # dicionario para armazenar os nodos e arestas
         self.m_h = {}                   # dicionario para posteriormente armazenar as heuristicas para cada nodo -> pesquisa informada
-
-        global closed_list_a
-        closed_list_a = set([])
-        global closed_list_greedy
-        closed_list_greedy = set([])
 
     # Escrever o grafo como String
     def __str__(self):
@@ -206,7 +202,10 @@ class Grafo:
         xf, yf = f
         dx = abs(x - xf)
         dy = abs(y - yf)
-        return 1 * (dx + dy) * min(dx, dy)
+        return 1 * (dx + dy) - min(dx, dy) # D * (dx + dy) + (D2 - 2 * D) * min(dx, dy)
+    
+    ##########################################
+
 
     def PStrTuple(self, pontoString):
         res = pontoString[1:-1]
@@ -218,11 +217,22 @@ class Grafo:
     def heuristica_aStar(self, nFinal):
         nodos = self.m_graph.keys()
         for n in nodos:
-            self.m_h[n] = self.getDistance(self.PStrTuple(n), self.PStrTuple(nFinal)) + 1
+            if n == nFinal:
+                self.m_h[n] = 0
+            else: self.m_h[n] = self.getDistance(self.PStrTuple(n), self.PStrTuple(nFinal)) + 1
         return (True)
 
+    def calcula_custo(self, caminho):
+        # caminho é uma lista de nodos
+        teste = caminho
+        custo = 0
+        i = 0
+        while i + 1 < len(teste):
+            custo = custo + self.get_arc_cost(teste[i], teste[i + 1])
+            #print(teste[i])
+            i = i + 1
+        return custo
 
-    ##########################################
     def calcula_est(self, estima):
         l = list(estima.keys())
         min_estima = estima[l[0]]
@@ -240,23 +250,18 @@ class Grafo:
         else:
             return (self.m_h[nodo])
 
-    
-    
-
     # Algoritmo A*
-    def procura_aStar(self, start, end, flag):
+    def procura_aStar(self, start, end):
         # open_list is a list of nodes which have been visited, but who's neighbors
         # haven't all been inspected, starts off with the start node
         # closed_list is a list of nodes which have been visited
         # and who's neighbors have been inspected
-        global closed_list_a
-        if flag:
-            closed_list_a = set([])
+        closed_list_a = set([])
         open_list = {start}
 
         # g contains current distances from start_node to all other nodes
         # the default value (if it's not found in the map) is +infinity
-        g = {}  ##  g é apra substiruir pelo peso  ???
+        g = {}
 
         g[start] = 0
 
@@ -331,10 +336,14 @@ class Grafo:
 
 
 
+
+
     def heuristica_greedy(self, nFinal):
         nodos = self.m_graph.keys()
         for n in nodos:
-            self.m_h[n] = self.getDistance(self.PStrTuple(n), self.PStrTuple(nFinal))
+            if n == nFinal:
+                self.m_h[n] = 0
+            else: self.m_h[n] = self.getDistance(self.PStrTuple(n), self.PStrTuple(nFinal))
         return (True)
 
     def shortenClosedListToCollision_a(self, collisionPoint):
@@ -350,14 +359,12 @@ class Grafo:
         closed_list_greedy = set(tempList[:pointIndex])
 
     # Algoritmo Greedy
-    def greedy(self, start, end, flag):
+    def greedy(self, start, end):
         # open_list é uma lista de nodos visitados, mas com vizinhos
         # que ainda não foram todos visitados, começa com o  start
         # closed_list é uma lista de nodos visitados
         # e todos os seus vizinhos também já o foram
-        global closed_list_greedy
-        if flag: # primeira vez
-            closed_list_greedy = set([])
+        closed_list_greedy = set([])
         open_list = set([start])
 
         # parents é um dicionário que mantém o antecessor de um nodo

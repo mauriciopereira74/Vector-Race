@@ -291,10 +291,8 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     l = input("Prima ENTER para continuar")
                 elif saida4 == 3:
                     problema.g.heuristica_aStar(posFinal)
-                    caminho = problema.g.procura_aStar(posInit,posFinal,True)
+                    caminho = problema.g.procura_aStar(posInit,posFinal)
                     path, custo = caminho  # type: ignore
-                    problema.g.heuristica_aStar(posFinal)
-                    print(problema.g.m_h)
                     print("\nCaminho encontrado: ", end="")
                     print(*path, sep=' -> ')
                     print(f"Custo Total: {str(custo)}\n")
@@ -305,7 +303,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     print(problema.g.m_h)
                 elif saida4 == 4:
                     problema.g.heuristica_greedy(posFinal)
-                    caminho = problema.g.greedy(posInit,posFinal,True)
+                    caminho = problema.g.greedy(posInit,posFinal)
                     path, custo = caminho  # type: ignore
                     print("\nCaminho encontrado: ", end="")
                     print(*path, sep=' -> ')
@@ -411,16 +409,16 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         print(f"Custo Total: {str(custo)}\n")
                         print(problema.mostraCaminho(caminho[0]))
                     elif saida51 == 3:
-                        caminho = problema.g.procura_aStar(posInit2[0],posFinal,True)
-                        path, custo = caminho  # type: ignore
                         problema.g.heuristica_aStar(posFinal)
+                        caminho = problema.g.procura_aStar(posInit2[0],posFinal)
+                        path, custo = caminho  # type: ignore
                         print("\nCaminho encontrado: ", end="")
                         print(*path, sep=' -> ')
                         print(f"Custo Total: {str(custo)}\n")
                         print(problema.mostraCaminho(path))
                     elif saida51 == 4:
                         problema.g.heuristica_greedy(posFinal)
-                        caminho = problema.g.greedy(posInit2[0],posFinal,True)
+                        caminho = problema.g.greedy(posInit2[0],posFinal)
                         path, custo = caminho  # type: ignore
                         print("\nCaminho encontrado: ", end="")
                         print(*path, sep=' -> ')
@@ -476,9 +474,9 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                             print(problema.mostraCaminho(caminho2[0]))
                             x = True
                         elif saida52 == 3:
-                            caminho2 = problema.g.procura_aStar(posInit2[1],posFinal,True)
-                            path2, custo2 = caminho2  # type: ignore
                             problema.g.heuristica_aStar(posFinal)
+                            caminho2 = problema.g.procura_aStar(posInit2[1],posFinal)
+                            path2, custo2 = caminho2  # type: ignore
                             print("\nCaminho encontrado: ", end="")
                             print(*path2, sep=' -> ')
                             print(f"Custo Total: {str(custo2)}\n")
@@ -486,7 +484,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                             x = True
                         elif saida52 == 4:
                             problema.g.heuristica_greedy(posFinal)
-                            caminho2 = problema.g.greedy(posInit2[1],posFinal,True)
+                            caminho2 = problema.g.greedy(posInit2[1],posFinal)
                             path2, custo2 = caminho2  # type: ignore
                             print("\nCaminho encontrado: ", end="")
                             print(*path2, sep=' -> ')
@@ -500,6 +498,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                             saida = 0
                             break
                         elif x:
+                            collisions = []
                             while problema.check_collision(path, path2, posFinal)!=-1:
                                 collisionidx = problema.check_collision(path, path2, posFinal)
                                 if saida51 == 1:
@@ -512,12 +511,12 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                                 elif saida51 == 3:
                                     problema.g.heuristica_aStar(posFinal)
                                     # problema.g.shortenClosedListToCollision_a(path[collisionidx])
-                                    caminho = problema.g.procura_aStar(path[collisionidx-1],posFinal,True)
+                                    caminho = problema.g.procura_aStar(path[collisionidx-1],posFinal)
                                     pathNovo, custoNovo = caminho  # type: ignore
                                 elif saida51 == 4:
                                     problema.g.heuristica_greedy(posFinal)
                                     # problema.g.shortenClosedListToCollision_greedy(path[collisionidx])
-                                    caminho = problema.g.greedy(path[collisionidx-1],posFinal,True)
+                                    caminho = problema.g.greedy(path[collisionidx-1],posFinal)
                                     pathNovo, custoNovo = caminho  # type: ignore
 
 
@@ -531,15 +530,14 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                                 elif saida52 == 3:
                                     problema.g.heuristica_aStar(posFinal)
                                     # problema.g.shortenClosedListToCollision_a(path[collisionidx])
-                                    caminho2 = problema.g.procura_aStar(path2[collisionidx-1],posFinal, True)
+                                    caminho2 = problema.g.procura_aStar(path2[collisionidx-1],posFinal)
                                     path2Novo, custo2Novo = caminho2  # type: ignore
                                 elif saida52 == 4:
                                     problema.g.heuristica_greedy(posFinal)
                                     # problema.g.shortenClosedListToCollision_greedy(path[collisionidx])
-                                    caminho2 = problema.g.greedy(path2[collisionidx-1],posFinal,True)
+                                    caminho2 = problema.g.greedy(path2[collisionidx-1],posFinal)
                                     path2Novo, custo2Novo = caminho2  # type: ignore
 
-                                
                                 randomDecr = random.randint(0, 1)
                                 if randomDecr == 0:
                                     randomDecr2 = 1
@@ -566,11 +564,10 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                                 print(f"Custo Total: {str(custo2)}\n")
                                 print(problema.mostraCaminho(path2))
 
+                                collisions.append(collisionidx)
 
                             print("A abrir a UI...")
-                            app = Application3(circuito_path2, path, path2, saida51, saida52, custo, custo2, colisoes)
-                            #funcao(saida51, saida52, path, path2, default)
-                            #codigo que chama a UI
+                            app = Application3(circuito_path2, path, path2, saida51, saida52, custo, custo2, collisions)
                             app.mainloop()
                             l = input("Prima ENTER para continuar")
                     if saida52 == 0:

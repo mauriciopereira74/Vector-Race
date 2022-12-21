@@ -23,6 +23,7 @@ class Race():
         global nestedCircuito
         global start
         global end
+        global sndstart
 
         file = readFile(circuito_path)
         circuito = file.ler()
@@ -37,11 +38,12 @@ class Race():
             nestedCircuito.append([c for c in lin])
 
         self.cria_grafo()
-        if checkpoint == None:
-            print(f"Ponto Final: {end}; Ponto Incial: {start}")
-        else:
-            print(f"Ponto Final: {end}; Ponto Incial: {start}; Ponto Checkpoint: {checkpoint}")
-
+        if checkpoint == None and sndstart == None:
+            print(f"\n-- Ponto Final: {end} | Ponto Inicial: {start} --")
+        elif checkpoint != None and sndstart == None:
+            print(f"\n-- Ponto Final: {end} | Ponto Inicial: {start} | Ponto Checkpoint: {checkpoint} --")
+        if sndstart != None: 
+            print(f"\n-- Ponto Final: {end} | Ponto Inicial 1: {start} | Ponto Inicial 2: {sndstart} --")
     # Funcao que dado um circuito devolve em string
     def circuitoAsString(self, circuitoArr):
         res = "    "
