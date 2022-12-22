@@ -161,6 +161,8 @@ class Track(object):
 		else:
 			self.collisions = []
 
+		self.width = width
+		self.height = height
 		self.start = start
 		self.finish = finish
 		p0 = Point(x = 0, y = 0)

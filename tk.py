@@ -144,8 +144,13 @@ class TrackView(ZoomingCanvas):
             self.create_text(650, -80, text=tmp_txt, fill="black", font=('Ubuntu 20'))
 
         for c in track.collisions:
-             cx = self.stat2canx(eval(c)[0])
-             cy = self.stat2cany(eval(c)[1])
+             c1 = eval(c)[0]
+             c2 = eval(c)[1]
+             p0 = track.height - c1 + 1
+             p1 = track.height - c2 + 1
+
+             cx = self.stat2canx(c2)
+             cy = self.stat2cany(p0)
              self.create_rectangle(cx-4, cy-4, cx+4, cy+4, outline = "purple", fill = "purple", tags='collision')
 
         for s in track.start:	
