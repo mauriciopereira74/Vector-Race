@@ -36,6 +36,8 @@ def main():
     selectedAlg = 0
     saidaComp = -1
     saidaMapas = -1
+    colisao = -1
+    colisaoInt = -1
 
     while saida != 0:
         print("\n|----------------- MENU ----------------|")
@@ -362,75 +364,47 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                 else:
                     print("Introduza um número válido\n")
                     saida51 = 0
-                    continue
-                while saida51 != 0:
-                    saida52 = -1
-
-                    print("\n|-------------- JOGADOR 1 --------------|")
+                    break
+                while colisaoInt != 0:
+                    print("\n|--------------- COLISÃO ---------------|")
                     print("|---------------------------------------|")
-                    print("|------- ALGORITMOS NÃO INFORMADOS -----|")
-                    print("|- 1 -> Algoritmo em Profundidade(DFS) -|")
-                    print("|---- 2 -> Algoritmo em Largura(BFS) ---|")
+                    print("|--------- 1 - Forma Aleatória ---------|")
                     print("|---------------------------------------|")
-                    print("|--------- ALGORITMOS INFORMADOS -------|")
-                    print("|---------- 3 -> Algoritmo A* ----------|")
-                    print("|-------- 4 -> Algoritmo Greedy --------|")
+                    print("|----------- 2 -> Menor Custo ----------|")
+                    print("|---------------------------------------|")
+                    print("|-------- 3 -> Menor Heurística --------|")
                     print("|---------------------------------------|")
                     print("|------------- 9 -> Voltar -------------|")
                     print("|-------------- 0 -> Sair --------------|")
                     print("|---------------------------------------|")
-                    saida51 = input("\nIntroduza a sua Opção -> ")
+                    colisaoInt = input("\nIntroduza a sua Opção -> ")
                     try:
-                        saida51 = int(saida51)
+                        colisaoInt = int(colisaoInt)
                         # selectedAlg = int(saida51)
                     except ValueError:
                         print("Introduza um número válido\n")
                         continue
-                    if saida51 == 9:
+                    if colisaoInt == 9:
                         print("Menu Anterior...")
                         break
-                    elif saida51 == 0:
+                    elif colisaoInt == 0:
                         print("Saindo...")
                         saida = 0
                         break
-                    elif saida51 == 1:
-                        caminho = problema.g.procura_DFS(posInit2[0],posFinal)
-                        path, custo = caminho  # type: ignore
-                        print("\nCaminho encontrado: ", end="")
-                        print(*path, sep=' -> ')
-                        print(f"Custo Total: {str(custo)}\n")
-                        print(problema.mostraCaminho(path))
-                    elif saida51 == 2:
-                        caminho = []
-                        caminho = problema.g.procura_BFS(posInit2[0],posFinal)
-                        path, custo = caminho  # type: ignore
-                        print("\nCaminho encontrado: ", end="")
-                        print(*path, sep=' -> ')
-                        print(f"Custo Total: {str(custo)}\n")
-                        print(problema.mostraCaminho(caminho[0]))
-                    elif saida51 == 3:
-                        problema.g.heuristica_aStar(posFinal)
-                        caminho = problema.g.procura_aStar(posInit2[0],posFinal)
-                        path, custo = caminho  # type: ignore
-                        print("\nCaminho encontrado: ", end="")
-                        print(*path, sep=' -> ')
-                        print(f"Custo Total: {str(custo)}\n")
-                        print(problema.mostraCaminho(path))
-                    elif saida51 == 4:
-                        problema.g.heuristica_greedy(posFinal)
-                        caminho = problema.g.greedy(posInit2[0],posFinal)
-                        path, custo = caminho  # type: ignore
-                        print("\nCaminho encontrado: ", end="")
-                        print(*path, sep=' -> ')
-                        print(f"Custo Total: {str(custo)}\n")
-                        print(problema.mostraCaminho(path))
+                    elif colisaoInt == 1:
+                        colisao = 1
+                    elif colisaoInt == 2:
+                        colisao = 2
+                    elif colisaoInt == 3:
+                        colisao = 3
                     else:
                         print("Introduza um número válido\n")
-                        saida52 = 0
+                        colisaoInt = 0
                         break
-
                     while saida52 != 0:
-                        print("\n|-------------- JOGADOR 2 --------------|")
+                        saida52 = -1
+
+                        print("\n|-------------- JOGADOR 1 --------------|")
                         print("|---------------------------------------|")
                         print("|------- ALGORITMOS NÃO INFORMADOS -----|")
                         print("|- 1 -> Algoritmo em Profundidade(DFS) -|")
@@ -443,146 +417,231 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         print("|------------- 9 -> Voltar -------------|")
                         print("|-------------- 0 -> Sair --------------|")
                         print("|---------------------------------------|")
-                        saida52 = input("\nIntroduza a sua Opção -> ")
+                        saida51 = input("\nIntroduza a sua Opção -> ")
                         try:
-                            saida52 = int(saida52)
+                            saida51 = int(saida51)
+                            # selectedAlg = int(saida51)
                         except ValueError:
                             print("Introduza um número válido\n")
                             continue
-                        if saida52 == 0:
+                        if saida51 == 9:
+                            print("Menu Anterior...")
+                            break
+                        elif saida51 == 0:
                             print("Saindo...")
                             saida = 0
                             break
-                        elif saida52 == 9:
-                            print("Menu Anterior...")
-                            break
-                        elif saida52 == 1:
-                            caminho2 = problema.g.procura_DFS(posInit2[1],posFinal)
-                            path2, custo2 = caminho2  # type: ignore
+                        elif saida51 == 1:
+                            caminho = problema.g.procura_DFS(posInit2[0],posFinal)
+                            path, custo = caminho  # type: ignore
                             print("\nCaminho encontrado: ", end="")
-                            print(*path2, sep=' -> ')
-                            print(f"Custo Total: {str(custo2)}\n")
-                            print(problema.mostraCaminho(path2))
-                            x = True
-                        elif saida52 == 2:
-                            caminho2 = []
-                            caminho2 = problema.g.procura_BFS(posInit2[1],posFinal)
-                            path2, custo2 = caminho2  # type: ignore
+                            print(*path, sep=' -> ')
+                            print(f"Custo Total: {str(custo)}\n")
+                            print(problema.mostraCaminho(path))
+                        elif saida51 == 2:
+                            caminho = []
+                            caminho = problema.g.procura_BFS(posInit2[0],posFinal)
+                            path, custo = caminho  # type: ignore
                             print("\nCaminho encontrado: ", end="")
-                            print(*path2, sep=' -> ')
-                            print(f"Custo Total: {str(custo2)}\n")
-                            print(problema.mostraCaminho(caminho2[0]))
-                            x = True
-                        elif saida52 == 3:
+                            print(*path, sep=' -> ')
+                            print(f"Custo Total: {str(custo)}\n")
+                            print(problema.mostraCaminho(caminho[0]))
+                        elif saida51 == 3:
                             problema.g.heuristica_aStar(posFinal)
-                            caminho2 = problema.g.procura_aStar(posInit2[1],posFinal)
-                            path2, custo2 = caminho2  # type: ignore
+                            caminho = problema.g.procura_aStar(posInit2[0],posFinal)
+                            path, custo = caminho  # type: ignore
                             print("\nCaminho encontrado: ", end="")
-                            print(*path2, sep=' -> ')
-                            print(f"Custo Total: {str(custo2)}\n")
-                            print(problema.mostraCaminho(path2))
-                            x = True
-                        elif saida52 == 4:
+                            print(*path, sep=' -> ')
+                            print(f"Custo Total: {str(custo)}\n")
+                            print(problema.mostraCaminho(path))
+                        elif saida51 == 4:
                             problema.g.heuristica_greedy(posFinal)
-                            caminho2 = problema.g.greedy(posInit2[1],posFinal)
-                            path2, custo2 = caminho2  # type: ignore
+                            caminho = problema.g.greedy(posInit2[0],posFinal)
+                            path, custo = caminho  # type: ignore
                             print("\nCaminho encontrado: ", end="")
-                            print(*path2, sep=' -> ')
-                            print(f"Custo Total: {str(custo2)}\n")
-                            print(problema.mostraCaminho(path2))
-                            x = True
+                            print(*path, sep=' -> ')
+                            print(f"Custo Total: {str(custo)}\n")
+                            print(problema.mostraCaminho(path))
                         else:
                             print("Introduza um número válido\n")
-                            continue
-                        if saida52 == 0:
-                            saida = 0
+                            saida52 = 0
                             break
-                        elif x:
-                            collisions = []
-                            while problema.check_collision(path, path2, posFinal)!=-1:
-                                collisionidx = problema.check_collision(path, path2, posFinal)
-                                if saida51 == 1:
-                                    caminho = problema.g.procura_DFS(path[collisionidx-1],posFinal)
-                                    pathNovo, custoNovo = caminho  # type: ignore
-                                elif saida51 == 2:
-                                    caminho = []
-                                    caminho = problema.g.procura_BFS(path[collisionidx-1],posFinal)
-                                    pathNovo, custoNovo = caminho  # type: ignore
-                                elif saida51 == 3:
-                                    problema.g.heuristica_aStar(posFinal)
-                                    # problema.g.shortenClosedListToCollision_a(path[collisionidx])
-                                    caminho = problema.g.procura_aStar(path[collisionidx-1],posFinal)
-                                    pathNovo, custoNovo = caminho  # type: ignore
-                                elif saida51 == 4:
-                                    problema.g.heuristica_greedy(posFinal)
-                                    # problema.g.shortenClosedListToCollision_greedy(path[collisionidx])
-                                    caminho = problema.g.greedy(path[collisionidx-1],posFinal)
-                                    pathNovo, custoNovo = caminho  # type: ignore
 
-
-                                if saida52 == 1:
-                                    caminho2 = problema.g.procura_DFS(path2[collisionidx-1],posFinal)
-                                    path2Novo, custo2Novo = caminho2  # type: ignore
-                                elif saida52 == 2:
-                                    caminho2 = []
-                                    caminho2 = problema.g.procura_BFS(path2[collisionidx-1],posFinal)
-                                    path2Novo, custo2Novo = caminho2  # type: ignore
-                                elif saida52 == 3:
-                                    problema.g.heuristica_aStar(posFinal)
-                                    # problema.g.shortenClosedListToCollision_a(path[collisionidx])
-                                    caminho2 = problema.g.procura_aStar(path2[collisionidx-1],posFinal)
-                                    path2Novo, custo2Novo = caminho2  # type: ignore
-                                elif saida52 == 4:
-                                    problema.g.heuristica_greedy(posFinal)
-                                    # problema.g.shortenClosedListToCollision_greedy(path[collisionidx])
-                                    caminho2 = problema.g.greedy(path2[collisionidx-1],posFinal)
-                                    path2Novo, custo2Novo = caminho2  # type: ignore
-
-                                randomDecr = random.randint(0, 1)
-                                if randomDecr == 0:
-                                    randomDecr2 = 1
-                                else: randomDecr2 = 0
-                                # decide um número entre 0 e 1 aleatoriamente
-                                # de forma a que ao encortar o path final até ao index da peca de colisao,
-                                #  a peca colisao seja adicionada duas vezes ao path
-                                # de forma a que um carro espereo pelo outro
-                                path = path[:(collisionidx - randomDecr)]
-                                path += pathNovo
-                                custo += custoNovo
-
-                                path2 = path2[:(collisionidx - randomDecr2)]
-                                path2 += path2Novo
-                                custo2 += custo2Novo
-
-                                print("\nCaminho encontrado: ", end="")
-                                print(*path, sep=' -> ')
-                                print(f"Custo Total: {str(custo)}\n")
-                                print(problema.mostraCaminho(path))
-
+                        while saida52 != 0:
+                            print("\n|-------------- JOGADOR 2 --------------|")
+                            print("|---------------------------------------|")
+                            print("|------- ALGORITMOS NÃO INFORMADOS -----|")
+                            print("|- 1 -> Algoritmo em Profundidade(DFS) -|")
+                            print("|---- 2 -> Algoritmo em Largura(BFS) ---|")
+                            print("|---------------------------------------|")
+                            print("|--------- ALGORITMOS INFORMADOS -------|")
+                            print("|---------- 3 -> Algoritmo A* ----------|")
+                            print("|-------- 4 -> Algoritmo Greedy --------|")
+                            print("|---------------------------------------|")
+                            print("|------------- 9 -> Voltar -------------|")
+                            print("|-------------- 0 -> Sair --------------|")
+                            print("|---------------------------------------|")
+                            saida52 = input("\nIntroduza a sua Opção -> ")
+                            try:
+                                saida52 = int(saida52)
+                            except ValueError:
+                                print("Introduza um número válido\n")
+                                continue
+                            if saida52 == 0:
+                                print("Saindo...")
+                                saida = 0
+                                break
+                            elif saida52 == 9:
+                                print("Menu Anterior...")
+                                break
+                            elif saida52 == 1:
+                                caminho2 = problema.g.procura_DFS(posInit2[1],posFinal)
+                                path2, custo2 = caminho2  # type: ignore
                                 print("\nCaminho encontrado: ", end="")
                                 print(*path2, sep=' -> ')
                                 print(f"Custo Total: {str(custo2)}\n")
                                 print(problema.mostraCaminho(path2))
+                                x = True
+                            elif saida52 == 2:
+                                caminho2 = []
+                                caminho2 = problema.g.procura_BFS(posInit2[1],posFinal)
+                                path2, custo2 = caminho2  # type: ignore
+                                print("\nCaminho encontrado: ", end="")
+                                print(*path2, sep=' -> ')
+                                print(f"Custo Total: {str(custo2)}\n")
+                                print(problema.mostraCaminho(caminho2[0]))
+                                x = True
+                            elif saida52 == 3:
+                                problema.g.heuristica_aStar(posFinal)
+                                caminho2 = problema.g.procura_aStar(posInit2[1],posFinal)
+                                path2, custo2 = caminho2  # type: ignore
+                                print("\nCaminho encontrado: ", end="")
+                                print(*path2, sep=' -> ')
+                                print(f"Custo Total: {str(custo2)}\n")
+                                print(problema.mostraCaminho(path2))
+                                x = True
+                            elif saida52 == 4:
+                                problema.g.heuristica_greedy(posFinal)
+                                caminho2 = problema.g.greedy(posInit2[1],posFinal)
+                                path2, custo2 = caminho2  # type: ignore
+                                print("\nCaminho encontrado: ", end="")
+                                print(*path2, sep=' -> ')
+                                print(f"Custo Total: {str(custo2)}\n")
+                                print(problema.mostraCaminho(path2))
+                                x = True
+                            else:
+                                print("Introduza um número válido\n")
+                                continue
+                            if saida52 == 0:
+                                saida = 0
+                                break
+                            elif x:
+                                collisions = []
+                                while problema.check_collision(path, path2, posFinal)!=-1:
+                                    collisionidx = problema.check_collision(path, path2, posFinal)
+                                    if saida51 == 1:
+                                        caminho = problema.g.procura_DFS(path[collisionidx-1],posFinal)
+                                        pathNovo, custoNovo = caminho  # type: ignore
+                                    elif saida51 == 2:
+                                        caminho = []
+                                        caminho = problema.g.procura_BFS(path[collisionidx-1],posFinal)
+                                        pathNovo, custoNovo = caminho  # type: ignore
+                                    elif saida51 == 3:
+                                        problema.g.heuristica_aStar(posFinal)
+                                        # problema.g.shortenClosedListToCollision_a(path[collisionidx])
+                                        caminho = problema.g.procura_aStar(path[collisionidx-1],posFinal)
+                                        pathNovo, custoNovo = caminho  # type: ignore
+                                    elif saida51 == 4:
+                                        problema.g.heuristica_greedy(posFinal)
+                                        # problema.g.shortenClosedListToCollision_greedy(path[collisionidx])
+                                        caminho = problema.g.greedy(path[collisionidx-1],posFinal)
+                                        pathNovo, custoNovo = caminho  # type: ignore
 
-                                collisions.append(path[collisionidx])
-                            print("A abrir a UI...")
-                            app = Application3(circuito_path2, path, path2, saida51, saida52, custo, custo2, collisions)
-                            app.mainloop()
-                            l = input("Prima ENTER para continuar")
-                    if saida52 == 0:
+
+                                    if saida52 == 1:
+                                        caminho2 = problema.g.procura_DFS(path2[collisionidx-1],posFinal)
+                                        path2Novo, custo2Novo = caminho2  # type: ignore
+                                    elif saida52 == 2:
+                                        caminho2 = []
+                                        caminho2 = problema.g.procura_BFS(path2[collisionidx-1],posFinal)
+                                        path2Novo, custo2Novo = caminho2  # type: ignore
+                                    elif saida52 == 3:
+                                        problema.g.heuristica_aStar(posFinal)
+                                        # problema.g.shortenClosedListToCollision_a(path[collisionidx])
+                                        caminho2 = problema.g.procura_aStar(path2[collisionidx-1],posFinal)
+                                        path2Novo, custo2Novo = caminho2  # type: ignore
+                                    elif saida52 == 4:
+                                        problema.g.heuristica_greedy(posFinal)
+                                        # problema.g.shortenClosedListToCollision_greedy(path[collisionidx])
+                                        caminho2 = problema.g.greedy(path2[collisionidx-1],posFinal)
+                                        path2Novo, custo2Novo = caminho2  # type: ignore
+
+
+                                    #  Forma aleatória
+                                    if colisao == 1:
+                                        randomDecr = random.randint(0, 1)
+                                        if randomDecr == 0:
+                                             randomDecr2 = 1
+                                        else: randomDecr2 = 0
+                                    # menor custo até ao momento
+                                    elif colisao == 2:
+                                        if custo > custo2:
+                                            randomDecr2 = 1
+                                            randomDecr = 0
+                                        else:
+                                            randomDecr = 1
+                                            randomDecr2 = 0
+                                    # menor heuristica
+                                    # elif colisao == 3:
+                                    #     if custo > custo2:
+                                    #         randomDecr2 = 1
+                                    #         randomDecr = 0
+                                    #     else:
+                                    #         randomDecr = 1
+                                    #         randomDecr2 = 0
+
+
+                                    # decide um número entre 0 e 1 aleatoriamente
+                                    # de forma a que ao encortar o path final até ao index da peca de colisao,
+                                    #  a peca colisao seja adicionada duas vezes ao path
+                                    # de forma a que um carro espereo pelo outro
+                                    path = path[:(collisionidx - randomDecr)]
+                                    path += pathNovo
+                                    custo += custoNovo
+
+                                    path2 = path2[:(collisionidx - randomDecr2)]
+                                    path2 += path2Novo
+                                    custo2 += custo2Novo
+
+                                    print("\nCaminho encontrado: ", end="")
+                                    print(*path, sep=' -> ')
+                                    print(f"Custo Total: {str(custo)}\n")
+                                    print(problema.mostraCaminho(path))
+
+                                    print("\nCaminho encontrado: ", end="")
+                                    print(*path2, sep=' -> ')
+                                    print(f"Custo Total: {str(custo2)}\n")
+                                    print(problema.mostraCaminho(path2))
+
+                                    collisions.append(path[collisionidx])
+                                print("A abrir a UI...")
+                                app = Application3(circuito_path2, path, path2, saida51, saida52, custo, custo2, collisions)
+                                app.mainloop()
+                                l = input("Prima ENTER para continuar")
+                        if saida52 == 0:
+                            saida = 0
+                            break
+                        else:
+                            saida = 0
+                            print("Introduza um número válido\n")
+                            continue
+                    if saida51 == 0:
                         saida = 0
                         break
                     else:
                         saida = 0
                         print("Introduza um número válido\n")
                         continue
-                if saida51 == 0:
-                    saida = 0
-                    break
-                else:
-                    saida = 0
-                    print("Introduza um número válido\n")
-                    continue
 
         else:
             print("Introduza um número válido\n")
