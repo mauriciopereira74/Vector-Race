@@ -77,6 +77,25 @@ class Grafo:
 
         return custoT
 
+    def PStringtoArr(self, pontoString):
+        res = pontoString[1:-1]
+        res = res.split(',')
+        resint = list(map(int, res))
+        return resint
+
+
+    # Função que devolve vizinhos de um nó
+    def getNeighboursVel(self, nodo, vel, circuito):
+        lista = []
+        x = self.PStringtoArr(nodo)
+        for xx in range(x[0], x[0]+vel):
+            for yy in range(x[1], x[1]+vel):
+                if f'({xx},{yy})' in self.m_graph:
+                        for (adjacente, peso) in self.m_graph[f'({xx},{yy})']:
+                            # if self.pode_ir(x[0], x[1], xx, yy, circuito):
+                            lista.append((adjacente, peso))
+        return lista
+
     #  Dado um caminho calcula o seu custo
     def calcula_custo(self, caminho):
         # caminho é uma lista de nodos
@@ -250,7 +269,7 @@ class Grafo:
         else:
             return (self.m_h[nodo])
 
-    # Algoritmo A*
+# Algoritmo A*
     def procura_aStar(self, start, end):
         # open_list is a list of nodes which have been visited, but who's neighbors
         # haven't all been inspected, starts off with the start node
@@ -258,6 +277,8 @@ class Grafo:
         # and who's neighbors have been inspected
         closed_list_a = set([])
         open_list = {start}
+
+        velocidade = 1
 
         # g contains current distances from start_node to all other nodes
         # the default value (if it's not found in the map) is +infinity
@@ -276,9 +297,9 @@ class Grafo:
             for v in open_list:
                 if n == None:
                     n = v
-                else:
+                else: 
                     flag = 1
-                    calc_heurist[v] = g[v] + self.getH(v)
+                    calc_heurist[v] = (g[v] + self.getH(v))#/velocidade
             if flag == 1:
                 min_estima = self.calcula_est(calc_heurist)
                 n = min_estima
@@ -303,7 +324,7 @@ class Grafo:
                 return (reconst_path, self.calcula_custo(reconst_path))
 
             # for all neighbors of the current node do
-            for (m, weight) in self.getNeighbours(n):  # definir função getneighbours  tem de ter um par nodo peso
+            for (m, weight) in self.getNeighboursVel(n, velocidade, circuito):  # definir função getneighbours  tem de ter um par nodo peso
                 # if the current node isn't in both open_list and closed_list
                 # add it to open_list and note n as it's parent
                 if m not in open_list and m not in closed_list_a:
@@ -322,6 +343,8 @@ class Grafo:
                         if m in closed_list_a:
                             closed_list_a.remove(m)
                             open_list.add(m)
+            velocidade += 1
+
 
             # remove n from the open_list, and add it to closed_list
             # because all of his neighbors were inspected
@@ -330,11 +353,6 @@ class Grafo:
 
         print('Path does not exist!')
         return None
-
-
-
-
-
 
 
 
