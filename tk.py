@@ -117,7 +117,7 @@ class TrackView(ZoomingCanvas):
             self.create_rectangle(cx-2, cy-2, cx+2, cy+2,
                          outline = "purple", fill = "purple", tags='checks')
         
-        self.create_text(650, -150, text="Verde -> Partida\nVermelho -> Chegada\nRoxo -> Checkpoint", fill="black", font=('Ubuntu 20'))
+        self.create_text(650, -150, text="Verde -> Partida\nVermelho -> Chegada", fill="black", font=('Ubuntu 20'))
 
         if track.solution1 != []:
             if track.alg1 == 1:
@@ -152,6 +152,9 @@ class TrackView(ZoomingCanvas):
              cx = self.stat2canx(c2)
              cy = self.stat2cany(p0)
              self.create_rectangle(cx-4, cy-4, cx+4, cy+4, outline = "purple", fill = "purple", tags='collision')
+
+        if track.collisions != []:
+            self.create_text(650, -130, text="Roxo -> Colisões", fill="black", font=('Ubuntu 20'))
 
         for s in track.start:	
              cx = self.stat2canx(s.x)
