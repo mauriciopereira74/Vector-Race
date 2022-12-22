@@ -200,7 +200,8 @@ class Race():
         visitados = []
         estados.append(start)
         visitados.append(start)
-        
+        self.g.add_circuito(nestedCircuito)
+
         while estados != [] :
             estado = estados.pop()
             self.posicao = estado

@@ -15,6 +15,7 @@ class Grafo:
         self.m_directed = directed
         self.m_graph = {}               # dicionario para armazenar os nodos e arestas
         self.m_h = {}                   # dicionario para posteriormente armazenar as heuristicas para cada nodo -> pesquisa informada
+        self.nestedCircuito = None
 
     # Escrever o grafo como String
     def __str__(self):
@@ -71,9 +72,12 @@ class Grafo:
     def get_arc_cost(self, node1, node2):
         custoT = math.inf
         a = self.m_graph[node1]  # lista de arestas para aquele nodo
-        for (nodo, custo) in a:
-            if nodo == node2:
-                custoT = custo
+        if node2 not in a:
+            costT = 1
+        else:
+            for (nodo, custo) in a:
+                if nodo == node2:
+                    custoT = custo
 
         return custoT
 
@@ -85,7 +89,7 @@ class Grafo:
 
 
     # Função que devolve vizinhos de um nó
-    def getNeighboursVel(self, nodo, vel, circuito):
+    def getNeighboursVel(self, nodo, vel):
         lista = []
         x = self.PStringtoArr(nodo)
         for xx in range(x[0], x[0]+vel):
@@ -172,12 +176,6 @@ class Grafo:
             custo = self.calcula_custo(path)
         return (path, custo)
 
-    # Função que devolve vizinhos de um nó
-    def getNeighbours(self, nodo):
-        lista = []
-        for (adjacente, peso) in self.m_graph[nodo]:
-            lista.append((adjacente, peso))
-        return lista
 
     # Desenha grafo em modo grafico
     def desenha(self):
@@ -260,6 +258,10 @@ class Grafo:
             if v < min_estima:
                 min_estima = v
                 node = k
+            elif v == min_estima:
+                if self.m_h[node] > self.m_h[k]:
+                    min_estima = v
+                    node = k
         return node
         
     # Devolve heuristica do nodo
@@ -269,8 +271,73 @@ class Grafo:
         else:
             return (self.m_h[nodo])
 
+    def add_circuito(self, nestedCircuitoooo):
+        self.nestedCircuito = nestedCircuitoooo
+        
+
+
+    def PStringtoArr(self, pontoString):
+        res = pontoString[1:-1]
+        res = res.split(',')
+        resint = list(map(int, res))
+        return resint
+
+    def barreirasBetween(self, p1x, p1y, p2x, p2y):
+        tabuleiro = self.nestedCircuito
+        # Check for trivial cases
+        if p1x == p2x and p1y == p2y:
+            return True
+        if p1x == p2x:
+            miny = min(p1y, p2y)
+            maxy = max(p1y, p2y)
+            for y in range(miny, maxy+1):
+                if tabuleiro[p1x][y] == 'X':
+                    return False
+            return True
+        if p1y == p2y:
+            minx = min(p1x, p2x)
+            maxx = max(p1x, p2x)
+            for x in range(minx, maxx+1):
+                if tabuleiro[x][p1y] == 'X':
+                    return False
+            return True
+
+        # Use Bresenham's line algorithm to draw a line between the two points
+        dx = abs(p2x - p1x)
+        dy = abs(p2y - p1y)
+        sx = 1 if p1x < p2x else -1
+        sy = 1 if p1y < p2y else -1
+        err = dx - dy
+        while True:
+            if tabuleiro[p1x][p1y] == 'X':
+                return False
+            if p1x == p2x and p1y == p2y:
+                break
+            e2 = err * 2
+            if e2 > -dy:
+                err -= dy
+                p1x += sx
+            if e2 < dx:
+                err += dx
+                p1y += sy
+        return True
+
+     # Função que devolve vizinhos de um nó
+    def getNeighboursVel(self, nodo, vel):
+        lista = []
+        x = self.PStringtoArr(nodo)
+        for xx in range(x[0], x[0]+vel):
+            for yy in range(x[1], x[1]+vel):
+                if f'({xx},{yy})' in self.m_graph:
+                        for (adjacente, peso) in self.m_graph[f'({xx},{yy})']:
+                            # if peso!=25:
+                            if self.barreirasBetween(x[0], x[1], xx, yy):
+                                lista.append((adjacente, peso))
+        return lista
+
+
 # Algoritmo A*
-    def procura_aStar(self, start, end):
+    def procura_aStar_wVelocity(self, start, end):
         # open_list is a list of nodes which have been visited, but who's neighbors
         # haven't all been inspected, starts off with the start node
         # closed_list is a list of nodes which have been visited
@@ -324,7 +391,7 @@ class Grafo:
                 return (reconst_path, self.calcula_custo(reconst_path))
 
             # for all neighbors of the current node do
-            for (m, weight) in self.getNeighboursVel(n, velocidade, circuito):  # definir função getneighbours  tem de ter um par nodo peso
+            for (m, weight) in self.getNeighboursVel(n, velocidade):  # definir função getneighbours  tem de ter um par nodo peso
                 # if the current node isn't in both open_list and closed_list
                 # add it to open_list and note n as it's parent
                 if m not in open_list and m not in closed_list_a:
@@ -354,6 +421,94 @@ class Grafo:
         print('Path does not exist!')
         return None
 
+    # Função que devolve vizinhos de um nó
+    def getNeighbours(self, nodo):
+        lista = []
+        for (adjacente, peso) in self.m_graph[nodo]:
+            lista.append((adjacente, peso))
+        return lista
+
+    # Algoritmo A*
+    def procura_aStar(self, start, end):
+        # open_list is a list of nodes which have been visited, but who's neighbors
+        # haven't all been inspected, starts off with the start node
+        # closed_list is a list of nodes which have been visited
+        # and who's neighbors have been inspected
+        closed_list_a = set([])
+        open_list = {start}
+
+        # g contains current distances from start_node to all other nodes
+        # the default value (if it's not found in the map) is +infinity
+        g = {}
+
+        g[start] = 0
+
+        # parents contains an adjacency map of all nodes
+        parents = {}
+        parents[start] = start
+        n = None
+        while len(open_list) > 0:
+            # find a node with the lowest value of f() - evaluation function
+            calc_heurist = {}
+            flag = 0
+            for v in open_list:
+                if n == None:
+                    n = v
+                else:
+                    flag = 1
+                    calc_heurist[v] = g[v] + self.getH(v)
+            if flag == 1:
+                min_estima = self.calcula_est(calc_heurist)
+                n = min_estima
+            if n == None:
+                print('Path does not exist!')
+                return None
+
+            # if the current node is the stop_node
+            # then we begin reconstructin the path from it to the start_node
+            if n == end:
+                reconst_path = []
+
+                while parents[n] != n:
+                    reconst_path.append(n)
+                    n = parents[n]
+
+                reconst_path.append(start)
+
+                reconst_path.reverse()
+
+                #print('Path found: {}'.format(reconst_path))
+                return (reconst_path, self.calcula_custo(reconst_path))
+
+            # for all neighbors of the current node do
+            for (m, weight) in self.getNeighbours(n):  # definir função getneighbours  tem de ter um par nodo peso
+                # if the current node isn't in both open_list and closed_list
+                # add it to open_list and note n as it's parent
+                if m not in open_list and m not in closed_list_a:
+                    open_list.add(m)
+                    parents[m] = n
+                    g[m] = g[n] + weight
+
+                # otherwise, check if it's quicker to first visit n, then m
+                # and if it is, update parent data and g data
+                # and if the node was in the closed_list, move it to open_list
+                else:
+                    if g[m] > g[n] + weight:
+                        g[m] = g[n] + weight
+                        parents[m] = n
+
+                        if m in closed_list_a:
+                            closed_list_a.remove(m)
+                            open_list.add(m)
+
+            # remove n from the open_list, and add it to closed_list
+            # because all of his neighbors were inspected
+            open_list.remove(n)
+            closed_list_a.add(n)
+
+        print('Path does not exist!')
+        return None
+
 
 
     def heuristica_greedy(self, nFinal):
@@ -364,17 +519,17 @@ class Grafo:
             else: self.m_h[n] = self.getDistance(self.PStrTuple(n), self.PStrTuple(nFinal))
         return (True)
 
-    def shortenClosedListToCollision_a(self, collisionPoint):
-        global closed_list_a
-        tempList = list(closed_list_a)
-        pointIndex = tempList.index(collisionPoint)
-        closed_list_a = set(tempList[:pointIndex])
+    # def shortenClosedListToCollision_a(self, collisionPoint):
+        # global closed_list_a
+        # tempList = list(closed_list_a)
+        # pointIndex = tempList.index(collisionPoint)
+        # closed_list_a = set(tempList[:pointIndex])
 
-    def shortenClosedListToCollision_greedy(self, collisionPoint):
-        global closed_list_greedy
-        tempList = list(closed_list_greedy)
-        pointIndex = tempList.index(collisionPoint)
-        closed_list_greedy = set(tempList[:pointIndex])
+    # def shortenClosedListToCollision_greedy(self, collisionPoint):
+        # global closed_list_greedy
+        # tempList = list(closed_list_greedy)
+        # pointIndex = tempList.index(collisionPoint)
+        # closed_list_greedy = set(tempList[:pointIndex])
 
     # Algoritmo Greedy
     def greedy(self, start, end):

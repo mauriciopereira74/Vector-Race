@@ -95,7 +95,7 @@ def main():
                     print("Saindo...")
                     saida = 0
                     break
-                elif saidaCir2 in range(1, i):   # type: ignore
+                elif saidaCir2 in range(1, i+1):   # type: ignore
                     circuito_path = onlyfiles[(saidaCir2-1)]
                     readClass = readFile(circuito_path)
                     posInit = readClass.PInicialXY()
@@ -238,7 +238,8 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                 print("|---------------------------------------|")
                 print("|--------- ALGORITMOS INFORMADOS -------|")
                 print("|---------- 3 -> Algoritmo A* ----------|")
-                print("|---------- 31 -> Heurística A* --------|")
+                print("|------ 31 -> A* (com Velocidade) ------|")
+                print("|---------- 32 -> Heurística A* --------|")
                 print("|---------------------------------------|")
                 print("|-------- 4 -> Algoritmo Greedy --------|")
                 print("|-------- 41 -> Heurística Greedy ------|")
@@ -300,9 +301,18 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     print(f"Custo Total: {str(custo)}\n")
                     print(problema.mostraCaminho(path))
                     l = input("Prima ENTER para continuar")
-                elif saida4 == 31:
+                elif saida4 == 32:
                     problema.g.heuristica_aStar(posFinal)
                     print(problema.g.m_h)
+                elif saida4 == 31:
+                    problema.g.heuristica_aStar(posFinal)
+                    caminho = problema.g.procura_aStar_wVelocity(posInit,posFinal)
+                    path, custo = caminho  # type: ignore
+                    print("\nCaminho encontrado: ", end="")
+                    print(*path, sep=' -> ')
+                    print(f"Custo Total: {str(custo)}\n")
+                    print(problema.mostraCaminho(path))
+                    l = input("Prima ENTER para continuar")
                 elif saida4 == 4:
                     problema.g.heuristica_greedy(posFinal)
                     caminho = problema.g.greedy(posInit,posFinal)
@@ -319,9 +329,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     print("Introduza um número válido\n")
                     continue
         elif saida == 5:
-            while saidaComp != 0:
-                saida51 = -1;
-                saida52 = -1;
+            while saidaMapas != 0:
 
                 onlyfiles2 = [f for f in listdir("Circuitos/Multiplayer/") if isfile(join("Circuitos/Multiplayer/", f))]
                 onlyfiles2.sort()
@@ -353,7 +361,8 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     print("Saindo...")
                     saida = 0
                     break
-                elif saidaMapas in range(1, i):   # type: ignore
+                elif saidaMapas in range(1, i+1):   # type: ignore
+                    x = range(1,i)
                     circuito_path2 = f"Multiplayer/{onlyfiles2[(saidaMapas-1)]}"
                     readClass = readFile(circuito_path2)
                     posInit2 = readClass.PInicialXY2()
@@ -363,10 +372,10 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     default = onlyfiles2[(saidaMapas-1)]
                 else:
                     print("Introduza um número válido\n")
-                    saida51 = 0
-                    break
+                    continue
                 while colisaoInt != 0:
                     print("\n|--------------- COLISÃO ---------------|")
+                    print("|---- Carro que se avança primeiro: ----|")
                     print("|---------------------------------------|")
                     print("|--------- 1 - Forma Aleatória ---------|")
                     print("|---------------------------------------|")
@@ -389,6 +398,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         break
                     elif colisaoInt == 0:
                         print("Saindo...")
+                        saidaMapas = 0
                         saida = 0
                         break
                     elif colisaoInt == 1:
@@ -399,9 +409,8 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         colisao = 3
                     else:
                         print("Introduza um número válido\n")
-                        colisaoInt = 0
                         break
-                    while saida52 != 0:
+                    while saida51 != 0:
                         saida52 = -1
 
                         print("\n|-------------- JOGADOR 1 --------------|")
@@ -464,7 +473,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                             print(problema.mostraCaminho(path))
                         else:
                             print("Introduza um número válido\n")
-                            saida52 = 0
+                            saida51 = 0
                             break
 
                         while saida52 != 0:
@@ -632,16 +641,20 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                             saida = 0
                             break
                         else:
-                            saida = 0
                             print("Introduza um número válido\n")
                             continue
                     if saida51 == 0:
                         saida = 0
                         break
                     else:
-                        saida = 0
                         print("Introduza um número válido\n")
                         continue
+                if colisaoInt == 0:
+                    saida = 0
+                    break
+                else:
+                    print("Introduza um número válido\n")
+                    continue
 
         else:
             print("Introduza um número válido\n")
