@@ -67,6 +67,7 @@ def main():
         if saida == 99:
             while saidaCir != 0:
                 onlyfiles = [f for f in listdir("Circuitos/") if isfile(join("Circuitos/", f))]
+                onlyfiles.sort()
                 print("\n|--------------- CIRCUITOS -------------|")
                 print("|---------------------------------------|")
                 for i, circ in enumerate(onlyfiles, start = 1):
@@ -81,6 +82,8 @@ def main():
                         print("|----------" + res + "--------|")
                     elif len(res) == 22:
                         print("|----------" + res + "-------|")
+                    elif len(res) == 23:
+                        print("|----------" + res + "------|")
                     print("|---------------------------------------|")
                 print("|---------------------------------------|")
                 print("|-------------- 0 -> Sair --------------|")
@@ -170,6 +173,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                 elif saida2 == 0:
                     print("Saindo...")
                     saida = 0
+                    break
                 elif saida2 == 1:
                     print(f"\nCircuitos/{default}")
                     string = readClass.demonstra()
@@ -260,13 +264,17 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     print("Saindo...")
                     saida = 0
                 elif saida4 == 1:
-                    caminho = problema.g.procura_DFS(posInit,posFinal)
-                    path, custo = caminho  # type: ignore
-                    print("\nCaminho encontrado: ", end="")
-                    print(*path, sep=' -> ')
-                    print(f"Custo Total: {str(custo)}\n")
-                    print(problema.mostraCaminho(path))
-                    l = input("Prima ENTER para continuar")
+                    if posCheckpoint != None:
+                        print("Não implementado - Escolha um mapa sem checkpoints")
+                        l = input("Prima ENTER para continuar")
+                    else:
+                        caminho = problema.g.procura_DFS(posInit,posFinal)
+                        path, custo = caminho  # type: ignore
+                        print("\nCaminho encontrado: ", end="")
+                        print(*path, sep=' -> ')
+                        print(f"Custo Total: {str(custo)}\n")
+                        print(problema.mostraCaminho(path))
+                        l = input("Prima ENTER para continuar")
                 elif saida4 == 2:
                     if posCheckpoint == None:
                         caminho = []
@@ -291,37 +299,62 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         print(*pathCompleto, sep=' -> ')
                         print(f"Custo Total: {str(custoTotal)}\n")
                         print(problema.mostraCaminho(pathCompleto))
-                    l = input("Prima ENTER para continuar")
+                        l = input("Prima ENTER para continuar")
                 elif saida4 == 3:
                     problema.g.heuristica_aStar(posFinal)
-                    caminho = problema.g.procura_aStar(posInit,posFinal)
-                    path, custo = caminho  # type: ignore
-                    print("\nCaminho encontrado: ", end="")
-                    print(*path, sep=' -> ')
-                    print(f"Custo Total: {str(custo)}\n")
-                    print(problema.mostraCaminho(path))
-                    l = input("Prima ENTER para continuar")
+                    if posCheckpoint == None:
+                        caminho = []
+                        caminho = problema.g.procura_aStar(posInit,posFinal)
+                        path, custo = caminho  # type: ignore
+                        print("\nCaminho encontrado: ", end="")
+                        print(*path, sep=' -> ')
+                        print(f"Custo Total: {str(custo)}\n")
+                        print(problema.mostraCaminho(caminho[0]))
+                        l = input("Prima ENTER para continuar")
+                    else:
+                        caminho1 = []
+                        caminho2 = []
+                        caminho1 = problema.g.procura_aStar(posInit, posCheckpoint)
+                        path1, custo1 = caminho1  # type: ignore
+                        caminho2 = problema.g.procura_aStar(posCheckpoint, posFinal)
+                        path2, custo2 = caminho2  # type: ignore
+                        path2.pop(0)
+                        pathCompleto = path1 + path2
+                        custoTotal = custo1 + custo2
+                        print("\nCaminho encontrado: ", end="")
+                        print(*pathCompleto, sep=' -> ')
+                        print(f"Custo Total: {str(custoTotal)}\n")
+                        print(problema.mostraCaminho(pathCompleto))
+                        l = input("Prima ENTER para continuar")
                 elif saida4 == 32:
                     problema.g.heuristica_aStar(posFinal)
                     print(problema.g.m_h)
                 elif saida4 == 31:
-                    problema.g.heuristica_aStar(posFinal)
-                    caminho = problema.g.procura_aStar_wVelocity(posInit,posFinal)
-                    path, custo = caminho  # type: ignore
-                    print("\nCaminho encontrado: ", end="")
-                    print(*path, sep=' -> ')
-                    print(f"Custo Total: {str(custo)}\n")
-                    print(problema.mostraCaminho(path))
-                    l = input("Prima ENTER para continuar")
+                    if posCheckpoint != None:
+                        print("Não implementado - Escolha um mapa sem checkpoints")
+                        l = input("Prima ENTER para continuar")
+                    else:
+                        problema.g.heuristica_aStar(posFinal)
+                        caminho = problema.g.procura_aStar_wVelocity(posInit,posFinal)
+                        path, custo = caminho  # type: ignore
+                        print("\nCaminho encontrado: ", end="")
+                        print(*path, sep=' -> ')
+                        print(f"Custo Total: {str(custo)}\n")
+                        print(problema.mostraCaminho(path))
+                        l = input("Prima ENTER para continuar")
                 elif saida4 == 4:
-                    problema.g.heuristica_greedy(posFinal)
-                    caminho = problema.g.greedy(posInit,posFinal)
-                    path, custo = caminho  # type: ignore
-                    print("\nCaminho encontrado: ", end="")
-                    print(*path, sep=' -> ')
-                    print(f"Custo Total: {str(custo)}\n")
-                    print(problema.mostraCaminho(path))
-                    l = input("Prima ENTER para continuar")
+                    if posCheckpoint != None:
+                        print("Não implementado - Escolha um mapa sem checkpoints")
+                        l = input("Prima ENTER para continuar")
+                    else:
+                        problema.g.heuristica_greedy(posFinal)
+                        caminho = problema.g.greedy(posInit,posFinal)
+                        path, custo = caminho  # type: ignore
+                        print("\nCaminho encontrado: ", end="")
+                        print(*path, sep=' -> ')
+                        print(f"Custo Total: {str(custo)}\n")
+                        print(problema.mostraCaminho(path))
+                        l = input("Prima ENTER para continuar")
                 elif saida4 == 41:
                     problema.g.heuristica_greedy(posFinal)
                     print(problema.g.m_h)
@@ -330,7 +363,6 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     continue
         elif saida == 5:
             while saidaMapas != 0:
-
                 onlyfiles2 = [f for f in listdir("Circuitos/Multiplayer/") if isfile(join("Circuitos/Multiplayer/", f))]
                 onlyfiles2.sort()
                 print("\n|-------- CIRCUITOS MULTIPLAYER --------|")
@@ -349,6 +381,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         print("|----------" + res + "-------|")
                     print("|---------------------------------------|")
                 print("|---------------------------------------|")
+                print("|------------- 9 -> Voltar -------------|")
                 print("|-------------- 0 -> Sair --------------|")
                 print("|---------------------------------------|")
                 saidaMapas = input("Introduza a sua opção-> ")
@@ -359,7 +392,9 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     continue
                 if saidaMapas == 0:
                     print("Saindo...")
-                    saida = 0
+                    break
+                elif saidaMapas == 9:
+                    print("Menu Anterior...")
                     break
                 elif saidaMapas in range(1, i+1):   # type: ignore
                     x = range(1,i)
@@ -380,8 +415,6 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     print("|--------- 1 - Forma Aleatória ---------|")
                     print("|---------------------------------------|")
                     print("|----------- 2 -> Menor Custo ----------|")
-                    print("|---------------------------------------|")
-                    print("|-------- 3 -> Menor Heurística --------|")
                     print("|---------------------------------------|")
                     print("|------------- 9 -> Voltar -------------|")
                     print("|-------------- 0 -> Sair --------------|")
@@ -405,14 +438,10 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                         colisao = 1
                     elif colisaoInt == 2:
                         colisao = 2
-                    elif colisaoInt == 3:
-                        colisao = 3
                     else:
                         print("Introduza um número válido\n")
-                        break
+                        continue
                     while saida51 != 0:
-                        saida52 = -1
-
                         print("\n|-------------- JOGADOR 1 --------------|")
                         print("|---------------------------------------|")
                         print("|------- ALGORITMOS NÃO INFORMADOS -----|")
@@ -438,6 +467,8 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                             break
                         elif saida51 == 0:
                             print("Saindo...")
+                            colisaoInt = 0
+                            saidaMapas = 0
                             saida = 0
                             break
                         elif saida51 == 1:
@@ -473,8 +504,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                             print(problema.mostraCaminho(path))
                         else:
                             print("Introduza um número válido\n")
-                            saida51 = 0
-                            break
+                            continue
 
                         while saida52 != 0:
                             print("\n|-------------- JOGADOR 2 --------------|")
@@ -498,8 +528,10 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                                 continue
                             if saida52 == 0:
                                 print("Saindo...")
+                                saida51 = 0
+                                colisaoInt = 0
+                                saidaMapas = 0
                                 saida = 0
-                                break
                             elif saida52 == 9:
                                 print("Menu Anterior...")
                                 break
@@ -541,13 +573,12 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                             else:
                                 print("Introduza um número válido\n")
                                 continue
-                            if saida52 == 0:
-                                saida = 0
-                                break
-                            elif x:
+
+                            if x:
                                 collisions = []
                                 while problema.check_collision(path, path2, posFinal)!=-1:
                                     collisionidx = problema.check_collision(path, path2, posFinal)
+                                    collisions.append(path[collisionidx])
                                     if saida51 == 1:
                                         caminho = problema.g.procura_DFS(path[collisionidx-1],posFinal)
                                         pathNovo, custoNovo = caminho  # type: ignore
@@ -589,6 +620,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                                     #  Forma aleatória
                                     if colisao == 1:
                                         randomDecr = random.randint(0, 1)
+
                                         if randomDecr == 0:
                                              randomDecr2 = 1
                                         else: randomDecr2 = 0
@@ -632,33 +664,29 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                                     print(f"Custo Total: {str(custo2)}\n")
                                     print(problema.mostraCaminho(path2))
 
-                                    collisions.append(path[collisionidx])
+                                print(collisions)
                                 print("A abrir a UI...")
                                 app = Application3(circuito_path2, path, path2, saida51, saida52, custo, custo2, collisions)
                                 app.mainloop()
                                 l = input("Prima ENTER para continuar")
-                        if saida52 == 0:
-                            saida = 0
-                            break
-                        else:
-                            print("Introduza um número válido\n")
-                            continue
-                    if saida51 == 0:
-                        saida = 0
-                        break
-                    else:
-                        print("Introduza um número válido\n")
-                        continue
-                if colisaoInt == 0:
-                    saida = 0
-                    break
-                else:
-                    print("Introduza um número válido\n")
-                    continue
-
-        else:
-            print("Introduza um número válido\n")
-            continue
+                #         if saida52 == 0:
+                #             saida = 0
+                #             break
+                #         else:
+                #             print("Introduza um número válido\n")
+                #             continue
+                #     if saida51 == 0:
+                #         saida = 0
+                #         break
+                #     else:
+                #         print("Introduza um número válido\n")
+                #         continue
+                # if colisaoInt == 0:
+                #     saida = 0
+                #     break
+                # else:
+                #     print("Introduza um número válido\n")
+                #     continue
 
 if __name__ == "__main__":
     main()

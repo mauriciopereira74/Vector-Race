@@ -67,50 +67,19 @@ class Grafo:
     # Devolver nodos do Grafo
     def getNodes(self):
         return self.m_nodes
-
     # Devolver o custo de uma aresta
     def get_arc_cost(self, node1, node2):
         custoT = math.inf
         a = self.m_graph[node1]  # lista de arestas para aquele nodo
-        if node2 not in a:
-            costT = 1
+        nodeInA = [item for item in a if item[0] == node2]
+        if len(nodeInA) == 0:
+            custoT = 1
         else:
             for (nodo, custo) in a:
                 if nodo == node2:
                     custoT = custo
 
         return custoT
-
-    def PStringtoArr(self, pontoString):
-        res = pontoString[1:-1]
-        res = res.split(',')
-        resint = list(map(int, res))
-        return resint
-
-
-    # Função que devolve vizinhos de um nó
-    def getNeighboursVel(self, nodo, vel):
-        lista = []
-        x = self.PStringtoArr(nodo)
-        for xx in range(x[0], x[0]+vel):
-            for yy in range(x[1], x[1]+vel):
-                if f'({xx},{yy})' in self.m_graph:
-                        for (adjacente, peso) in self.m_graph[f'({xx},{yy})']:
-                            # if self.pode_ir(x[0], x[1], xx, yy, circuito):
-                            lista.append((adjacente, peso))
-        return lista
-
-    #  Dado um caminho calcula o seu custo
-    def calcula_custo(self, caminho):
-        # caminho é uma lista de nodos
-        teste = caminho
-        custo = 0
-        i = 0
-        while i + 1 < len(teste):
-            custo = custo + self.get_arc_cost(teste[i], teste[i + 1])
-            #print(teste[i])
-            i = i + 1
-        return custo
 
     # Algoritmo de Procura DFS
     def procura_DFS(self, start, end, path=None, visited=None):
@@ -258,10 +227,10 @@ class Grafo:
             if v < min_estima:
                 min_estima = v
                 node = k
-            elif v == min_estima:
-                if self.m_h[node] > self.m_h[k]:
-                    min_estima = v
-                    node = k
+            # elif v == min_estima:
+                # if self.m_h[node] > self.m_h[k]:
+                    # min_estima = v
+                    # node = k
         return node
         
     # Devolve heuristica do nodo
@@ -322,6 +291,82 @@ class Grafo:
                 p1y += sy
         return True
 
+    def ArrToVString(self, velArr):
+        res = "(" + str(velArr[0]) + "," + str(velArr[1]) + ")"
+        return res
+
+     # Função que devolve vizinhos de um nó
+    # def getNeighboursVel(self, nodo, vel):
+        # lista = []
+        # x = self.PStringtoArr(nodo)
+        # xV, yV = vel
+        # velocidades = []
+# 
+        # if xV < 0 and yV < 0: 
+            # for x in range(xV-1, 0):
+                # for y in range(yV-1, 0):
+                    # velocidades.append([x,y])
+        # elif xV > 0 and yV > 0:
+            # for x in range(0, xV+2):
+                # for y in range(0, yV+2):
+                    # velocidades.append([x,y])
+        # elif xV < 0 and yV > 0:
+            # for x in range(xV-1, 0):
+                # for y in range(0, yV+2):
+                    # velocidades.append([x,y])
+        # elif xV > 0 and yV < 0:
+            # for x in range(0, xV+2):
+                # for y in range(yV-1, 0):
+                    # velocidades.append([x,y])
+        # elif xV == 0 and yV == 0:
+            # for x in range(-1, 2):
+                # for y in range(-1, 2):
+                    # velocidades.append([x,y])
+        # elif xV == 0 and yV < 0:
+            # for x in range(-1, 2):
+                # for y in range(yV-1, 0):
+                    # velocidades.append([x,y])
+        # elif xV == 0 and yV > 0:
+            # for x in range(-1, 2):
+                # for y in range(0, yV+2):
+                    # velocidades.append([x,y])
+        # elif xV < 0 and yV == 0:
+            # for x in range(xV-1, 0):
+                # for y in range(-1, 1):
+                    # velocidades.append([x,y])
+        # elif xV > 0 and yV == 0:
+            # for x in range(0, xV+2):
+                # for y in range(-1, 1):
+                    # velocidades.append([x,y])
+# 
+        # for idx, x in enumerate(velocidades):
+            # if x == [0,0]:
+                # velocidades.pop(idx)
+# 
+        # listaPsArr = []
+        # for v in velocidades:
+            # listaPsArr.append([int(x[0])+v[0],int(x[1])+v[1]])
+        # 
+        # listaPs = []
+        # for p in listaPsArr:
+            # listaPs.append(self.ArrToVString(p))
+# 
+        # for p in listaPs:
+            # ret = False
+            # if p in self.m_graph:
+                # golo = self.PStringtoArr(p)
+                # if self.barreirasBetween(x[0], x[1], golo[0], golo[1]):
+                    # for adjs in self.m_graph[nodo]:
+                        # adj, peso = adjs
+                        # if adj == p:
+                            # lista.append((adj, peso))
+                            # ret = True
+                            # break
+                    # if not ret:
+                        # lista.append((p, 1))
+                        # 
+        # return lista
+
      # Função que devolve vizinhos de um nó
     def getNeighboursVel(self, nodo, vel):
         lista = []
@@ -335,7 +380,6 @@ class Grafo:
                                 lista.append((adjacente, peso))
         return lista
 
-
 # Algoritmo A*
     def procura_aStar_wVelocity(self, start, end):
         # open_list is a list of nodes which have been visited, but who's neighbors
@@ -345,6 +389,7 @@ class Grafo:
         closed_list_a = set([])
         open_list = {start}
 
+        # velocidade = (0,0)
         velocidade = 1
 
         # g contains current distances from start_node to all other nodes
@@ -410,8 +455,8 @@ class Grafo:
                         if m in closed_list_a:
                             closed_list_a.remove(m)
                             open_list.add(m)
+            # velocidade = tuple(map(lambda i, j: i + j, velocidade, (1,1)))
             velocidade += 1
-
 
             # remove n from the open_list, and add it to closed_list
             # because all of his neighbors were inspected
@@ -456,7 +501,7 @@ class Grafo:
                     n = v
                 else:
                     flag = 1
-                    calc_heurist[v] = g[v] + self.getH(v)
+                    calc_heurist[v] = g[v] + self.getH(v) * (1 + 1/1000)
             if flag == 1:
                 min_estima = self.calcula_est(calc_heurist)
                 n = min_estima

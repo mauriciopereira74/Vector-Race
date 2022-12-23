@@ -130,13 +130,16 @@ class Race():
 
     def check_collision(self, path1, path2, nFinal):
         i = -1
+        aux = []
         mins = min(len(path2), len(path1))
-        for i in range(mins-1):
-            if path1[i] == path2[i]:
-                if path1[i] == nFinal:
-                    return -1
-                else:
-                    return i
+        if len(path2) > len(path1):
+            aux = path1
+        else: aux = path2
+        for i in range(mins):
+            if aux[i] == nFinal:
+                return -1
+            elif path1[i] == path2[i]:
+                return i
         return -1
         
 
