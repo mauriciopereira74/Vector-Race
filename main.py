@@ -38,12 +38,30 @@ def main():
     saidaMapas = -1
     colisao = -1
     colisaoInt = -1
+    global default2
+    default2 = -1
 
     while saida != 0:
+        if default2!=-1:
+            circuito_path = default
+            readClass = readFile(circuito_path)
+            posInit = readClass.PInicialXY()
+            posFinal = readClass.PFinalXY()
+            posCheckpoint = readClass.PCheckXY()
+            problema = Race(circuito_path, posInit, posFinal, posCheckpoint, "(0,0)", None)
         print("\n|----------------- MENU ----------------|")
         print("|---------------------------------------|")
         print("|------- 99 -> Escolher Circuito -------|")
-        print(f"|--------- Atual: {default} --------|")
+        if len(default) == 13:
+            print(f"|--------- Atual: {default} --------|")
+        elif len(default) == 14:
+            print(f"|-------- Atual: {default} --------|")
+        elif len(default) == 15:
+            print(f"|------- Atual: {default} --------|")
+        elif len(default) == 16:
+            print(f"|------- Atual: {default} -------|")
+        elif len(default) == 17:
+            print(f"|------ Atual: {default} -------|")
         print("|---------------------------------------|")
         print("|----- 1 -> Formulação do Problema -----|")
         print("|---------------------------------------|")
@@ -152,9 +170,15 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
             while saida2 != 0:
                 print("\n|----------- VECTOR RACE MENU ----------|")
                 print("|---------------------------------------|")
-                print(f"|------ 1 -> Imprimir {default} ----|")
+                if len(default) == 15:
+                    print(f"|---- 1 -> Imprimir {default} ----|")
+                elif len(default) == 13:
+                    print(f"|------ 1 -> Imprimir {default} ----|")
                 print("|---------------------------------------|")
-                print(f"|-- 2 -> VectorRace do {default} ---|")
+                if len(default) == 15:
+                    print(f"|- 2 -> VectorRace do {default} --|")
+                elif len(default) == 13:
+                    print(f"|-- 2 -> VectorRace do {default} ---|")
                 print("|---------------------------------------|")
                 print("|-------- 3 -> Criar VectorRace --------|")
                 print("|---------------------------------------|")
@@ -404,7 +428,7 @@ Custo da Solução: Cada ação bem sucedida custa uma unidade, caso saia dos li
                     posFinal = readClass.PFinalXY()
                     posCheckpoint = readClass.PCheckXY()
                     problema = Race(circuito_path2, posInit2[0], posFinal, posCheckpoint, "(0,0)", posInit2[1])
-                    default = onlyfiles2[(saidaMapas-1)]
+                    default2 = onlyfiles2[(saidaMapas-1)]
                 else:
                     print("Introduza um número válido\n")
                     continue
